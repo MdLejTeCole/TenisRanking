@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TenisRanking (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TenisRanking (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
