@@ -33,7 +33,7 @@ public class MigrationTests : IClassFixture<MigratingDbFixture>
     public async Task TestInitialMigration()
     {
         await DatabaseFixture.SetMigration("Init");
-        DatabaseFixture.RunScript(@"C:\Users\MdLejTeCole\source\repos\BoardGamesRankingService\BoardGamesRankingService\GptAPI\TenisRanking\TenisRankingDatabaseTests\Migrations\Scripts\Init.sql");
+        DatabaseFixture.RunScript(@"..\..\..\Migrations\Scripts\Init.sql");
         CheckInitData();
     }
 
