@@ -8,7 +8,7 @@ public class Player
     public string Nick { get; set; } = string.Empty;
     public int Elo { get; set; }
     public int WinMatches { get; set; }
-    public int LostMeches { get; set; }
+    public int LostMatches { get; set; }
     public int Draw { get; set; }
     public int WinTournaments { get; set; }
     public virtual List<TournamentPlayer> TournamentPlayers { get; set; } = null!;

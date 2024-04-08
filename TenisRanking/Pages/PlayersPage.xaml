@@ -6,10 +6,23 @@
     xmlns:local="using:GameTools.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <controls:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" Sorting="MyDataGrid_Sorting">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                <controls:DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" />
+                <controls:DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" />
+                <controls:DataGridTextColumn Header="Pseudonim" Binding="{Binding Nick}" />
+                <controls:DataGridTextColumn Header="Elo" Binding="{Binding Elo}" />
+                <controls:DataGridTextColumn Header="Wygrane mecze" Binding="{Binding WinMatches}" />
+                <controls:DataGridTextColumn Header="Przegrane mecze" Binding="{Binding LostMatches}" />
+                <controls:DataGridTextColumn Header="Remisy" Binding="{Binding Draw}" />
+                <controls:DataGridTextColumn Header="Wygrane turnieje" Binding="{Binding WinTournaments}" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
     </Grid>
 </Page>

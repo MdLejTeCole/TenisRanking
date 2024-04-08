@@ -60,16 +60,16 @@ public class MigrationTests : IClassFixture<MigratingDbFixture>
         _dbContext.Settings.Count().Should().Be(1);
         var turnamets = _dbContext.Tournaments
             .Include(x => x.TournamentPlayers)
-            .Include(x => x.Metches)
+            .Include(x => x.Matches)
             .ToList();
         _ = turnamets.Count.Should().Be(2);
         _ = turnamets[0].TournamentPlayers.Count.Should().Be(6);
         _ = turnamets[1].TournamentPlayers.Count.Should().Be(4);
-        _ = turnamets[0].Metches.Count.Should().Be(9);
-        _ = turnamets[1].Metches.Count.Should().Be(4);
+        _ = turnamets[0].Matches.Count.Should().Be(9);
+        _ = turnamets[1].Matches.Count.Should().Be(4);
 
         _dbContext.TournamentPlayers.Count().Should().Be(10);
 
-        _dbContext.Metches.Count().Should().Be(13);
+        _dbContext.Matches.Count().Should().Be(13);
     }
 }

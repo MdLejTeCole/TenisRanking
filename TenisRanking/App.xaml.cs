@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GameTools.Pages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 using System;
+using System.IO;
 using TenisRankingDatabase;
 using TenisRankingDatabase.Seeders;
 
@@ -25,15 +27,6 @@ namespace TenisRanking
             this.InitializeComponent();
         }
 
-        protected void ConfigureServices(IServiceCollection services)
-        {
-            services.AddDbContext<TenisRankingDbContext>(options =>
-                options.UseSqlite("Data Source=TenisRanking.db"));
-            services.AddTransient<MainWindow>();
-            //services.AddTransient<MainWindowViewModel>();
-            services.AddScoped<TenisRankingSeeder>();
-        }
-
         /// <summary>
         /// Invoked when the application is launched.
         /// </summary>
@@ -44,14 +37,15 @@ namespace TenisRanking
             ConfigureServices((context, services) =>
             {
                 services.AddDbContext<TenisRankingDbContext>(options =>
-                    options.UseSqlite("Data Source=TenisRanking.db"));
+                    options.UseSqlite("Data Source=C:\\Users\\MdLejTeCole\\Desktop\\Db\\TenisRanking.db"));
                 services.AddTransient<MainWindow>();
+                services.AddScoped<SettingsSeeder>();
                 services.AddScoped<TenisRankingSeeder>();
                 var serviceProvider = services.BuildServiceProvider();
                 var seeder = serviceProvider.GetRequiredService<TenisRankingSeeder>();
                 seeder.Seed();
-                //var mainWindowViewModel = serviceProvider.GetRequiredService<MainWindowViewModel>();
-                var mainWindow = new MainWindow();
+                var dbContext = serviceProvider.GetRequiredService<TenisRankingDbContext>();
+                var mainWindow = new MainWindow(dbContext);
                 mainWindow.Activate();
             }).Build();
         }

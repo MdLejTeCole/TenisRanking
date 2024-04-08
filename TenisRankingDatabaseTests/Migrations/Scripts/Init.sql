@@ -1,4 +1,4 @@
-INSERT INTO Players (FirstName, LastName, Nick, Elo, WinMatches, LostMeches, Draw, WinTournaments) VALUES
+INSERT INTO Players (FirstName, LastName, Nick, Elo, WinMatches, LostMatches, Draw, WinTournaments) VALUES
 ('Jan', 'Kowalski', 'Kowal', 1000, 0, 0, 0, 0),
 ('Mateusz', 'Nowak', 'Mat', 1000, 0, 0, 0, 0),
 ('Ola', 'Pietruszka', 'Ola', 1000, 0, 0, 0, 0),
@@ -25,7 +25,7 @@ INSERT INTO TournamentPlayers (TournamentId, PlayerId) VALUES
 (2, 3),
 (2, 4);
 
-INSERT INTO Metches (TournamentId, MatchResult) VALUES
+INSERT INTO Matches (TournamentId, MatchResult) VALUES
 (1, 1),
 (1, 1),
 (1, 1),
@@ -66,7 +66,7 @@ INSERT INTO PlayerMatches (PlayerId, MatchId, Elo, Set1, Set2, Set3, Set4, Set5,
 (3, 9, 1000, 6, 6, null, null, null, null, 1),
 (5, 9, 1000, 3, 4, null, null, null, null, 1);
 
-INSERT INTO Metches (TournamentId, MatchResult) VALUES
+INSERT INTO Matches (TournamentId, MatchResult) VALUES
 (2, 1),
 (2, 1),
 

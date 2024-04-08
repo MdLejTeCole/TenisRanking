@@ -33,7 +33,7 @@ namespace TenisRankingDatabase.Migrations
 
                     b.HasIndex("TournamentId");
 
-                    b.ToTable("Metches");
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("TenisRankingDatabase.Tables.Player", b =>
@@ -56,7 +56,7 @@ namespace TenisRankingDatabase.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("LostMeches")
+                    b.Property<int>("LostMatches")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Nick")
@@ -207,7 +207,7 @@ namespace TenisRankingDatabase.Migrations
             modelBuilder.Entity("TenisRankingDatabase.Tables.Match", b =>
                 {
                     b.HasOne("TenisRankingDatabase.Tables.Tournament", "Tournament")
-                        .WithMany("Metches")
+                        .WithMany("Matches")
                         .HasForeignKey("TournamentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -262,7 +262,7 @@ namespace TenisRankingDatabase.Migrations
 
             modelBuilder.Entity("TenisRankingDatabase.Tables.Tournament", b =>
                 {
-                    b.Navigation("Metches");
+                    b.Navigation("Matches");
 
                     b.Navigation("TournamentPlayers");
                 });

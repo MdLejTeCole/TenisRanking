@@ -7,9 +7,11 @@ namespace TenisRankingDatabase.Seeders;
 public class TenisRankingSeeder
 {
     private readonly TenisRankingDbContext _dbContext;
-    public TenisRankingSeeder(TenisRankingDbContext dbContext)
+    private readonly SettingsSeeder _settingsSeeder;
+    public TenisRankingSeeder(TenisRankingDbContext dbContext, SettingsSeeder settingsSeeder)
     {
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        _settingsSeeder = settingsSeeder ?? throw new ArgumentNullException(nameof(settingsSeeder));
     }
 
     public void Seed()
@@ -17,6 +19,11 @@ public class TenisRankingSeeder
         if (!_dbContext.Database.CanConnect())
         {
             return;
+        }
+
+        if (!_dbContext.Settings.Any())
+        {
+            _settingsSeeder.Seed();
         }
 
         UpdateDatabase();

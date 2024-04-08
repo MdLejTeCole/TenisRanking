@@ -22,7 +22,7 @@ namespace TenisRankingDatabase.Migrations
                     Nick = table.Column<string>(type: "TEXT", nullable: false),
                     Elo = table.Column<int>(type: "INTEGER", nullable: false),
                     WinMatches = table.Column<int>(type: "INTEGER", nullable: false),
-                    LostMeches = table.Column<int>(type: "INTEGER", nullable: false),
+                    LostMatches = table.Column<int>(type: "INTEGER", nullable: false),
                     Draw = table.Column<int>(type: "INTEGER", nullable: false),
                     WinTournaments = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -69,7 +69,7 @@ namespace TenisRankingDatabase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Metches",
+                name: "Matches",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
@@ -79,9 +79,9 @@ namespace TenisRankingDatabase.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Metches", x => x.Id);
+                    table.PrimaryKey("PK_Matches", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Metches_Tournaments_TournamentId",
+                        name: "FK_Matches_Tournaments_TournamentId",
                         column: x => x.TournamentId,
                         principalTable: "Tournaments",
                         principalColumn: "Id",
@@ -135,9 +135,9 @@ namespace TenisRankingDatabase.Migrations
                 {
                     table.PrimaryKey("PK_PlayerMatches", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PlayerMatches_Metches_MatchId",
+                        name: "FK_PlayerMatches_Matches_MatchId",
                         column: x => x.MatchId,
-                        principalTable: "Metches",
+                        principalTable: "Matches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -149,8 +149,8 @@ namespace TenisRankingDatabase.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Metches_TournamentId",
-                table: "Metches",
+                name: "IX_Matches_TournamentId",
+                table: "Matches",
                 column: "TournamentId");
 
             migrationBuilder.CreateIndex(
@@ -189,7 +189,7 @@ namespace TenisRankingDatabase.Migrations
                 name: "TournamentPlayers");
 
             migrationBuilder.DropTable(
-                name: "Metches");
+                name: "Matches");
 
             migrationBuilder.DropTable(
                 name: "Players");

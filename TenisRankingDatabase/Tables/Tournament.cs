@@ -11,6 +11,6 @@ public class Tournament
     public bool TieBreak { get; set; }
     public bool ExtraPointsForTournamentWon { get; set; } = false;
     public virtual List<TournamentPlayer> TournamentPlayers { get; set; } = null!;
-    public virtual List<Match> Metches { get; set; } = null!;
+    public virtual List<Match> Matches { get; set; } = null!;
 }
 

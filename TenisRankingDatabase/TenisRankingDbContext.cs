@@ -12,7 +12,7 @@ public class TenisRankingDbContext : DbContext
     public DbSet<Setting> Settings { get; set; } = null!;
     public DbSet<Tournament> Tournaments { get; set; } = null!;
     public DbSet<TournamentPlayer> TournamentPlayers { get; set; } = null!;
-    public DbSet<Match> Metches { get; set; } = null!;
+    public DbSet<Match> Matches { get; set; } = null!;
     public DbSet<PlayerMatch> PlayerMatches { get; set; } = null!;
 
     public TenisRankingDbContext(DbContextOptions<TenisRankingDbContext> options) : base(options)
@@ -32,7 +32,7 @@ public class TenisRankingDbContext : DbContext
         modelBuilder.ConfigureEntity<Setting, SettingEtc>();
         modelBuilder.ConfigureEntity<Tournament, TournamentEtc>();
         modelBuilder.ConfigureEntity<TournamentPlayer, TournamentPlayerEtc>();
-        modelBuilder.ConfigureEntity<Match, MetchEtc>();
+        modelBuilder.ConfigureEntity<Match, MatchEtc>();
         modelBuilder.ConfigureEntity<PlayerMatch, PlayerMatchEtc>();
     }
 }

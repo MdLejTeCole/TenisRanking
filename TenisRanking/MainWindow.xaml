@@ -15,6 +15,7 @@
             <NavigationViewItem Content="Mecz" FontSize="25" Margin="0,5"/>
             <NavigationViewItem Content="Historia" FontSize="25" Margin="0,5"/>
             <NavigationViewItem Content="Zawodnicy" FontSize="25" Margin="0,5"/>
+            <NavigationViewItem Content="Dodaj zawodnika" FontSize="25" Margin="0,5"/>
         </NavigationView.MenuItems>
 
         <Frame x:Name="ContentFrame"/>
