@@ -6,10 +6,70 @@
     xmlns:local="using:GameTools.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:player ="using:TenisRankingDatabase.Tables"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <controls:InfoBar x:Name="MissingValuesInfoBar" Title="Brakujące wartości" Severity="Warning" IsOpen="False">
+            <TextBlock Text="Wypelni Imię, Nazwisko oraz Pseudonim." TextWrapping="Wrap"/>
+        </controls:InfoBar>
+        <controls:InfoBar x:Name="NotUniqueInfoBar" Title="Zawodni już istnieje" Severity="Warning" IsOpen="False">
+            <TextBlock Text="Zawodnik z takim imieniem, nazwieskiem oraz pseudonimem już istnieje. Wartości muszą być unikalne." TextWrapping="Wrap"/>
+        </controls:InfoBar>
+        <controls:InfoBar x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
+            <TextBlock Text="Wystąpił błąd podczas dodawania zawodnika."/>
+        </controls:InfoBar>
+        <controls:InfoBar x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
+            <TextBlock Text="Pomyślnie utworzono turniej."/>
+        </controls:InfoBar>
+        <TextBox x:Name="Name" PlaceholderText="Nazwa turnieju" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="300" FontSize="25"></TextBox>
+        <Grid Grid.Column="0" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Stretch">
+                <TextBlock Text="Dodaj zawodników:" FontSize="25" Margin="10" HorizontalAlignment="Center"/>
+                <ListView x:Name="playerListView" ItemsSource="{x:Bind Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="player:Player">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" >
+                                    <TextBlock Text="{x:Bind FirstName}" Margin="5" FontSize="20"/>
+                                    <TextBlock Text="{x:Bind LastName}" Margin="5" FontSize="20"/>
+                                    <TextBlock Text="{x:Bind Elo}" Margin="5" FontSize="20"/>
+                                    <TextBlock Text="(" Margin="5" FontSize="20"/>
+                                    <TextBlock Text="{x:Bind Nick}" Margin="5" FontSize="20"/>
+                                    <TextBlock Text=")" Margin="5" FontSize="20"/>
+                                </StackPanel>
+
+                                <Button Grid.Column="1" Content="Usuń" Click="DeleteButton_Click" HorizontalAlignment="Right" Margin="5"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <AutoSuggestBox x:Name="playerAutoSuggestBox"
+                PlaceholderText="Search player..."
+                QueryIcon="Find"
+                TextChanged="PlayerAutoSuggestBox_TextChanged"
+                SuggestionChosen="PlayerAutoSuggestBox_SuggestionChosen"
+                FontSize="25" Margin="10"/>
+            </StackPanel>
+            
+        </Grid>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="500" Grid.Column="1">
+
+        </Grid>
     </Grid>
 </Page>

@@ -32,7 +32,7 @@ namespace TenisRanking
             switch (args.InvokedItem.ToString())
             {
                 case "Turniej":
-                    ContentFrame.Navigate(typeof(TournamentPage));
+                    ContentFrame.Navigate(typeof(TournamentPage), _context);
                     break;
                 case "Zawodnicy":
                     ContentFrame.Navigate(typeof(PlayersPage), _context);
