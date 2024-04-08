@@ -8,7 +8,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+    <NavigationView x:Name="NavView" PaneTitle="Ranking tenisa" Loaded="NavView_Loaded" ItemInvoked="NavView_ItemInvoked" IsSettingsVisible="False" FontSize="40">
+        <NavigationView.MenuItems >
+            <NavigationViewItem Content="Ranking" FontSize="25" Margin="0,5"/>
+            <NavigationViewItem Content="Turniej" FontSize="25" Margin="0,5"/>
+            <NavigationViewItem Content="Mecz" FontSize="25" Margin="0,5"/>
+            <NavigationViewItem Content="Historia" FontSize="25" Margin="0,5"/>
+            <NavigationViewItem Content="Zawodnicy" FontSize="25" Margin="0,5"/>
+        </NavigationView.MenuItems>
+
+        <Frame x:Name="ContentFrame"/>
+        <NavigationView.PaneFooter>
+            <StackPanel Orientation="Vertical">
+                <NavigationViewItem Content="Ustawienia" FontSize="25" Margin="0,5"/>
+                <NavigationViewItem Content="Informacje" FontSize="25" Margin="0,5"/>
+            </StackPanel>
+        </NavigationView.PaneFooter>
+    </NavigationView>
 </Window>

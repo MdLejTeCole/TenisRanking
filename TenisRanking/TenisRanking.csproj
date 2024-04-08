@@ -13,6 +13,10 @@
 		<SupportedOSPlatformVersion>10.0.20348.0</SupportedOSPlatformVersion>
 		<UseRidGraph>true</UseRidGraph>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Pages\PlayersPage.xaml" />
+	  <None Remove="Pages\TournamentPage.xaml" />
+	</ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -46,6 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TenisRankingDatabase\TenisRankingDatabase.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\TournamentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\PlayersPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!-- 

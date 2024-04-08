@@ -30,7 +30,7 @@ public class MigrationTests : IClassFixture<MigratingDbFixture>
 
     }
 
-    public async Task TestInitialMigration()
+    private async Task TestInitialMigration()
     {
         await DatabaseFixture.SetMigration("Init");
         DatabaseFixture.RunScript(@"..\..\..\Migrations\Scripts\Init.sql");

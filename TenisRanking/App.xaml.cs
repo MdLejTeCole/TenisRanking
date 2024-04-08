@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 using System;
-using TenisRanking.Pages.MainWindow;
 using TenisRankingDatabase;
 using TenisRankingDatabase.Seeders;
 
@@ -31,7 +30,7 @@ namespace TenisRanking
             services.AddDbContext<TenisRankingDbContext>(options =>
                 options.UseSqlite("Data Source=TenisRanking.db"));
             services.AddTransient<MainWindow>();
-            services.AddTransient<MainWindowViewModel>();
+            //services.AddTransient<MainWindowViewModel>();
             services.AddScoped<TenisRankingSeeder>();
         }
 
@@ -47,27 +46,14 @@ namespace TenisRanking
                 services.AddDbContext<TenisRankingDbContext>(options =>
                     options.UseSqlite("Data Source=TenisRanking.db"));
                 services.AddTransient<MainWindow>();
-                services.AddTransient<MainWindowViewModel>();
                 services.AddScoped<TenisRankingSeeder>();
                 var serviceProvider = services.BuildServiceProvider();
                 var seeder = serviceProvider.GetRequiredService<TenisRankingSeeder>();
                 seeder.Seed();
-                var mainWindowViewModel = serviceProvider.GetRequiredService<MainWindowViewModel>();
-                var mainWindow = new MainWindow(mainWindowViewModel);
+                //var mainWindowViewModel = serviceProvider.GetRequiredService<MainWindowViewModel>();
+                var mainWindow = new MainWindow();
                 mainWindow.Activate();
             }).Build();
-
-            //var services = new ServiceCollection();
-            //ConfigureServices(services);
-
-            //_ = services.BuildServiceProvider();
-
-            //var serviceProvider = services.BuildServiceProvider();
-            //var seeder = serviceProvider.GetRequiredService<TenisRankingSeeder>();
-            //seeder.Seed();
-            //var mainWindowViewModel = serviceProvider.GetRequiredService<MainWindowViewModel>();
-            //var mainWindow = new MainWindow(mainWindowViewModel);
-            // mainWindow.Activate();
         }
     }
 }
