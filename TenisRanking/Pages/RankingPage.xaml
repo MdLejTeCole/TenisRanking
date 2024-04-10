@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <local:ExtendedPage
-    x:Class="GameTools.Pages.PlayersPage"
+    x:Class="GameTools.Pages.RankingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:GameTools.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:controls2="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -18,21 +17,12 @@
                 <controls:DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" />
                 <controls:DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" />
                 <controls:DataGridTextColumn Header="Pseudonim" Binding="{Binding Nick}" />
-                <controls:DataGridCheckBoxColumn Header="Aktywny" Binding="{Binding Active}" />
-                <controls:DataGridTemplateColumn Header="Edytuj">
-                    <controls:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Click="Edit">Zapisz</Button>
-                        </DataTemplate>
-                    </controls:DataGridTemplateColumn.CellTemplate>
-                </controls:DataGridTemplateColumn>
+                <controls:DataGridTextColumn Header="Elo" Binding="{Binding Elo}" />
+                <controls:DataGridTextColumn Header="Wygrane mecze" Binding="{Binding WinMatches}" />
+                <controls:DataGridTextColumn Header="Przegrane mecze" Binding="{Binding LostMatches}" />
+                <controls:DataGridTextColumn Header="Remisy" Binding="{Binding Draw}" />
+                <controls:DataGridTextColumn Header="Wygrane turnieje" Binding="{Binding WinTournaments}" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
-        <controls2:InfoBar x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
-            <TextBlock Text="Wystąpił błąd podczas aktualizacji zawodnika."/>
-        </controls2:InfoBar>
-        <controls2:InfoBar x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
-            <TextBlock Text="Pomyślnie zaktualizowano zawodnika."/>
-        </controls2:InfoBar>
     </Grid>
 </local:ExtendedPage>

@@ -11,6 +11,7 @@ public class Player
     public int LostMatches { get; set; }
     public int Draw { get; set; }
     public int WinTournaments { get; set; }
+    public bool Active { get; set; } = true;
     public virtual List<TournamentPlayer> TournamentPlayers { get; set; } = null!;
     public virtual List<PlayerMatch> PlayerMatches { get; set; } = null!;
 }

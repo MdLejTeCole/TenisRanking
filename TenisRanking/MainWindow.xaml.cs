@@ -31,14 +31,23 @@ namespace TenisRanking
         {
             switch (args.InvokedItem.ToString())
             {
+                case "Ranking":
+                    ContentFrame.Navigate(typeof(RankingPage), _context);
+                    break;
                 case "Turniej":
                     ContentFrame.Navigate(typeof(TournamentPage), _context);
+                    break;
+                case "Mecze turnieju":
+                    ContentFrame.Navigate(typeof(MatchesPage), _context);
                     break;
                 case "Zawodnicy":
                     ContentFrame.Navigate(typeof(PlayersPage), _context);
                     break;
                 case "Dodaj zawodnika":
-                    ContentFrame.Navigate(typeof(AddPlayersPage), _context);
+                    ContentFrame.Navigate(typeof(AddPlayerPage), _context);
+                    break;
+                case "Ustawienia":
+                    ContentFrame.Navigate(typeof(SettingPage), _context);
                     break;
             }
         }

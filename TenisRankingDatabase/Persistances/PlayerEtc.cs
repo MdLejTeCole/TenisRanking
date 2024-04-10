@@ -9,5 +9,7 @@ internal class PlayerEtc : IEntityTypeConfiguration<Player>
     public void Configure(EntityTypeBuilder<Player> builder)
     {
         _ = builder.HasKey(x => x.Id);
+        _ = builder.HasIndex(x => x.Nick)
+            .IsUnique();
     }
 }

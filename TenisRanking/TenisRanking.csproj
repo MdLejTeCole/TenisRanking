@@ -14,8 +14,12 @@
 		<UseRidGraph>true</UseRidGraph>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Pages\AddPlayersPage.xaml" />
+	  <None Remove="Controls\MatchScoreControl.xaml" />
+	  <None Remove="Pages\AddPlayerPage.xaml" />
+	  <None Remove="Pages\MatchesPage.xaml" />
 	  <None Remove="Pages\PlayersPage.xaml" />
+	  <None Remove="Pages\RankingPage.xaml" />
+	  <None Remove="Pages\SettingPage.xaml" />
 	  <None Remove="Pages\TournamentPage.xaml" />
 	</ItemGroup>
 
@@ -55,7 +59,12 @@
     <ProjectReference Include="..\TenisRankingDatabase\TenisRankingDatabase.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Pages\AddPlayersPage.xaml">
+    <Page Update="Pages\SettingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\AddPlayerPage.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
@@ -65,6 +74,21 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\PlayersPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\MatchScoreControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\MatchesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\RankingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

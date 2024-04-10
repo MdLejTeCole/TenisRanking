@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Page
+<local:ExtendedPage
     x:Class="GameTools.Pages.TournamentPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -17,48 +17,41 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="80" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="80" />
         </Grid.RowDefinitions>
-        <controls:InfoBar x:Name="MissingValuesInfoBar" Title="Brakujące wartości" Severity="Warning" IsOpen="False">
-            <TextBlock Text="Wypelni Imię, Nazwisko oraz Pseudonim." TextWrapping="Wrap"/>
-        </controls:InfoBar>
-        <controls:InfoBar x:Name="NotUniqueInfoBar" Title="Zawodni już istnieje" Severity="Warning" IsOpen="False">
-            <TextBlock Text="Zawodnik z takim imieniem, nazwieskiem oraz pseudonimem już istnieje. Wartości muszą być unikalne." TextWrapping="Wrap"/>
-        </controls:InfoBar>
-        <controls:InfoBar x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
-            <TextBlock Text="Wystąpił błąd podczas dodawania zawodnika."/>
-        </controls:InfoBar>
-        <controls:InfoBar x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
-            <TextBlock Text="Pomyślnie utworzono turniej."/>
-        </controls:InfoBar>
-        <TextBox x:Name="Name" PlaceholderText="Nazwa turnieju" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="300" FontSize="25"></TextBox>
+        <TextBox x:Name="Name" PlaceholderText="Nazwa turnieju" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="500" FontSize="30" Margin="10"></TextBox>
         <Grid Grid.Column="0" Grid.Row="1">
             <StackPanel HorizontalAlignment="Stretch">
                 <TextBlock Text="Dodaj zawodników:" FontSize="25" Margin="10" HorizontalAlignment="Center"/>
-                <ListView x:Name="playerListView" ItemsSource="{x:Bind Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="player:Player">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <StackPanel Grid.Column="0" Orientation="Horizontal" >
-                                    <TextBlock Text="{x:Bind FirstName}" Margin="5" FontSize="20"/>
-                                    <TextBlock Text="{x:Bind LastName}" Margin="5" FontSize="20"/>
-                                    <TextBlock Text="{x:Bind Elo}" Margin="5" FontSize="20"/>
-                                    <TextBlock Text="(" Margin="5" FontSize="20"/>
-                                    <TextBlock Text="{x:Bind Nick}" Margin="5" FontSize="20"/>
-                                    <TextBlock Text=")" Margin="5" FontSize="20"/>
-                                </StackPanel>
-
-                                <Button Grid.Column="1" Content="Usuń" Click="DeleteButton_Click" HorizontalAlignment="Right" Margin="5"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListView x:Name="playerListView" ItemsSource="{x:Bind Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="500">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="player:Player">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" >
+                                        <TextBlock Margin="5" FontSize="20">
+                                        <Run Text="{x:Bind FirstName}" />
+                                        <Run Text=" " />
+                                        <Run Text="{x:Bind LastName}" />
+                                        <Run Text=" " />
+                                        <Run Text="{x:Bind Elo}" />
+                                        <Run Text="(" />
+                                        <Run Text="{x:Bind Nick}" />
+                                        <Run Text=")" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <Button Grid.Column="1" Content="Usuń" Click="DeleteButton_Click" HorizontalAlignment="Right" Margin="5"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
                 <AutoSuggestBox x:Name="playerAutoSuggestBox"
                 PlaceholderText="Search player..."
                 QueryIcon="Find"
@@ -68,8 +61,58 @@
             </StackPanel>
             
         </Grid>
-        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="500" Grid.Column="1">
-
+        <Grid Grid.Column="1" Grid.Row="1">
+            <StackPanel>
+                <TextBlock Text="Ustawienia" HorizontalAlignment="Center"/>
+                <!--<Grid Margin="10">
+                    <TextBlock Text="Wszystkie mecze:" FontSize="20" HorizontalAlignment="Left"/>
+                    <ToggleSwitch OffContent="Wyłączone" OnContent="Włączone" HorizontalAlignment="Right" IsOn="{x:Bind Tournament.AllMatches, Mode=TwoWay}"/>
+                </Grid>-->
+                <!--<Grid Margin="10">
+                    <TextBlock Text="Liczba meczy dla gracza:" FontSize="20" HorizontalAlignment="Left"/>
+                    <NumberBox FontSize="30" Width="150" HorizontalAlignment="Right" Text="{x:Bind Tournament.NumberOfMatchesPerPlayer, Mode=TwoWay}"/>
+                </Grid>-->
+                <Grid Margin="10">
+                    <TextBlock Text="Liczba setów:" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <NumberBox FontSize="30" Width="150" HorizontalAlignment="Right" Text="{x:Bind Tournament.NumberOfSets, Mode=TwoWay}"/>
+                </Grid>
+                <!--<Grid Margin="10">
+                    <TextBlock Text="Tie Break:" FontSize="20" HorizontalAlignment="Left"/>
+                    <ToggleSwitch OffContent="Wyłączone" OnContent="Włączone" HorizontalAlignment="Right" IsOn="{x:Bind Tournament.TieBreak, Mode=TwoWay}"/>
+                </Grid>-->
+                <Grid Margin="10">
+                    <TextBlock Text="Dodatkowe punkty za wygrany turniej:" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <ToggleSwitch OffContent="Wyłączone" OnContent="Włączone" HorizontalAlignment="Right" IsOn="{x:Bind Tournament.ExtraPointsForTournamentWon, Mode=TwoWay}"/>
+                </Grid>
+                <Grid Margin="10">
+                    <TextBlock Text="Dodatkowe punkty za 1 miejsce:" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <NumberBox FontSize="30" Width="150" HorizontalAlignment="Right" Text="{x:Bind Tournament.ExtraPoints1Place, Mode=TwoWay}"/>
+                </Grid>
+                <Grid Margin="10">
+                    <TextBlock Text="Dodatkowe punkty za 2 miejsce" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <NumberBox FontSize="30" Width="150" HorizontalAlignment="Right" Text="{x:Bind Tournament.ExtraPoints2Place, Mode=TwoWay}"/>
+                </Grid>
+                <Grid Margin="10">
+                    <TextBlock Text="Dodatkowe punkty za 3 miejsce" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <NumberBox FontSize="30" Width="150" HorizontalAlignment="Right" Text="{x:Bind Tournament.ExtraPoints3Place, Mode=TwoWay}"/>
+                </Grid>
+            </StackPanel>
         </Grid>
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Content="Stwórz turniej" FontWeight="Bold" FontSize="30" Click="CreateTournament" HorizontalAlignment="Center" Margin="10"></Button>
+        <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MissingValuesInfoBar" Title="Brakujące wartości" Severity="Warning" IsOpen="False">
+            <TextBlock Text="Nazwa turnieju nie moze byc pusta." TextWrapping="Wrap"/>
+        </controls:InfoBar>
+        <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MissingPlayersInfoBar" Title="Brakujące wartości" Severity="Warning" IsOpen="False">
+            <TextBlock Text="Turniej musi zawierac conajmniej 2 zawodników." TextWrapping="Wrap"/>
+        </controls:InfoBar>
+        <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="NotUniqueInfoBar" Title="Unikanly turniej" Severity="Warning" IsOpen="False">
+            <TextBlock Text="Turniej o danej nazwie juz istnieje. Nazwa turnieju musi unikalna." TextWrapping="Wrap"/>
+        </controls:InfoBar>
+        <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
+            <TextBlock Text="Wystąpił błąd podczas tworzenia turnieju."/>
+        </controls:InfoBar>
+        <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
+            <TextBlock Text="Pomyślnie utworzono turniej."/>
+        </controls:InfoBar>
     </Grid>
-</Page>
+</local:ExtendedPage>

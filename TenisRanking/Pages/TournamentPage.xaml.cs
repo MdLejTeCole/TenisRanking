@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
@@ -16,6 +17,7 @@ using TenisRankingDatabase;
 using TenisRankingDatabase.Tables;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -25,26 +27,46 @@ namespace GameTools.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class TournamentPage : Page
+    public sealed partial class TournamentPage : ExtendedPage
     {
-        private TenisRankingDbContext _dbContext;
         private List<Player> _allPlayers;
         public ObservableCollection<Player> Players { get; set; } = new ObservableCollection<Player>();
+
+        private Tournament _tournament;
+
+        public Tournament Tournament
+        {
+            get { return _tournament; }
+            set
+            {
+                if (_tournament != value)
+                {
+                    _tournament = value;
+                    OnPropertyChanged(nameof(Tournament));
+                }
+            }
+        }
 
         public TournamentPage()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void GetValuesFromDatabase()
         {
-            base.OnNavigatedTo(e);
-
-            if (e.Parameter is TenisRankingDbContext dbContext)
+            _allPlayers = DbContext.Players.ToList();
+            var settings = DbContext.Settings.First();
+            Tournament = new Tournament()
             {
-                _dbContext = dbContext;
-                _allPlayers = _dbContext.Players.ToList();
-            }
+                AllMatches = settings.AllMatches,
+                NumberOfMatchesPerPlayer = settings.NumberOfMatchesPerPlayer,
+                NumberOfSets = settings.NumberOfSets,
+                TieBreak = settings.TieBreak,
+                ExtraPointsForTournamentWon = settings.ExtraPointsForTournamentWon,
+                ExtraPoints1Place = settings.ExtraPoints1Place,
+                ExtraPoints2Place = settings.ExtraPoints2Place,
+                ExtraPoints3Place = settings.ExtraPoints3Place
+            };
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -78,6 +100,47 @@ namespace GameTools.Pages
                 Players.Add(player);
                 _allPlayers.Remove(player);
                 sender.Text = "";
+            }
+        }
+
+        private void CreateTournament(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(Name.Text))
+            {
+                ShowInfoBar(MissingValuesInfoBar);
+                return;
+            }
+            if (Players.Count < 2)
+            {
+                ShowInfoBar(MissingPlayersInfoBar);
+                return;
+            }
+            try
+            {
+                if (DbContext.Tournaments.Any(x => x.Name == Name.Text))
+                {
+                    ShowInfoBar(NotUniqueInfoBar);
+                    return;
+                }
+                var transaction = DbContext.Database.BeginTransaction();
+                Tournament.Name = Name.Text;
+                Tournament.Date = DateOnly.FromDateTime(DateTime.UtcNow);
+                DbContext.Tournaments.Add(Tournament);
+                DbContext.SaveChanges();
+                var tournamentPlayers = new List<TournamentPlayer>();
+                foreach (var player in Players)
+                {
+                    tournamentPlayers.Add(new TournamentPlayer() { TournamentId = Tournament.Id, PlayerId = player.Id });
+                }
+                DbContext.TournamentPlayers.AddRange(tournamentPlayers);
+                DbContext.SaveChanges();
+                transaction.Commit();
+                ShowInfoBar(SuccessInfoBar);
+            }
+            catch (Exception)
+            {
+                DbContext.Database.RollbackTransaction();
+                ShowInfoBar(FailedInfoBar);
             }
         }
     }

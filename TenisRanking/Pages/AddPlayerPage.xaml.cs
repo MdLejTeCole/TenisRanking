@@ -28,23 +28,11 @@ namespace GameTools.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AddPlayersPage : Page
+    public sealed partial class AddPlayerPage : ExtendedPage
     {
-        private TenisRankingDbContext _dbContext;
-
-        public AddPlayersPage()
+        public AddPlayerPage()
         {
             this.InitializeComponent();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            if (e.Parameter is TenisRankingDbContext dbContext)
-            {
-                _dbContext = dbContext;
-            }
         }
 
         private void AddPlayer(object sender, RoutedEventArgs e)
@@ -56,34 +44,20 @@ namespace GameTools.Pages
             }
             try
             {
-                if (_dbContext.Players.Any(x => x.FirstName == FirstName.Text && x.LastName == LastName.Text && x.Nick == Nick.Text))
+                if (DbContext.Players.Any(x => x.Nick == Nick.Text))
                 {
                     ShowInfoBar(NotUniqueInfoBar);
                     return;
                 }
-                var elo = _dbContext.Settings.First().StartElo;
-                _dbContext.Players.Add(new Player() { FirstName = FirstName.Text, LastName = LastName.Text, Nick = Nick.Text, Elo = elo });
-                _dbContext.SaveChanges();
+                var elo = DbContext.Settings.First().StartElo;
+                DbContext.Players.Add(new Player() { FirstName = FirstName.Text, LastName = LastName.Text, Nick = Nick.Text, Elo = elo });
+                DbContext.SaveChanges();
                 ShowInfoBar(SuccessInfoBar);
             }
             catch (Exception)
             {
                 ShowInfoBar(FailedInfoBar);
             }
-        }
-
-        public void ShowInfoBar(InfoBar infoBar)
-        {
-            var dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-            _ = Task.Run(() =>
-            {
-                dispatcherQueue.TryEnqueue(async () =>
-                {
-                    infoBar.IsOpen = true;
-                    await Task.Delay(1000);
-                    infoBar.IsOpen = false;
-                });
-            });
         }
     }
 }

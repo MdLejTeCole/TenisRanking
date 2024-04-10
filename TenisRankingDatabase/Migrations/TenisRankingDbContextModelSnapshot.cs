@@ -26,6 +26,9 @@ namespace TenisRankingDatabase.Migrations
                     b.Property<int>("MatchResult")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Round")
+                        .HasColumnType("INTEGER");
+
                     b.Property<long>("TournamentId")
                         .HasColumnType("INTEGER");
 
@@ -40,6 +43,9 @@ namespace TenisRankingDatabase.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Active")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Draw")
@@ -71,6 +77,9 @@ namespace TenisRankingDatabase.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Nick")
+                        .IsUnique();
+
                     b.ToTable("Players");
                 });
 
@@ -83,7 +92,13 @@ namespace TenisRankingDatabase.Migrations
                     b.Property<int>("Elo")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("GrantedElo")
+                        .HasColumnType("INTEGER");
+
                     b.Property<long>("MatchId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("MatchPoint")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("PlayerId")
@@ -129,6 +144,15 @@ namespace TenisRankingDatabase.Migrations
                     b.Property<bool>("AllMatches")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("ExtraPoints1Place")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ExtraPoints2Place")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ExtraPoints3Place")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("ExtraPointsForTournamentWon")
                         .HasColumnType("INTEGER");
 
@@ -161,6 +185,15 @@ namespace TenisRankingDatabase.Migrations
                     b.Property<DateOnly>("Date")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ExtraPoints1Place")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ExtraPoints2Place")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ExtraPoints3Place")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("ExtraPointsForTournamentWon")
                         .HasColumnType("INTEGER");
 
@@ -186,6 +219,9 @@ namespace TenisRankingDatabase.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Active")
                         .HasColumnType("INTEGER");
 
                     b.Property<long>("PlayerId")
@@ -218,7 +254,7 @@ namespace TenisRankingDatabase.Migrations
             modelBuilder.Entity("TenisRankingDatabase.Tables.PlayerMatch", b =>
                 {
                     b.HasOne("TenisRankingDatabase.Tables.Match", "Match")
-                        .WithMany()
+                        .WithMany("PlayerMatches")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -251,6 +287,11 @@ namespace TenisRankingDatabase.Migrations
                     b.Navigation("Player");
 
                     b.Navigation("Tournament");
+                });
+
+            modelBuilder.Entity("TenisRankingDatabase.Tables.Match", b =>
+                {
+                    b.Navigation("PlayerMatches");
                 });
 
             modelBuilder.Entity("TenisRankingDatabase.Tables.Player", b =>

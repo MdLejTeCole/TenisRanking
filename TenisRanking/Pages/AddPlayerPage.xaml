@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Page
-    x:Class="GameTools.Pages.AddPlayersPage"
+<local:ExtendedPage
+    x:Class="GameTools.Pages.AddPlayerPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:GameTools.Pages"
@@ -11,6 +11,25 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="600">
+            <StackPanel>
+                <TextBlock Text="Dodaj zawodnika" HorizontalAlignment="Center"/>
+                <Grid Margin="10">
+                    <TextBlock Text="Imię:" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="FirstName"  PlaceholderText="Imię" FontSize="30" Width="300" HorizontalAlignment="Right"/>
+                </Grid>
+                <Grid Margin="10">
+                    <TextBlock Text="Nazwisko:" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="LastName" PlaceholderText="Nazwisko" FontSize="30" Width="300" HorizontalAlignment="Right"/>
+                </Grid>
+                <Grid Margin="10">
+                    <TextBlock Text="Pseudonim:" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="Nick" PlaceholderText="Pseudonim" FontSize="30" Width="300" HorizontalAlignment="Right"/>
+                </Grid>
+                <Button Content="Dodaj" FontWeight="Bold" FontSize="30" Click="AddPlayer" HorizontalAlignment="Center"></Button>
+            </StackPanel>
+        </Grid>
+
         <controls:InfoBar x:Name="MissingValuesInfoBar" Title="Brakujące wartości" Severity="Warning" IsOpen="False">
             <TextBlock Text="Wypelni Imię, Nazwisko oraz Pseudonim." TextWrapping="Wrap"/>
         </controls:InfoBar>
@@ -23,23 +42,5 @@
         <controls:InfoBar x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
             <TextBlock Text="Pomyślnie dodano zawodnika."/>
         </controls:InfoBar>
-        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="500">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Text="Dodaj zawodnika" Margin="100,0,0,20"/>
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <TextBlock Text="Imię:" Margin="0,0,140,0"/>
-                    <TextBox x:Name="FirstName"  PlaceholderText="Imię" FontSize="30" Width="300"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <TextBlock Text="Nazwisko:" Margin="0,0,49,0"/>
-                    <TextBox x:Name="LastName" PlaceholderText="Nazwisko" FontSize="30" Width="300"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <TextBlock Text="Pseudonim:" Margin="0,0,20,0"/>
-                    <TextBox x:Name="Nick" PlaceholderText="Pseudonim" FontSize="30" Width="300"/>
-                </StackPanel>
-                <Button Content="Dodaj" FontWeight="Bold" FontSize="30" Margin="200,20,0,0" Click="AddPlayer"></Button>
-            </StackPanel>
-        </Grid>
     </Grid>
-</Page>
+</local:ExtendedPage>

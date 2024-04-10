@@ -1,6 +1,10 @@
-using CommunityToolkit.WinUI.UI.Controls;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -8,17 +12,9 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using TenisRanking;
-using TenisRankingDatabase;
+using CommunityToolkit.WinUI.UI.Controls;
+using Microsoft.EntityFrameworkCore;
 using TenisRankingDatabase.Tables;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -28,10 +24,9 @@ namespace GameTools.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PlayersPage : ExtendedPage
+    public sealed partial class RankingPage : ExtendedPage
     {
-
-        public PlayersPage()
+        public RankingPage()
         {
             this.InitializeComponent();
         }
@@ -39,7 +34,7 @@ namespace GameTools.Pages
         protected override void GetValuesFromDatabase()
         {
             MyDataGrid.ItemsSource = null;
-            MyDataGrid.ItemsSource = DbContext.Players.ToList();
+            MyDataGrid.ItemsSource = DbContext.Players.Where(x => x.Active).OrderBy(x => x.Elo).ToList();
         }
 
         private void MyDataGrid_Sorting(object sender, DataGridColumnEventArgs e)
@@ -60,28 +55,26 @@ namespace GameTools.Pages
                 case "Pseudonim":
                     orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderBy(x => x.Nick).ToList();
                     break;
+                case "Elo":
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.Elo).ToList();
+                    break;
+                case "Wygrane mecze":
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.WinMatches).ToList();
+                    break;
+                case "Przegrane mecze":
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.LostMatches).ToList();
+                    break;
+                case "Remisy":
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.Draw).ToList();
+                    break;
+                case "Wygrane turnieje":
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.WinTournaments).ToList();
+                    break;
             }
             if (orderPlayers != null)
             {
                 MyDataGrid.ItemsSource = null;
                 MyDataGrid.ItemsSource = orderPlayers;
-            }
-        }
-
-        private void Edit(object sender, RoutedEventArgs e)
-        {
-            MyDataGrid.CommitEdit();
-            var button = sender as Button;
-            var player = button.DataContext as Player;
-            try
-            {
-                DbContext.Players.Update(player);
-                DbContext.SaveChanges();
-                ShowInfoBar(SuccessInfoBar);
-            }
-            catch (Exception)
-            {
-                ShowInfoBar(FailedInfoBar);
             }
         }
     }
