@@ -54,7 +54,7 @@ namespace GameTools.Pages
 
         protected override void GetValuesFromDatabase()
         {
-            _allPlayers = DbContext.Players.ToList();
+            _allPlayers = DbContext.Players.Where(x => x.Id > 1).ToList();
             var settings = DbContext.Settings.First();
             Tournament = new Tournament()
             {

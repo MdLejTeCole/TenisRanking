@@ -34,7 +34,7 @@ namespace GameTools.Pages
         protected override void GetValuesFromDatabase()
         {
             MyDataGrid.ItemsSource = null;
-            MyDataGrid.ItemsSource = DbContext.Players.Where(x => x.Active).OrderBy(x => x.Elo).ToList();
+            MyDataGrid.ItemsSource = DbContext.Players.Where(x => x.Id > 1 && x.Active).OrderBy(x => x.Elo).ToList();
         }
 
         private void MyDataGrid_Sorting(object sender, DataGridColumnEventArgs e)

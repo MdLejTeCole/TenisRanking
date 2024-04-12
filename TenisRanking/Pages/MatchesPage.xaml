@@ -47,13 +47,12 @@
                                         <Run Text="{x:Bind Player.FirstName}" />
                                         <Run Text=" " />
                                         <Run Text="{x:Bind Player.LastName}" />
-                                        <Run Text=" " />
-                                        <Run Text="{x:Bind Player.Elo}" />
-                                        <Run Text="(" />
-                                        <Run Text="{x:Bind Player.Nick}" />
-                                        <Run Text=")" />
                                         </TextBlock>
                                     </StackPanel>
+                                    <TextBlock FontSize="20" HorizontalAlignment="Right" Margin="40,5">
+                                        <Run Text="Punkty: " />
+                                        <Run Text="{x:Bind CalculateTournamentScore()}" />
+                                    </TextBlock>
                                     <CheckBox IsChecked="{x:Bind Active, Mode=TwoWay}" HorizontalAlignment="Right" Margin="5" Background="red" Padding="0" MinWidth="0"/>
                                 </Grid>
                             </DataTemplate>

@@ -8,10 +8,12 @@ public class TenisRankingSeeder
 {
     private readonly TenisRankingDbContext _dbContext;
     private readonly SettingsSeeder _settingsSeeder;
-    public TenisRankingSeeder(TenisRankingDbContext dbContext, SettingsSeeder settingsSeeder)
+    private readonly PlayersSeeder _playersSeeder;
+    public TenisRankingSeeder(TenisRankingDbContext dbContext, SettingsSeeder settingsSeeder, PlayersSeeder playersSeeder)
     {
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         _settingsSeeder = settingsSeeder ?? throw new ArgumentNullException(nameof(settingsSeeder));
+        _playersSeeder = playersSeeder ?? throw new ArgumentNullException(nameof(playersSeeder));
     }
 
     public void Seed()
@@ -24,6 +26,11 @@ public class TenisRankingSeeder
         if (!_dbContext.Settings.Any())
         {
             _settingsSeeder.Seed();
+        }
+
+        if (!_dbContext.Players.Any())
+        {
+            _playersSeeder.Seed();
         }
 
         UpdateDatabase();

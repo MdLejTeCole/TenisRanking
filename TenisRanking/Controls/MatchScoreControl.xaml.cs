@@ -64,10 +64,6 @@ namespace GameTools.Controls
                 .Include(x => x.PlayerMatches)
                     .ThenInclude(x => x.Player)
                 .First(x => x.Id == matchId);
-            if (Match.PlayerMatches.Count == 1)
-            {
-                Match.PlayerMatches.Add(new PlayerMatch());
-            }
             if (Match.Confirmed)
             {
                 MatchResult = Match.MatchResult;
@@ -108,7 +104,8 @@ namespace GameTools.Controls
 
         private void ConfirmMatchResult(object sender, RoutedEventArgs e)
         {
-            _calculateMatchScore.CalculateAndSaveMatchScore(Match, MatchResult, MatchWinnerResult);
+            var result = _calculateMatchScore.CalculateAndSaveMatchScore(Match, MatchResult, MatchWinnerResult);
+
         }
 
         private void DropDownMatchResult_Loaded(object sender, RoutedEventArgs e)

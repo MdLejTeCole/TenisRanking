@@ -20,27 +20,26 @@ public class CalculateMatchScore
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
 
-    public void CalculateAndSaveMatchScore(Table.Match match, MatchResult matchResult, MatchWinnerResult matchWinnerResult)
+    public bool CalculateAndSaveMatchScore(Table.Match match, MatchResult matchResult, MatchWinnerResult matchWinnerResult)
     {
-        match.MatchResult = matchResult;
-        match.MatchWinnerResult = matchWinnerResult;
-        match.Confirmed = true;
-        var points = CalculateMatchPointFirstPlayer(match, matchWinnerResult);
-        match.PlayerMatches[0].MatchPoint = points.Item1;
-        match.PlayerMatches[1].MatchPoint = points.Item2;
-        var winnerResult = GetWinnerResult(matchWinnerResult);
-        match.PlayerMatches[0].WinnerResult = winnerResult.Item1;
-        match.PlayerMatches[1].WinnerResult = winnerResult.Item2;
-        match.Tournament = null;
         try
         {
+            match.MatchResult = matchResult;
+            match.MatchWinnerResult = matchWinnerResult;
+            match.Confirmed = true;
+            var points = CalculateMatchPointFirstPlayer(match, matchWinnerResult);
+            match.PlayerMatches[0].MatchPoint = points.Item1;
+            match.PlayerMatches[1].MatchPoint = points.Item2;
+            var winnerResult = GetWinnerResult(matchWinnerResult);
+            match.PlayerMatches[0].WinnerResult = winnerResult.Item1;
+            match.PlayerMatches[1].WinnerResult = winnerResult.Item2;
             _dbContext.Matches.Update(match);
             _dbContext.SaveChanges();
+            return true;
         }
-        catch (Exception e)
+        catch (Exception)
         {
-
-
+            return false;
         }
     }
 

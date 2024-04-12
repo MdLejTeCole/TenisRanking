@@ -161,8 +161,11 @@ namespace GameTools.Pages
             {
                 var tournamentPlayers = DbContext.TournamentPlayers
                     .Include(x => x.Player)
-                    .Where(x => x.TournamentId == _lastTournamentId);
-                foreach (var player in tournamentPlayers)
+                        .ThenInclude(x => x.PlayerMatches)
+                            .ThenInclude(x => x.Match)
+                    .Where(x => x.TournamentId == _lastTournamentId)
+                    .ToList();
+                foreach (var player in tournamentPlayers.OrderByDescending(x => x.CalculateTournamentScoreInt()))
                 {
                     Players.Add(player);
                 };
@@ -173,7 +176,7 @@ namespace GameTools.Pages
         {
             if (Matches.Children.Count() == 0)
             {
-                var matchIds = _matchGenerationService.GenerateFirstRound(Tournament.Id, Players.Where(x => x.Active).Select(x => x.Id).ToList());
+                var matchIds = _matchGenerationService.GenerateFirstRound(Tournament.Id);
                 foreach (var id in matchIds) 
                 {
                     var matchScoreControl = new MatchScoreControl(DbContext, id);
@@ -182,13 +185,18 @@ namespace GameTools.Pages
             }
             else
             {
-                var matchIds = _matchGenerationService.GenerateNextRound(Tournament.Id, Players.Where(x => x.Active).Select(x => x.Id).ToList());
+                var matchIds = _matchGenerationService.GenerateNextRound(Tournament.Id);
                 foreach (var id in matchIds)
                 {
                     var matchScoreControl = new MatchScoreControl(DbContext, id);
                     Matches.Children.Add(matchScoreControl);
                 }
             }
+        }
+
+        private int CalculateTournamentScore(Player player, long tournmanetId)
+        {
+            return player.PlayerMatches.Where(x => x.Match?.TournamentId == tournmanetId && x.MatchPoint != null).Select(x => x.MatchPoint).Sum() ?? 0;
         }
     }
 }

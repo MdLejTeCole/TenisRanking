@@ -39,7 +39,7 @@ namespace GameTools.Pages
         protected override void GetValuesFromDatabase()
         {
             MyDataGrid.ItemsSource = null;
-            MyDataGrid.ItemsSource = DbContext.Players.ToList();
+            MyDataGrid.ItemsSource = DbContext.Players.Where(x => x.Id > 1).ToList();
         }
 
         private void MyDataGrid_Sorting(object sender, DataGridColumnEventArgs e)

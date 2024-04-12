@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenisRanking", "TenisRankin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenisRankingDatabase", "TenisRankingDatabase\TenisRankingDatabase.csproj", "{EEA4994F-8E10-4B8A-863F-3568C12B9A55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenisRankingDatabaseTests", "TenisRankingDatabaseTests\TenisRankingDatabaseTests.csproj", "{540758A3-F18D-46B9-A165-1590F5D93CEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenisRankingDatabaseTests", "TenisRankingDatabaseTests\TenisRankingDatabaseTests.csproj", "{540758A3-F18D-46B9-A165-1590F5D93CEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
