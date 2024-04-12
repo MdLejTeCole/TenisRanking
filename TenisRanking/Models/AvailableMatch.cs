@@ -12,9 +12,10 @@ public class CompletedMatch
     public long? Player2Id { get; set; }
 }
 
-public class AvailableMatch : CompletedMatch
+public class PlayerPoints
 {
-    public int PointDifference { get; set; }
+    public long PlayerId { get; set; }
+    public int Points { get; set;}
 }
 
 public class IncomingMatch : CompletedMatch

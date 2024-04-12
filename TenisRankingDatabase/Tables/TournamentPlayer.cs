@@ -9,4 +9,3 @@ public class TournamentPlayer
     public virtual Tournament Tournament { get; set; } = null!;
     public virtual Player Player { get; set; } = null!;
 }
-

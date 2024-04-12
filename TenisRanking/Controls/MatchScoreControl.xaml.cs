@@ -16,6 +16,8 @@ using TenisRankingDatabase;
 using System.ComponentModel;
 using TenisRankingDatabase.Tables;
 using Microsoft.EntityFrameworkCore;
+using TenisRankingDatabase.Enums;
+using GameTools.Services;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -24,7 +26,8 @@ namespace GameTools.Controls
 {
     public sealed partial class MatchScoreControl : UserControl, INotifyPropertyChanged
     {
-        private TenisRankingDbContext _dbContext;
+        private readonly TenisRankingDbContext _dbContext;
+        private readonly CalculateMatchScore _calculateMatchScore;
 
         private Match _match;
 
@@ -45,6 +48,9 @@ namespace GameTools.Controls
         public bool Set3Enabled { get; set; }
 
         public long MatchId { get; set; }
+
+        public MatchResult MatchResult { get; set; }
+        public MatchWinnerResult MatchWinnerResult { get; set; }
         protected MatchScoreControl()
         {
             this.InitializeComponent();
@@ -53,8 +59,8 @@ namespace GameTools.Controls
         public MatchScoreControl(TenisRankingDbContext dbContext, long matchId) : this()
         {
             _dbContext = dbContext;
+            _calculateMatchScore = new CalculateMatchScore(_dbContext);
             Match = _dbContext.Matches
-                .Include(x => x.Tournament)
                 .Include(x => x.PlayerMatches)
                     .ThenInclude(x => x.Player)
                 .First(x => x.Id == matchId);
@@ -62,11 +68,79 @@ namespace GameTools.Controls
             {
                 Match.PlayerMatches.Add(new PlayerMatch());
             }
-            Set2Enabled = Match.Tournament.NumberOfSets >= 2;
-            Set3Enabled = Match.Tournament.NumberOfSets >= 3;
+            if (Match.Confirmed)
+            {
+                MatchResult = Match.MatchResult;
+                MatchWinnerResult = Match.MatchWinnerResult;
+            }
+            var tournament = _dbContext.Matches.Include(x => x.Tournament).Select(x => x.Tournament).First();
+            Set2Enabled = tournament.NumberOfSets >= 2;
+            Set3Enabled = tournament.NumberOfSets >= 3;
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        private void UpdateMatchResult(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuFlyoutItem menuFlyoutItem)
+            {
+                if (menuFlyoutItem.Tag is MatchResult matchResult)
+                {
+                    DropDownMatchResult.Content = menuFlyoutItem.Text;
+                    MatchResult = matchResult;
+                }
+            }
+        }
+
+        private void UpdateWinnerResult(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuFlyoutItem menuFlyoutItem)
+            {
+                if (menuFlyoutItem.Tag is MatchWinnerResult matchWinnerResult)
+                {
+                    WinnerResultMatchResult.Content = menuFlyoutItem.Text;
+                    MatchWinnerResult = matchWinnerResult;
+                }
+            }
+        }
+
+        private void ConfirmMatchResult(object sender, RoutedEventArgs e)
+        {
+            _calculateMatchScore.CalculateAndSaveMatchScore(Match, MatchResult, MatchWinnerResult);
+        }
+
+        private void DropDownMatchResult_Loaded(object sender, RoutedEventArgs e)
+        {
+            var menuFlyout = DropDownMatchResult.Flyout as MenuFlyout;
+            if (menuFlyout != null)
+            {
+                foreach (MenuFlyoutItem item in menuFlyout.Items)
+                {
+                    if (item is MenuFlyoutItem menuFlyoutItem && menuFlyoutItem.Tag is MatchResult matchResult && matchResult == MatchResult)
+                    {
+                        DropDownMatchResult.Content = menuFlyoutItem.Text;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void WinnerResultMatchResult_Loaded(object sender, RoutedEventArgs e)
+        {
+            var menuFlyout = WinnerResultMatchResult.Flyout as MenuFlyout;
+            if (menuFlyout != null)
+            {
+                foreach (MenuFlyoutItem item in menuFlyout.Items)
+                {
+                    if (item is MenuFlyoutItem menuFlyoutItem && menuFlyoutItem.Tag is MatchWinnerResult matchWinnerResult && matchWinnerResult == MatchWinnerResult)
+                    {
+                        WinnerResultMatchResult.Content = menuFlyoutItem.Text;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

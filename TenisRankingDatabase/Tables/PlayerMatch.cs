@@ -20,4 +20,3 @@ public class PlayerMatch
     public virtual Player Player { get; set; } = null!;
     public virtual Match Match { get; set; } = null!;
 }
-

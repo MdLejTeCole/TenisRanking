@@ -8,7 +8,8 @@ public class Match
     public long TournamentId { get; set; }
     public int Round { get; set; }
     public MatchResult MatchResult { get; set; }
+    public MatchWinnerResult MatchWinnerResult { get; set; }
+    public bool Confirmed { get; set; }
     public virtual Tournament Tournament { get; set; } = null!;
     public virtual List<PlayerMatch> PlayerMatches { get; set; } = null!;
 }
-

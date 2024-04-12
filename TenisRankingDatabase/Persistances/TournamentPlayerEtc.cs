@@ -11,5 +11,15 @@ internal class TournamentPlayerEtc : IEntityTypeConfiguration<TournamentPlayer>
         _ = builder.HasKey(x => x.Id);
         _ = builder.HasIndex(bt => new { bt.TournamentId, bt.PlayerId })
             .IsUnique();
+
+        // Relacja TournamentPlayer do Tournament
+        builder.HasOne(tp => tp.Tournament)
+            .WithMany(t => t.TournamentPlayers)
+            .HasForeignKey(tp => tp.TournamentId);
+
+        // Relacja TournamentPlayer do Player
+        builder.HasOne(tp => tp.Player)
+            .WithMany(p => p.TournamentPlayers)
+            .HasForeignKey(tp => tp.PlayerId);
     }
 }

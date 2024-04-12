@@ -29,12 +29,11 @@ namespace GameTools.Pages
     /// </summary>
     public sealed partial class MatchesPage : ExtendedPage
     {
-        public ObservableCollection<Player> Players { get; set; } = new ObservableCollection<Player>();
+        public ObservableCollection<TournamentPlayer> Players { get; set; } = new ObservableCollection<TournamentPlayer>();
         private MatchGenerationService _matchGenerationService;
         private static long? _lastTournamentId;
         private static long? _minTournamentId;
         private static long? _maxTournamentId;
-        private List<long> _matchesId;
 
         private Tournament _tournament;
 
@@ -160,8 +159,10 @@ namespace GameTools.Pages
             Players.Clear();
             if (_lastTournamentId is not null)
             {
-                var players = DbContext.TournamentPlayers.Include(x => x.Player).Where(x => x.TournamentId == _lastTournamentId).Select(x => x.Player);
-                foreach (var player in players)
+                var tournamentPlayers = DbContext.TournamentPlayers
+                    .Include(x => x.Player)
+                    .Where(x => x.TournamentId == _lastTournamentId);
+                foreach (var player in tournamentPlayers)
                 {
                     Players.Add(player);
                 };

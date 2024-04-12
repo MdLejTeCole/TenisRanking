@@ -10,5 +10,9 @@ internal class MatchEtc : IEntityTypeConfiguration<Match>
     public void Configure(EntityTypeBuilder<Match> builder)
     {
         _ = builder.HasKey(x => x.Id);
+
+        builder.HasOne(m => m.Tournament)
+            .WithMany(t => t.Matches)
+            .HasForeignKey(m => m.TournamentId);
     }
 }

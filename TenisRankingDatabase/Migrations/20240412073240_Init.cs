@@ -83,7 +83,9 @@ namespace TenisRankingDatabase.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     TournamentId = table.Column<long>(type: "INTEGER", nullable: false),
                     Round = table.Column<int>(type: "INTEGER", nullable: false),
-                    MatchResult = table.Column<int>(type: "INTEGER", nullable: false)
+                    MatchResult = table.Column<int>(type: "INTEGER", nullable: false),
+                    MatchWinnerResult = table.Column<int>(type: "INTEGER", nullable: false),
+                    Confirmed = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -37,20 +37,20 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListView x:Name="playerListView" ItemsSource="{x:Bind Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="500">
                         <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="player:Player">
+                            <DataTemplate x:DataType="player:TournamentPlayer">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal" >
                                         <TextBlock Margin="5" FontSize="20">
-                                        <Run Text="{x:Bind FirstName}" />
+                                        <Run Text="{x:Bind Player.FirstName}" />
                                         <Run Text=" " />
-                                        <Run Text="{x:Bind LastName}" />
+                                        <Run Text="{x:Bind Player.LastName}" />
                                         <Run Text=" " />
-                                        <Run Text="{x:Bind Elo}" />
+                                        <Run Text="{x:Bind Player.Elo}" />
                                         <Run Text="(" />
-                                        <Run Text="{x:Bind Nick}" />
+                                        <Run Text="{x:Bind Player.Nick}" />
                                         <Run Text=")" />
                                         </TextBlock>
                                     </StackPanel>

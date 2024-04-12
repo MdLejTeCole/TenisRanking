@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TenisRankingDatabase;
 using TenisRankingDatabase.Tables;
+using Windows.UI;
 
 namespace GameTools.Services;
 
@@ -25,10 +26,12 @@ public class MatchGenerationService
     {
         var activePlayers = _dbContext.TournamentPlayers
             .Include(x => x.Player)
+            .ThenInclude(x => x.PlayerMatches)
             .Where(x => x.TournamentId == tournamentId)
             .ToList();
 
-        activePlayers = activePlayers.Where(x => activePlayerIds.Any(y => y == x.PlayerId)).ToList();
+        activePlayers = activePlayers.Where(x => x.Active).ToList();
+        //activePlayers = activePlayers.Where(x => activePlayerIds.Any(y => y == x.PlayerId)).ToList();
 
         if (activePlayers.Count() < 2)
         {
@@ -66,8 +69,27 @@ public class MatchGenerationService
         }
 
         var completedMatches = GetCompletedMatches(tournamentId);
-        var availableatches = GetAvailableMatches(activePlayerIds, completedMatches);
+        var availableMatches = GetAvailableMatches(activePlayerIds, completedMatches);
+        CalculatePlayerPoints(tournamentId);
         return new List<long>();
+    }
+
+    public List<PlayerPoints> CalculatePlayerPoints(long tournamentId)
+    {
+        var playerPoints = _dbContext.TournamentPlayers
+            .Include(tp => tp.Player.PlayerMatches) 
+            .Where(tp => tp.TournamentId == tournamentId)
+            .SelectMany(tp => tp.Player.PlayerMatches)
+            .Where(pm => pm.Match.TournamentId == tournamentId)
+            .GroupBy(pm => pm.PlayerId)
+            .Select(g => new PlayerPoints
+            {
+                PlayerId = g.Key,
+                Points = g.Sum(pm => pm.MatchPoint ?? 0)
+            })
+            .ToList();
+
+        return playerPoints;
     }
 
     private List<CompletedMatch> GetCompletedMatches(long tournamentId)
@@ -87,9 +109,9 @@ public class MatchGenerationService
         return completedMatches;
     }
 
-    private List<AvailableMatch> GetAvailableMatches(List<long> activePlayers, List<CompletedMatch> completedMatches)
+    private List<CompletedMatch> GetAvailableMatches(List<long> activePlayers, List<CompletedMatch> completedMatches)
     {
-        var avaliableMatches = new List<AvailableMatch>();
+        var avaliableMatches = new List<CompletedMatch>();
         foreach (var player1 in activePlayers)
         {
             foreach (var player2 in activePlayers)
@@ -101,13 +123,14 @@ public class MatchGenerationService
                 if (completedMatches.Any(x => (x.Player1Id == player1 && x.Player2Id == player2) || (x.Player1Id == player2 && x.Player2Id == player1)) &&
                     avaliableMatches.Any(x => (x.Player1Id == player1 && x.Player2Id == player2) || (x.Player1Id == player2 && x.Player2Id == player1)))
                 {
-                    avaliableMatches.Add(new AvailableMatch() { Player1Id = player1, Player2Id = player2});
+                    avaliableMatches.Add(new CompletedMatch() { Player1Id = player1, Player2Id = player2});
                 }
             }
-            if (completedMatches.Any(x => x.Player1Id == player1 && x.Player2Id == null) &&
-                    avaliableMatches.Any(x => x.Player1Id == player1 && x.Player2Id == null))
+            if (activePlayers.Count() % 2 == 1 && 
+                completedMatches.Any(x => x.Player1Id == player1 && x.Player2Id == null) &&
+                avaliableMatches.Any(x => x.Player1Id == player1 && x.Player2Id == null))
             {
-                avaliableMatches.Add(new AvailableMatch() { Player1Id = player1, Player2Id = null });
+                avaliableMatches.Add(new CompletedMatch() { Player1Id = player1, Player2Id = null });
             }
         }
         return avaliableMatches;
