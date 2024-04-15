@@ -26,8 +26,10 @@ namespace GameTools.Pages
     /// </summary>
     public sealed partial class RankingPage : ExtendedPage
     {
+        public string MyProperty { get; set; }
         public RankingPage()
         {
+            MyProperty = Directory.GetCurrentDirectory();
             this.InitializeComponent();
         }
 

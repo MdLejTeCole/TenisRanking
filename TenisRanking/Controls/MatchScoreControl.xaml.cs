@@ -18,6 +18,8 @@ using TenisRankingDatabase.Tables;
 using Microsoft.EntityFrameworkCore;
 using TenisRankingDatabase.Enums;
 using GameTools.Services;
+using GameTools.Pages;
+using Microsoft.UI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -28,6 +30,8 @@ namespace GameTools.Controls
     {
         private readonly TenisRankingDbContext _dbContext;
         private readonly CalculateMatchScore _calculateMatchScore;
+        private readonly CalculateMatchElo _calculateMatchElo;
+        private readonly MatchesPage _matchesPage;
 
         private Match _match;
 
@@ -43,6 +47,23 @@ namespace GameTools.Controls
                 }
             }
         }
+        private SolidColorBrush _defaultColor = new SolidColorBrush(Colors.DarkGray);
+        private SolidColorBrush _greenColor = new SolidColorBrush(Colors.YellowGreen);
+        private SolidColorBrush _yellowColor = new SolidColorBrush(Colors.SandyBrown);
+        private SolidColorBrush _color;
+
+        public SolidColorBrush Color
+        {
+            get { return _color; }
+            set
+            {
+                if (_color != value)
+                {
+                    _color = value;
+                    OnPropertyChanged(nameof(Color));
+                }
+            }
+        }
 
         public bool Set2Enabled { get; set; }
         public bool Set3Enabled { get; set; }
@@ -51,15 +72,17 @@ namespace GameTools.Controls
 
         public MatchResult MatchResult { get; set; }
         public MatchWinnerResult MatchWinnerResult { get; set; }
-        protected MatchScoreControl()
+        public MatchScoreControl()
         {
             this.InitializeComponent();
         }
 
-        public MatchScoreControl(TenisRankingDbContext dbContext, long matchId) : this()
+        public MatchScoreControl(TenisRankingDbContext dbContext, MatchesPage matchesPage, long matchId) : this()
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _matchesPage = matchesPage ?? throw new ArgumentNullException(nameof(matchesPage));
             _calculateMatchScore = new CalculateMatchScore(_dbContext);
+            _calculateMatchElo = new CalculateMatchElo(_dbContext);
             Match = _dbContext.Matches
                 .Include(x => x.PlayerMatches)
                     .ThenInclude(x => x.Player)
@@ -72,6 +95,19 @@ namespace GameTools.Controls
             var tournament = _dbContext.Matches.Include(x => x.Tournament).Select(x => x.Tournament).First();
             Set2Enabled = tournament.NumberOfSets >= 2;
             Set3Enabled = tournament.NumberOfSets >= 3;
+            Loaded += Page_Loaded;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Match.Confirmed)
+            {
+                Color = _greenColor;
+            }
+            else
+            {
+                Color = _defaultColor;
+            }
         }
 
 
@@ -86,6 +122,7 @@ namespace GameTools.Controls
                 {
                     DropDownMatchResult.Content = menuFlyoutItem.Text;
                     MatchResult = matchResult;
+                    Color = _yellowColor;
                 }
             }
         }
@@ -98,14 +135,20 @@ namespace GameTools.Controls
                 {
                     WinnerResultMatchResult.Content = menuFlyoutItem.Text;
                     MatchWinnerResult = matchWinnerResult;
+                    Color = _yellowColor;
                 }
             }
         }
 
         private void ConfirmMatchResult(object sender, RoutedEventArgs e)
         {
-            var result = _calculateMatchScore.CalculateAndSaveMatchScore(Match, MatchResult, MatchWinnerResult);
-
+            var resultScore = _calculateMatchScore.CalculateAndSaveMatchScore(Match, MatchResult, MatchWinnerResult);
+            var resultElo = _calculateMatchElo.CalculateAndSaveMatchElo(Match);
+            if (resultScore && resultElo)
+            {
+                Color = _greenColor;
+            }
+            _matchesPage.ShowNotification(resultScore && resultElo);
         }
 
         private void DropDownMatchResult_Loaded(object sender, RoutedEventArgs e)
@@ -138,6 +181,11 @@ namespace GameTools.Controls
                     }
                 }
             }
+        }
+
+        private void NumberBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
+            Color = _yellowColor;
         }
     }
 }

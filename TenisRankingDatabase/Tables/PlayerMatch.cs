@@ -16,6 +16,8 @@ public class PlayerMatch
     public int? TieBreak { get; set; }
     public WinnerResult WinnerResult { get; set; }
     public int? MatchPoint { get; set; }
+    public int? WonSets { get; set; }
+    public int? WonGames { get; set; }
     public int? GrantedElo { get; set; }
     public virtual Player Player { get; set; } = null!;
     public virtual Match Match { get; set; } = null!;

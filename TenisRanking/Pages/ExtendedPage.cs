@@ -46,6 +46,24 @@ public class ExtendedPage : Page, INotifyPropertyChanged
         });
     }
 
+    protected ContentDialogResult ShowConfirmationDialog(string content)
+    {
+        var dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+        Task.Run(async () =>
+        {
+            ContentDialog confirmationDialog = new ContentDialog
+            {
+                Title = "Potwierdzenie",
+                Content = content,
+                PrimaryButtonText = "Tak",
+                CloseButtonText = "Anuluj"
+            };
+
+            return await confirmationDialog.ShowAsync(); 
+        }).Wait();
+        return ContentDialogResult.None;
+    }
+
     public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }

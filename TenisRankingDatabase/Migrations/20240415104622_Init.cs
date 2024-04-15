@@ -39,8 +39,6 @@ namespace TenisRankingDatabase.Migrations
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     StartElo = table.Column<int>(type: "INTEGER", nullable: false),
-                    AllMatches = table.Column<bool>(type: "INTEGER", nullable: false),
-                    NumberOfMatchesPerPlayer = table.Column<int>(type: "INTEGER", nullable: false),
                     NumberOfSets = table.Column<int>(type: "INTEGER", nullable: false),
                     TieBreak = table.Column<bool>(type: "INTEGER", nullable: false),
                     ExtraPointsForTournamentWon = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -61,14 +59,13 @@ namespace TenisRankingDatabase.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Date = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    AllMatches = table.Column<bool>(type: "INTEGER", nullable: false),
-                    NumberOfMatchesPerPlayer = table.Column<int>(type: "INTEGER", nullable: false),
                     NumberOfSets = table.Column<int>(type: "INTEGER", nullable: false),
                     TieBreak = table.Column<bool>(type: "INTEGER", nullable: false),
                     ExtraPointsForTournamentWon = table.Column<bool>(type: "INTEGER", nullable: false),
                     ExtraPoints1Place = table.Column<int>(type: "INTEGER", nullable: false),
                     ExtraPoints2Place = table.Column<int>(type: "INTEGER", nullable: false),
-                    ExtraPoints3Place = table.Column<int>(type: "INTEGER", nullable: false)
+                    ExtraPoints3Place = table.Column<int>(type: "INTEGER", nullable: false),
+                    Ended = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -142,6 +139,8 @@ namespace TenisRankingDatabase.Migrations
                     TieBreak = table.Column<int>(type: "INTEGER", nullable: true),
                     WinnerResult = table.Column<int>(type: "INTEGER", nullable: false),
                     MatchPoint = table.Column<int>(type: "INTEGER", nullable: true),
+                    WonSets = table.Column<int>(type: "INTEGER", nullable: true),
+                    WonGames = table.Column<int>(type: "INTEGER", nullable: true),
                     GrantedElo = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>

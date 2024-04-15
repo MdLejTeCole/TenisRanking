@@ -1,4 +1,5 @@
 ﻿using GameTools.Models;
+using GameTools.Pages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileSystemGlobbing;
 using Microsoft.Extensions.Options;
@@ -38,7 +39,7 @@ public class MatchGenerationService
             return new List<long>();
         }
 
-        var sortedPlayers = activePlayers.OrderByDescending(x => x.Player.Elo).ToList();
+        var sortedPlayers = activePlayers.OrderByDescending(x => x.Player.Elo).ThenBy(x => Guid.NewGuid()).ToList();
         var incomingMatches = new List<IncomingMatch>();
         for (int i = 0; i < sortedPlayers.Count / 2; i++)
         {
@@ -63,7 +64,7 @@ public class MatchGenerationService
         return CreateMatches(tournamentId, 1, incomingMatches);
     }
 
-    public List<long> GenerateNextRound(long tournamentId)
+    public List<long> GenerateNextRound(long tournamentId, int roundNumber)
     {
         var players = GetPlayerIdsInScoreOrder(tournamentId);
         if (players.Count() < 2)
@@ -84,7 +85,7 @@ public class MatchGenerationService
                 Player2Elo = 1000,
             });
         }
-        return CreateMatches(tournamentId, 2, incomingMatch);
+        return CreateMatches(tournamentId, roundNumber, incomingMatch);
     }
 
     private List<CompletedMatch> FindAvaliableMatchCombinations(List<long> playerIds, List<CompletedMatch> availableMatches)
@@ -137,6 +138,7 @@ public class MatchGenerationService
             .ToList()
             .Where(x => x.Active)
             .OrderByDescending(x => x.Points)
+            .ThenBy(x => Guid.NewGuid())
             .Select(x => x.PlayerId)
             .ToList();
 
@@ -198,16 +200,13 @@ public class MatchGenerationService
                         {
                             PlayerId = match.Player1Id,
                             Elo = match.Player1Elo,
-                        }
-                };
-                if (match.Player2Id != null)
-                {
-                    playerMatches.Add(new PlayerMatch
+                        },
+                    new PlayerMatch
                     {
                         PlayerId = (long)match.Player2Id,
                         Elo = (int)match.Player2Elo,
-                    });
-                }
+                    }
+                };
                 matches.Add(new Match()
                 {
                     TournamentId = tournamentId,

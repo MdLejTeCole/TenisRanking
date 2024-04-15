@@ -28,8 +28,10 @@ public class CalculateMatchScore
             match.MatchWinnerResult = matchWinnerResult;
             match.Confirmed = true;
             var points = CalculateMatchPointFirstPlayer(match, matchWinnerResult);
-            match.PlayerMatches[0].MatchPoint = points.Item1;
-            match.PlayerMatches[1].MatchPoint = points.Item2;
+            match.PlayerMatches[0].MatchPoint = points.FirstPlayerScore;
+            match.PlayerMatches[1].MatchPoint = points.SecondPlayerScore;
+            match.PlayerMatches[0].WonSets = points.FirstPlayerSets;
+            match.PlayerMatches[1].WonSets = points.SecondPlayerSets;
             var winnerResult = GetWinnerResult(matchWinnerResult);
             match.PlayerMatches[0].WinnerResult = winnerResult.Item1;
             match.PlayerMatches[1].WinnerResult = winnerResult.Item2;
@@ -47,12 +49,7 @@ public class CalculateMatchScore
     {
         var firstPlayerMatchResult = WinnerResult.None;
         var secondPlayerMatchResult = WinnerResult.None;
-        if (matchWinnerResult == MatchWinnerResult.Draw)
-        {
-            firstPlayerMatchResult = WinnerResult.Draw;
-            secondPlayerMatchResult = WinnerResult.Draw;
-        }
-        else if (matchWinnerResult == MatchWinnerResult.FirstPlayerWin)
+        if (matchWinnerResult == MatchWinnerResult.FirstPlayerWin)
         {
             firstPlayerMatchResult = WinnerResult.Win;
             secondPlayerMatchResult = WinnerResult.Lost;
@@ -65,26 +62,29 @@ public class CalculateMatchScore
         return (firstPlayerMatchResult, secondPlayerMatchResult);
     }
 
-    private (int, int) CalculateMatchPointFirstPlayer(Table.Match match, MatchWinnerResult matchWinnerResult)
+    private (int FirstPlayerScore, int FirstPlayerSets, int SecondPlayerScore, int SecondPlayerSets) CalculateMatchPointFirstPlayer(Table.Match match, MatchWinnerResult matchWinnerResult)
     {
         var firstPlayer = 0;
         var secondPlayer = 0;
-        if (matchWinnerResult == MatchWinnerResult.None || matchWinnerResult == MatchWinnerResult.Draw)
+        if (matchWinnerResult == MatchWinnerResult.None)
         {
-            return (firstPlayer, secondPlayer);
+            return (firstPlayer, 0, secondPlayer, 0);
         }
+        var sets = new List<bool?>
+        {
+            FirstPlayerWonSet(match.PlayerMatches[0].Set1, match.PlayerMatches[1].Set1),
+            FirstPlayerWonSet(match.PlayerMatches[0].Set2, match.PlayerMatches[1].Set2),
+            FirstPlayerWonSet(match.PlayerMatches[0].Set3, match.PlayerMatches[1].Set3),
+            FirstPlayerWonSet(match.PlayerMatches[0].Set4, match.PlayerMatches[1].Set4),
+            FirstPlayerWonSet(match.PlayerMatches[0].Set5, match.PlayerMatches[1].Set5)
+        };
 
-        var set1 = FirstPlayerWonSet(match.PlayerMatches[0].Set1, match.PlayerMatches[1].Set1);
-        var set2 = FirstPlayerWonSet(match.PlayerMatches[0].Set2, match.PlayerMatches[1].Set2);
-        var set3 = FirstPlayerWonSet(match.PlayerMatches[0].Set3, match.PlayerMatches[1].Set3);
-        var set4 = FirstPlayerWonSet(match.PlayerMatches[0].Set4, match.PlayerMatches[1].Set4);
-        var set5 = FirstPlayerWonSet(match.PlayerMatches[0].Set5, match.PlayerMatches[1].Set5);
-        if (matchWinnerResult == MatchWinnerResult.FirstPlayerWin && (set1 == false || set2 == false || set3 == false || set4 == false || set5 == false))
+        if (matchWinnerResult == MatchWinnerResult.FirstPlayerWin && sets.Any(x => x == false))
         {
             firstPlayer = 2;
             secondPlayer = 1;
         }
-        else if (matchWinnerResult == MatchWinnerResult.SecondPlayerWin && (set1 == true || set2 == true || set3 == true || set4 == true || set5 == true))
+        else if (matchWinnerResult == MatchWinnerResult.SecondPlayerWin && sets.Any(x => x == true))
         {
             firstPlayer = 1;
             secondPlayer = 2;
@@ -99,7 +99,9 @@ public class CalculateMatchScore
             firstPlayer = 0;
             secondPlayer = 3;
         }
-        return (firstPlayer, secondPlayer);
+        var setsFirstPlayer = sets.Where(x => x == true).Count();
+        var setsSecondPlayer = sets.Where(x => x == false).Count();
+        return (firstPlayer, setsFirstPlayer, secondPlayer, setsSecondPlayer);
     }
 
     private bool? FirstPlayerWonSet(int? setFirstPlayer, int? setSecondPlayer)

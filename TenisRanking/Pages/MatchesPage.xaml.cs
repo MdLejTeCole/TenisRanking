@@ -18,6 +18,10 @@ using Microsoft.EntityFrameworkCore;
 using Windows.UI;
 using GameTools.Services;
 using System.Collections.ObjectModel;
+using CommunityToolkit.WinUI.UI.Controls;
+using Microsoft.Extensions.FileSystemGlobbing;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -34,6 +38,7 @@ namespace GameTools.Pages
         private static long? _lastTournamentId;
         private static long? _minTournamentId;
         private static long? _maxTournamentId;
+        private static int _round = 1;
 
         private Tournament _tournament;
 
@@ -97,7 +102,17 @@ namespace GameTools.Pages
 
         private void EndTournament(object sender, RoutedEventArgs e)
         {
+            ContentDialogResult result = ShowConfirmationDialog("Czy na pewno chcesz zakoñczyæ turniej?\nPo zakoñczeniu turnieju, nie mo¿na aktualizowaæ wyników meczy.");
 
+            // Sprawdzenie, czy u¿ytkownik nacisn¹³ przycisk "Tak"
+            if (result == ContentDialogResult.Primary)
+            {
+                // Tutaj umieœæ kod do wykonania po potwierdzeniu
+            }
+            else
+            {
+                // Tutaj umieœæ kod, który ma byæ wykonany, jeœli u¿ytkownik anuluje dzia³anie
+            }
         }
 
         private void PreviousTournament(object sender, RoutedEventArgs e)
@@ -142,14 +157,23 @@ namespace GameTools.Pages
 
         private void GetExistingMatches()
         {
-            Matches.Children.Clear();
+            for (int i = 1; i < 6; i++)
+            {
+                var wrapPanel = GetWrapPanel(i);
+                wrapPanel.Children.Clear();
+            }
             if (Tournament is not null)
             {
-                var matchesId = DbContext.Matches.Where(x => x.TournamentId == Tournament.Id).Select(x => x.Id).OrderBy(x => x);
-                foreach (var id in matchesId)
+                var matches = DbContext.Matches.Where(x => x.TournamentId == Tournament.Id).OrderBy(x => x.Id);
+                foreach (var match in matches)
                 {
-                    var matchScoreControl = new MatchScoreControl(DbContext, id);
-                    Matches.Children.Add(matchScoreControl);
+                    var wrapPanel = GetWrapPanel(match.Round);
+                    var matchScoreControl = new MatchScoreControl(DbContext, this, match.Id);
+                    wrapPanel.Children.Add(matchScoreControl);
+                }
+                if (matches.Any())
+                {
+                    var _round = matches.First().Round;
                 }
             }
         }
@@ -174,23 +198,57 @@ namespace GameTools.Pages
 
         private void GenerateMatches(object sender, RoutedEventArgs e)
         {
-            if (Matches.Children.Count() == 0)
+            if (Matches1.Children.Count() == 0)
             {
                 var matchIds = _matchGenerationService.GenerateFirstRound(Tournament.Id);
                 foreach (var id in matchIds) 
                 {
-                    var matchScoreControl = new MatchScoreControl(DbContext, id);
-                    Matches.Children.Add(matchScoreControl);
+                    var matchScoreControl = new MatchScoreControl(DbContext, this, id);
+                    Matches1.Children.Add(matchScoreControl);
                 }
             }
             else
             {
-                var matchIds = _matchGenerationService.GenerateNextRound(Tournament.Id);
+                _round += 1;
+                var matchIds = _matchGenerationService.GenerateNextRound(Tournament.Id, _round);
+                var wrapPanel = GetWrapPanel(_round);
                 foreach (var id in matchIds)
                 {
-                    var matchScoreControl = new MatchScoreControl(DbContext, id);
-                    Matches.Children.Add(matchScoreControl);
+                    var matchScoreControl = new MatchScoreControl(DbContext, this, id);
+                    wrapPanel.Children.Add(matchScoreControl);
                 }
+            }
+        }
+
+        public void ShowNotification(bool resultSucessful)
+        {
+            if (resultSucessful)
+            {
+                ShowInfoBar(SuccessInfoBar);
+                SetPlayers();
+            }
+            else
+            {
+                ShowInfoBar(FailedInfoBar);
+            }
+        }
+
+        private WrapPanel GetWrapPanel(int round)
+        {
+            switch (round)
+            {
+                case 1:
+                    return Matches1;
+                case 2:
+                    return Matches2;
+                case 3:
+                    return Matches3;
+                case 4:
+                    return Matches4;
+                case 5:
+                    return Matches5;
+                default:
+                    return null;
             }
         }
 

@@ -3,7 +3,6 @@
 public enum WinnerResult
 {
     None,
-    Draw,
     Win,
     Lost,
 }

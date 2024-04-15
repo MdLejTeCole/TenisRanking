@@ -12,7 +12,7 @@
         <local:NegateBooleanConverter x:Key="NegateBooleanConverter"/>
     </UserControl.Resources>
     <Border BorderBrush="Green" BorderThickness="3" CornerRadius="10" Margin="10">
-        <Grid Height="160" Width="500">
+        <Grid Height="195" Width="500" Background="{x:Bind Color, Mode=OneWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="300" />
@@ -20,6 +20,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
                 <RowDefinition Height="60" />
+                <RowDefinition Height="35" />
                 <RowDefinition Height="35" />
             </Grid.RowDefinitions>
 
@@ -32,11 +33,11 @@
                 <TextBlock Text="{x:Bind Match.PlayerMatches[0].Player.Nick}" FontSize="18" Margin="5,0,0,0"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
-                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set1, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set2, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set3, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set4, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set5, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}"></NumberBox>
+                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set1, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set2, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set3, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set4, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set5, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
             </StackPanel>
             <Rectangle Grid.ColumnSpan="2" Stroke="Black" StrokeThickness="2" VerticalAlignment="Bottom" Width="500" Height="1"></Rectangle>
 
@@ -49,37 +50,43 @@
                 <TextBlock Text="{x:Bind Match.PlayerMatches[1].Player.Nick}" FontSize="18" Margin="5,0,0,0"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
-                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set1, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set2, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set3, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set4, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set5, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}"></NumberBox>
+                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set1, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set2, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set3, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set4, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set5, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
             </StackPanel>
 
-            <DropDownButton Grid.Row="2" Grid.ColumnSpan="2" x:Name="DropDownMatchResult" Content="Nierozstrzygnięty" Margin="5,0,0,0" Loaded="DropDownMatchResult_Loaded" IsEnabled="{x:Bind Match.Confirmed, Mode=OneWay, Converter={StaticResource NegateBooleanConverter}}">
-                <DropDownButton.Flyout>
-                    <MenuFlyout Placement="Bottom">
-                        <MenuFlyoutItem Text="Nierozstrzygnięty" Tag="{x:Bind enums:MatchResult.Unsolved}" Click="UpdateMatchResult"/>
-                        <MenuFlyoutItem Text="Zakończony" Tag="{x:Bind enums:MatchResult.Finished}" Click="UpdateMatchResult"/>
-                        <MenuFlyoutItem Text="Zakończony przed czasem" Tag="{x:Bind enums:MatchResult.FinishedBeforeEndWithADraw}" Click="UpdateMatchResult"/>
-                        <MenuFlyoutItem Text="Kontuzja" Tag="{x:Bind enums:MatchResult.Retired}" Click="UpdateMatchResult"/>
-                        <MenuFlyoutItem Text="Dyskfalifikacja" Tag="{x:Bind enums:MatchResult.Disqualification}" Click="UpdateMatchResult"/>
-                        <MenuFlyoutItem Text="Poddanie" Tag="{x:Bind enums:MatchResult.Walkover}" Click="UpdateMatchResult"/>
-                        <MenuFlyoutItem Text="Decyzja sędziów" Tag="{x:Bind enums:MatchResult.JudgesDecision}" Click="UpdateMatchResult"/>
-                    </MenuFlyout>
-                </DropDownButton.Flyout>
-            </DropDownButton>
-            <DropDownButton Grid.Row="2" Grid.ColumnSpan="2" x:Name="WinnerResultMatchResult" Content="Brak" HorizontalAlignment="Center" Loaded="WinnerResultMatchResult_Loaded" IsEnabled="{x:Bind Match.Confirmed, Mode=OneWay, Converter={StaticResource NegateBooleanConverter}}">
-                <DropDownButton.Flyout>
-                    <MenuFlyout Placement="Bottom">
-                        <MenuFlyoutItem Text="Brak" Tag="{x:Bind enums:MatchWinnerResult.None}" Click="UpdateWinnerResult"/>
-                        <MenuFlyoutItem Text="Remis" Tag="{x:Bind enums:MatchWinnerResult.Draw}" Click="UpdateWinnerResult"/>
-                        <MenuFlyoutItem Text="Wygrana pierszy zawodnik" Tag="{x:Bind enums:MatchWinnerResult.FirstPlayerWin}" Click="UpdateWinnerResult"/>
-                        <MenuFlyoutItem Text="Wygrana drugi zawodnik" Tag="{x:Bind enums:MatchWinnerResult.SecondPlayerWin}" Click="UpdateWinnerResult"/>
-                    </MenuFlyout>
-                </DropDownButton.Flyout>
-            </DropDownButton>
-            <Button Grid.Row="2" Grid.ColumnSpan="2" Content="Zatwierdź" HorizontalAlignment="Right" Margin="0,0,5,0" Click="ConfirmMatchResult" IsEnabled="{x:Bind Match.Confirmed, Mode=OneWay, Converter={StaticResource NegateBooleanConverter}}"/>
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <TextBlock Text="Wynik:" FontSize="20" Margin="10,0,29,0"/>
+                <DropDownButton  x:Name="DropDownMatchResult" Content="Nierozstrzygnięty" Margin="5,0,0,0" Loaded="DropDownMatchResult_Loaded">
+                    <DropDownButton.Flyout>
+                        <MenuFlyout Placement="Bottom">
+                            <MenuFlyoutItem Text="Nierozstrzygnięty" Tag="{x:Bind enums:MatchResult.Unsolved}" Click="UpdateMatchResult"/>
+                            <MenuFlyoutItem Text="Zakończony" Tag="{x:Bind enums:MatchResult.Finished}" Click="UpdateMatchResult"/>
+                            <MenuFlyoutItem Text="Zakończony przed czasem" Tag="{x:Bind enums:MatchResult.FinishedBeforeEndWithADraw}" Click="UpdateMatchResult"/>
+                            <MenuFlyoutItem Text="Kontuzja" Tag="{x:Bind enums:MatchResult.Retired}" Click="UpdateMatchResult"/>
+                            <MenuFlyoutItem Text="Dyskfalifikacja" Tag="{x:Bind enums:MatchResult.Disqualification}" Click="UpdateMatchResult"/>
+                            <MenuFlyoutItem Text="Poddanie" Tag="{x:Bind enums:MatchResult.Walkover}" Click="UpdateMatchResult"/>
+                            <MenuFlyoutItem Text="Decyzja sędziów" Tag="{x:Bind enums:MatchResult.JudgesDecision}" Click="UpdateMatchResult"/>
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <TextBlock Text="Wygrany:" FontSize="20" Margin="10,0"/>
+                <DropDownButton x:Name="WinnerResultMatchResult" Content="Brak" HorizontalAlignment="Center" Loaded="WinnerResultMatchResult_Loaded">
+                    <DropDownButton.Flyout>
+                        <MenuFlyout Placement="Bottom">
+                            <MenuFlyoutItem Text="Brak" Tag="{x:Bind enums:MatchWinnerResult.None}" Click="UpdateWinnerResult"/>
+                            <MenuFlyoutItem Text="Wygrana pierszy zawodnik" Tag="{x:Bind enums:MatchWinnerResult.FirstPlayerWin}" Click="UpdateWinnerResult"/>
+                            <MenuFlyoutItem Text="Wygrana drugi zawodnik" Tag="{x:Bind enums:MatchWinnerResult.SecondPlayerWin}" Click="UpdateWinnerResult"/>
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+            </StackPanel>
+            
+            <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Zatwierdź" HorizontalAlignment="Right" Margin="0,0,5,0" Click="ConfirmMatchResult"/>
         </Grid>
     </Border>
 </UserControl>

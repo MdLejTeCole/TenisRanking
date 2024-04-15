@@ -58,8 +58,6 @@ namespace GameTools.Pages
             var settings = DbContext.Settings.First();
             Tournament = new Tournament()
             {
-                AllMatches = settings.AllMatches,
-                NumberOfMatchesPerPlayer = settings.NumberOfMatchesPerPlayer,
                 NumberOfSets = settings.NumberOfSets,
                 TieBreak = settings.TieBreak,
                 ExtraPointsForTournamentWon = settings.ExtraPointsForTournamentWon,

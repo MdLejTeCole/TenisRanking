@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:controls2="using:Microsoft.UI.Xaml.Controls"
     xmlns:player ="using:TenisRankingDatabase.Tables"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -39,11 +40,12 @@
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="player:TournamentPlayer">
                                 <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="20" />
+                                    </Grid.RowDefinitions>
                                     <StackPanel Grid.Column="0" Orientation="Horizontal" >
-                                        <TextBlock Margin="5" FontSize="20">
+                                        <TextBlock Margin="5,0" FontSize="20">
                                         <Run Text="{x:Bind Player.FirstName}" />
                                         <Run Text=" " />
                                         <Run Text="{x:Bind Player.LastName}" />
@@ -53,7 +55,18 @@
                                         <Run Text="Punkty: " />
                                         <Run Text="{x:Bind CalculateTournamentScore()}" />
                                     </TextBlock>
-                                    <CheckBox IsChecked="{x:Bind Active, Mode=TwoWay}" HorizontalAlignment="Right" Margin="5" Background="red" Padding="0" MinWidth="0"/>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,40,0" Padding="0">
+                                        <TextBlock FontSize="13" Margin="0,0,30,0">
+                                        <Run Text="Sety: " />
+                                        <Run Text="{x:Bind CalculateWonSets()}" />
+                                    </TextBlock>
+                                        <TextBlock FontSize="13" HorizontalAlignment="Right">
+                                        <Run Text="Gemy: " />
+                                        <Run Text="{x:Bind CalculateWonGems()}" />
+                                    </TextBlock>
+                                    </StackPanel>
+                                    <CheckBox IsChecked="{x:Bind Active, Mode=TwoWay}" HorizontalAlignment="Right" Margin="5,0" Background="red" Padding="0" MinWidth="0"/>
+                                    <Rectangle Grid.Row="1" Stroke="Black" StrokeThickness="1" VerticalAlignment="Bottom" Width="500" Height="1"></Rectangle>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -63,12 +76,32 @@
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <controls:WrapPanel x:Name="Matches">
-                
-                </controls:WrapPanel>
+                <StackPanel>
+                    <TextBlock Text="Round 1"/>
+                    <controls:WrapPanel x:Name="Matches1">
+                    </controls:WrapPanel>
+                    <TextBlock Text="Round 2"/>
+                    <controls:WrapPanel x:Name="Matches2">
+                    </controls:WrapPanel>
+                    <TextBlock Text="Round 3"/>
+                    <controls:WrapPanel x:Name="Matches3">
+                    </controls:WrapPanel>
+                    <TextBlock Text="Round 4"/>
+                    <controls:WrapPanel x:Name="Matches4">
+                    </controls:WrapPanel>
+                    <TextBlock Text="Round 5"/>
+                    <controls:WrapPanel x:Name="Matches5">
+                    </controls:WrapPanel>
+                </StackPanel>
             </ScrollViewer>
         </Grid>
         <Button Grid.Row="2" Content="Generuj mecze" FontWeight="Bold" FontSize="30" Click="GenerateMatches" HorizontalAlignment="Left" Margin="10"></Button>
         <Button Grid.Row="2" Grid.Column="2" Content="Zakończ turniej" FontWeight="Bold" FontSize="30" Click="EndTournament" HorizontalAlignment="Center" Margin="10"></Button>
+        <controls2:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
+            <TextBlock Text="Wystąpił błąd podczas zapisu wyników."/>
+        </controls2:InfoBar>
+        <controls2:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
+            <TextBlock Text="Pomyślnie zapisano wyniki."/>
+        </controls2:InfoBar>
     </Grid>
 </local:ExtendedPage>

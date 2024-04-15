@@ -11,7 +11,7 @@ using TenisRankingDatabase;
 namespace TenisRankingDatabase.Migrations
 {
     [DbContext(typeof(TenisRankingDbContext))]
-    [Migration("20240412073240_Init")]
+    [Migration("20240415104622_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -134,6 +134,12 @@ namespace TenisRankingDatabase.Migrations
                     b.Property<int>("WinnerResult")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("WonGames")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("WonSets")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MatchId");
@@ -150,9 +156,6 @@ namespace TenisRankingDatabase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("AllMatches")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("ExtraPoints1Place")
                         .HasColumnType("INTEGER");
 
@@ -163,9 +166,6 @@ namespace TenisRankingDatabase.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("ExtraPointsForTournamentWon")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("NumberOfMatchesPerPlayer")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("NumberOfSets")
@@ -188,11 +188,11 @@ namespace TenisRankingDatabase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("AllMatches")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateOnly>("Date")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("Ended")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ExtraPoints1Place")
                         .HasColumnType("INTEGER");
@@ -209,9 +209,6 @@ namespace TenisRankingDatabase.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("NumberOfMatchesPerPlayer")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("NumberOfSets")
                         .HasColumnType("INTEGER");

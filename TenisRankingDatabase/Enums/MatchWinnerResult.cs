@@ -9,7 +9,6 @@ namespace TenisRankingDatabase.Enums;
 public enum MatchWinnerResult
 {
     None,
-    Draw,
     FirstPlayerWin,
     SecondPlayerWin,
 }
