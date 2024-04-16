@@ -21,7 +21,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="80" />
         </Grid.RowDefinitions>
-        <TextBox x:Name="Name" PlaceholderText="Nazwa turnieju" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="500" FontSize="30" Margin="10"></TextBox>
+        <TextBox x:Name="Name" PlaceholderText="Nazwa turnieju" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="500" FontSize="30" Margin="10" LostFocus="Name_LostFocus"></TextBox>
         <Grid Grid.Column="0" Grid.Row="1">
             <StackPanel HorizontalAlignment="Stretch">
                 <TextBlock Text="Dodaj zawodników:" FontSize="25" Margin="10" HorizontalAlignment="Center"/>

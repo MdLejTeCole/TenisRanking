@@ -46,6 +46,19 @@ public class ExtendedPage : Page, INotifyPropertyChanged
         });
     }
 
+    protected async Task<ContentDialogResult> ShowInformationDialog(string content)
+    {
+        ContentDialog confirmationDialog = new ContentDialog
+        {
+            XamlRoot = this.XamlRoot,
+            Title = "Information",
+            Content = content,
+            PrimaryButtonText = "Ok",
+        };
+
+        return await confirmationDialog.ShowAsync();
+    }
+
     protected async Task<ContentDialogResult> ShowConfirmationDialog(string content)
     {
         ContentDialog confirmationDialog = new ContentDialog

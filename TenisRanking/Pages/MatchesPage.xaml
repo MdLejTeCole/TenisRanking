@@ -69,7 +69,7 @@
                                         <Run Text="{x:Bind CalculateWonGems()}" />
                                     </TextBlock>
                                     </StackPanel>
-                                    <CheckBox IsChecked="{x:Bind Active, Mode=TwoWay}" HorizontalAlignment="Right" Margin="5,0" Background="red" Padding="0" MinWidth="0"/>
+                                    <CheckBox IsChecked="{x:Bind Active, Mode=TwoWay}" HorizontalAlignment="Right" Margin="5,0" Background="red" Padding="0" MinWidth="0" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
                                     <Rectangle Grid.Row="1" Stroke="Black" StrokeThickness="1" VerticalAlignment="Bottom" Width="500" Height="1"></Rectangle>
                                 </Grid>
                             </DataTemplate>

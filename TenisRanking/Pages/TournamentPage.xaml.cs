@@ -47,6 +47,8 @@ namespace GameTools.Pages
             }
         }
 
+        private bool _isUpdate = false;
+
         public TournamentPage()
         {
             this.InitializeComponent();
@@ -121,32 +123,82 @@ namespace GameTools.Pages
             }
             try
             {
-                if (DbContext.Tournaments.Any(x => x.Name == Name.Text))
+                if (DbContext.Tournaments.Any(x => x.Name == Name.Text) && !_isUpdate)
                 {
                     ShowInfoBar(NotUniqueInfoBar);
                     return;
                 }
                 var transaction = DbContext.Database.BeginTransaction();
                 Tournament.Name = Name.Text;
-                Tournament.Date = DateOnly.FromDateTime(DateTime.UtcNow);
-                DbContext.Tournaments.Add(Tournament);
-                DbContext.SaveChanges();
-                var tournamentPlayers = new List<TournamentPlayer>();
-                foreach (var player in Players)
+                if (!_isUpdate)
                 {
-                    tournamentPlayers.Add(new TournamentPlayer() { TournamentId = Tournament.Id, PlayerId = player.Id });
+                    Tournament.Date = DateOnly.FromDateTime(DateTime.UtcNow);
+                    DbContext.Tournaments.Add(Tournament);
+                    DbContext.SaveChanges();
+                    var tournamentPlayers = new List<TournamentPlayer>();
+                    foreach (var player in Players)
+                    {
+                        tournamentPlayers.Add(new TournamentPlayer() { TournamentId = Tournament.Id, PlayerId = player.Id });
+                    }
+                    DbContext.TournamentPlayers.AddRange(tournamentPlayers);
+                    DbContext.SaveChanges();
                 }
-                DbContext.TournamentPlayers.AddRange(tournamentPlayers);
-                DbContext.SaveChanges();
+                else
+                {
+                    Tournament.TournamentPlayers.RemoveAll(x => !Players.Any(y => y == x.Player));
+                    foreach (var player in Players)
+                    {
+                        if (Tournament.TournamentPlayers.Any(x => x.Player == player))
+                        {
+                            continue;
+                        }
+                        if (!Tournament.TournamentPlayers.Any(x => x.Player == player))
+                        {
+                            Tournament.TournamentPlayers.Add(new TournamentPlayer() { TournamentId = Tournament.Id, PlayerId = player.Id });
+                        }
+                    }
+                    DbContext.Tournaments.Update(Tournament);
+                    DbContext.SaveChanges();
+                }
+
                 transaction.Commit();
                 ShowInfoBar(SuccessInfoBar);
                 CreateNewTournament();
+                _isUpdate = false;
             }
             catch (Exception)
             {
-                CreateNewTournament();
                 DbContext.Database.RollbackTransaction();
                 ShowInfoBar(FailedInfoBar);
+            }
+        }
+
+        private async void Name_LostFocus(object sender, RoutedEventArgs e)
+        {
+            var tournament = DbContext.Tournaments
+                .Include(x => x.TournamentPlayers)
+                    .ThenInclude(x => x.Player)
+                .FirstOrDefault(x => x.Name == (sender as TextBox).Text);
+
+            if (tournament != null)
+            {
+                if (tournament.Ended)
+                {
+                    await ShowInformationDialog($"Intnieje juz turniej zakoñczony turniej o takiej nazwie {tournament.Name}. Zmieñ nazwe turnieju na unikaln¹");
+                    return;
+                }
+                if (await ShowConfirmationDialog($"Intnieje juz turniej o nazwie {tournament.Name}. Czy chcesz go edytowaæ?") == ContentDialogResult.Primary)
+                {
+                    _isUpdate = true;
+                    Tournament = tournament;
+                    _allPlayers = DbContext.Players.Where(x => x.Id > 1).ToList();
+                    Players.Clear();
+                    foreach (var player in Tournament.TournamentPlayers.Select(x => x.Player))
+                    {
+                        Players.Add(player);
+                        _allPlayers.Remove(player);
+                    }
+                }
             }
         }
     }

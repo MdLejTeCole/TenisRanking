@@ -170,7 +170,7 @@ namespace GameTools.Pages
                 }
                 if (matches.Any())
                 {
-                    _round = matches.First().Round;
+                    _round = matches.Last().Round;
                 }
             }
         }
@@ -246,6 +246,15 @@ namespace GameTools.Pages
                     return Matches5;
                 default:
                     return null;
+            }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox && checkBox.DataContext is TournamentPlayer player)
+            {
+                DbContext.TournamentPlayers.Update(player);
+                DbContext.SaveChanges();
             }
         }
     }
