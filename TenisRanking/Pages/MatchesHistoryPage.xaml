@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<local:ExtendedPage
+    x:Class="GameTools.Pages.MatchesHistoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GameTools.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <controls:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                <controls:DataGridTextColumn Header="Nazwa turnieju" Binding="{Binding TournmentName}" />
+                <controls:DataGridTextColumn Header="Data" Binding="{Binding TournmentDate}" />
+                <controls:DataGridTextColumn Header="Imię Nazwisko" Binding="{Binding Names}" />
+                <controls:DataGridTextColumn Header="Wynik" Binding="{Binding WinnerResults}" />
+                <controls:DataGridTextColumn Header="Elo" Binding="{Binding Elos}" />
+                <controls:DataGridTextColumn Header="Zdobyte elo" Binding="{Binding GrantedElos}" />
+                <controls:DataGridTextColumn Header="Set 1" Binding="{Binding Set1}" />
+                <controls:DataGridTextColumn Header="Set 2" Binding="{Binding Set2}" />
+                <controls:DataGridTextColumn Header="Set 3" Binding="{Binding Set3}" />
+                <controls:DataGridTextColumn Header="Set 4" Binding="{Binding Set4}" />
+                <controls:DataGridTextColumn Header="Set 5" Binding="{Binding Set5}" />
+                <controls:DataGridTextColumn Header="Punkty" Binding="{Binding MatchPoint}" />
+                <controls:DataGridTextColumn Header="Sety" Binding="{Binding WonSets}" />
+                <controls:DataGridTextColumn Header="Gemy" Binding="{Binding WonGames}" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+    </Grid>
+</local:ExtendedPage>

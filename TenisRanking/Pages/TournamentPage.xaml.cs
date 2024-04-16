@@ -53,8 +53,14 @@ namespace GameTools.Pages
         }
 
         protected override void GetValuesFromDatabase()
+        {        
+            CreateNewTournament();
+        }
+
+        private void CreateNewTournament()
         {
             _allPlayers = DbContext.Players.Where(x => x.Id > 1).ToList();
+            Players.Clear();
             var settings = DbContext.Settings.First();
             Tournament = new Tournament()
             {
@@ -134,9 +140,11 @@ namespace GameTools.Pages
                 DbContext.SaveChanges();
                 transaction.Commit();
                 ShowInfoBar(SuccessInfoBar);
+                CreateNewTournament();
             }
             catch (Exception)
             {
+                CreateNewTournament();
                 DbContext.Database.RollbackTransaction();
                 ShowInfoBar(FailedInfoBar);
             }

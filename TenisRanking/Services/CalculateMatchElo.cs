@@ -5,6 +5,7 @@ using System;
 using Table = TenisRankingDatabase.Tables;
 using TenisRankingDatabase;
 using System.Linq;
+using GameTools.Models;
 
 namespace GameTools.Services;
 
@@ -17,16 +18,19 @@ public class CalculateMatchElo
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
 
-    public bool CalculateAndSaveMatchElo(Table.Match match)
+    public bool CalculateAndSaveMatchElo(long matchId)
     {
         try
         {
+            var match = _dbContext.Matches
+                .Include(x => x.PlayerMatches)
+                .First(x => x.Id == matchId);
             if (match.MatchWinnerResult == MatchWinnerResult.None)
             {
                 return true;
             }
             var winPlayer = match.PlayerMatches.First(x => x.WinnerResult == WinnerResult.Win);
-            var lostPlayer = match.PlayerMatches.First(x => x.WinnerResult == WinnerResult.Win);
+            var lostPlayer = match.PlayerMatches.First(x => x.WinnerResult == WinnerResult.Lost);
             if (lostPlayer.Id == 1)
             {
                 return true;

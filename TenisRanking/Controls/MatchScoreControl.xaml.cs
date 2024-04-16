@@ -20,6 +20,7 @@ using TenisRankingDatabase.Enums;
 using GameTools.Services;
 using GameTools.Pages;
 using Microsoft.UI;
+using GameTools.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,9 +34,9 @@ namespace GameTools.Controls
         private readonly CalculateMatchElo _calculateMatchElo;
         private readonly MatchesPage _matchesPage;
 
-        private Match _match;
+        private MatchDto _match;
 
-        public Match Match
+        public MatchDto Match
         {
             get { return _match; }
             set
@@ -83,10 +84,10 @@ namespace GameTools.Controls
             _matchesPage = matchesPage ?? throw new ArgumentNullException(nameof(matchesPage));
             _calculateMatchScore = new CalculateMatchScore(_dbContext);
             _calculateMatchElo = new CalculateMatchElo(_dbContext);
-            Match = _dbContext.Matches
+            Match = MatchDto.Create(_dbContext.Matches
                 .Include(x => x.PlayerMatches)
                     .ThenInclude(x => x.Player)
-                .First(x => x.Id == matchId);
+                .First(x => x.Id == matchId));
             if (Match.Confirmed)
             {
                 MatchResult = Match.MatchResult;
@@ -143,7 +144,7 @@ namespace GameTools.Controls
         private void ConfirmMatchResult(object sender, RoutedEventArgs e)
         {
             var resultScore = _calculateMatchScore.CalculateAndSaveMatchScore(Match, MatchResult, MatchWinnerResult);
-            var resultElo = _calculateMatchElo.CalculateAndSaveMatchElo(Match);
+            var resultElo = _calculateMatchElo.CalculateAndSaveMatchElo(Match.Id);
             if (resultScore && resultElo)
             {
                 Color = _greenColor;

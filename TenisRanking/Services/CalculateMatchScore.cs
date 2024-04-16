@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GameTools.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,21 +22,37 @@ public class CalculateMatchScore
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
 
-    public bool CalculateAndSaveMatchScore(Table.Match match, MatchResult matchResult, MatchWinnerResult matchWinnerResult)
+    public bool CalculateAndSaveMatchScore(MatchDto matchDto, MatchResult matchResult, MatchWinnerResult matchWinnerResult)
     {
         try
         {
+            var match = _dbContext.Matches
+                .Include(x => x.PlayerMatches)
+                    .ThenInclude(x => x.Player)
+                .First(x => x.Id == matchDto.Id);
+            var player1 = match.PlayerMatches.First(x => x.PlayerId == matchDto.Player1.Id);
+            var player2 = match.PlayerMatches.First(x => x.PlayerId == matchDto.Player2.Id);
             match.MatchResult = matchResult;
             match.MatchWinnerResult = matchWinnerResult;
+            player1.Set1 = matchDto.Player1.Set1;
+            player1.Set2 = matchDto.Player1.Set2;
+            player1.Set3 = matchDto.Player1.Set3;
+            player1.Set4 = matchDto.Player1.Set4;
+            player1.Set5 = matchDto.Player1.Set5;
+            player2.Set1 = matchDto.Player2.Set1;
+            player2.Set2 = matchDto.Player2.Set2;
+            player2.Set3 = matchDto.Player2.Set3;
+            player2.Set4 = matchDto.Player2.Set4;
+            player2.Set5 = matchDto.Player2.Set5;
             match.Confirmed = true;
-            var points = CalculateMatchPointFirstPlayer(match, matchWinnerResult);
-            match.PlayerMatches[0].MatchPoint = points.FirstPlayerScore;
-            match.PlayerMatches[1].MatchPoint = points.SecondPlayerScore;
-            match.PlayerMatches[0].WonSets = points.FirstPlayerSets;
-            match.PlayerMatches[1].WonSets = points.SecondPlayerSets;
+            var points = CalculateMatchPointFirstPlayer(player1, player2, matchWinnerResult);
+            player1.MatchPoint = points.FirstPlayerScore;
+            player2.MatchPoint = points.SecondPlayerScore;
+            player1.WonSets = points.FirstPlayerSets;
+            player2.WonSets = points.SecondPlayerSets;
             var winnerResult = GetWinnerResult(matchWinnerResult);
-            match.PlayerMatches[0].WinnerResult = winnerResult.Item1;
-            match.PlayerMatches[1].WinnerResult = winnerResult.Item2;
+            player1.WinnerResult = winnerResult.Item1;
+            player2.WinnerResult = winnerResult.Item2;
             _dbContext.Matches.Update(match);
             _dbContext.SaveChanges();
             return true;
@@ -62,7 +80,7 @@ public class CalculateMatchScore
         return (firstPlayerMatchResult, secondPlayerMatchResult);
     }
 
-    private (int FirstPlayerScore, int FirstPlayerSets, int SecondPlayerScore, int SecondPlayerSets) CalculateMatchPointFirstPlayer(Table.Match match, MatchWinnerResult matchWinnerResult)
+    private (int FirstPlayerScore, int FirstPlayerSets, int SecondPlayerScore, int SecondPlayerSets) CalculateMatchPointFirstPlayer(PlayerMatch player1, PlayerMatch player2, MatchWinnerResult matchWinnerResult)
     {
         var firstPlayer = 0;
         var secondPlayer = 0;
@@ -72,11 +90,11 @@ public class CalculateMatchScore
         }
         var sets = new List<bool?>
         {
-            FirstPlayerWonSet(match.PlayerMatches[0].Set1, match.PlayerMatches[1].Set1),
-            FirstPlayerWonSet(match.PlayerMatches[0].Set2, match.PlayerMatches[1].Set2),
-            FirstPlayerWonSet(match.PlayerMatches[0].Set3, match.PlayerMatches[1].Set3),
-            FirstPlayerWonSet(match.PlayerMatches[0].Set4, match.PlayerMatches[1].Set4),
-            FirstPlayerWonSet(match.PlayerMatches[0].Set5, match.PlayerMatches[1].Set5)
+            FirstPlayerWonSet(player1.Set1, player2.Set1),
+            FirstPlayerWonSet(player1.Set2, player2.Set2),
+            FirstPlayerWonSet(player1.Set3, player2.Set3),
+            FirstPlayerWonSet(player1.Set4, player2.Set4),
+            FirstPlayerWonSet(player1.Set5, player2.Set5)
         };
 
         if (matchWinnerResult == MatchWinnerResult.FirstPlayerWin && sets.Any(x => x == false))

@@ -26,35 +26,35 @@
 
             <StackPanel>
                 <TextBlock FontSize="22" Margin="5,0,0,0">
-                <Run Text="{x:Bind Match.PlayerMatches[0].Player.FirstName}" />
+                <Run Text="{x:Bind Match.Player1.FirstName}" />
                 <Run Text=" " />
-                <Run Text="{x:Bind Match.PlayerMatches[0].Player.LastName}" />
+                <Run Text="{x:Bind Match.Player1.LastName}" />
                 </TextBlock>
-                <TextBlock Text="{x:Bind Match.PlayerMatches[0].Player.Nick}" FontSize="18" Margin="5,0,0,0"/>
+                <TextBlock Text="{x:Bind Match.Player1.Nick}" FontSize="18" Margin="5,0,0,0"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
-                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set1, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" ValueChanged="NumberBox_ValueChanged"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set2, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set3, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set4, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[0].Set5, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.Player1.Set1, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.Player1.Set2, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.Player1.Set3, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.Player1.Set4, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.Player1.Set5, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
             </StackPanel>
             <Rectangle Grid.ColumnSpan="2" Stroke="Black" StrokeThickness="2" VerticalAlignment="Bottom" Width="500" Height="1"></Rectangle>
 
             <StackPanel Grid.Row="1">
                 <TextBlock FontSize="22" Margin="5,0,0,0">
-                <Run Text="{x:Bind Match.PlayerMatches[1].Player.FirstName}" />
+                <Run Text="{x:Bind Match.Player2.FirstName}" />
                 <Run Text=" " />
-                <Run Text="{x:Bind Match.PlayerMatches[1].Player.LastName}" />
+                <Run Text="{x:Bind Match.Player2.LastName}" />
                 </TextBlock>
-                <TextBlock Text="{x:Bind Match.PlayerMatches[1].Player.Nick}" FontSize="18" Margin="5,0,0,0"/>
+                <TextBlock Text="{x:Bind Match.Player2.Nick}" FontSize="18" Margin="5,0,0,0"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
-                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set1, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" ValueChanged="NumberBox_ValueChanged"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set2, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set3, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set4, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
-                <NumberBox Text="{x:Bind Match.PlayerMatches[1].Set5, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.Player2.Set1, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.Player2.Set2, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.Player2.Set3, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set2Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.Player2.Set4, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
+                <NumberBox Text="{x:Bind Match.Player2.Set5, Mode=TwoWay}" FontSize="25" Height="40" Width="40" Margin="2,0" IsEnabled="{x:Bind Set3Enabled}" ValueChanged="NumberBox_ValueChanged"></NumberBox>
             </StackPanel>
 
             <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">

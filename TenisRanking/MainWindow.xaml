@@ -13,7 +13,7 @@
             <NavigationViewItem Content="Ranking" FontSize="25" Margin="0,5"/>
             <NavigationViewItem Content="Turniej" FontSize="25" Margin="0,5"/>
             <NavigationViewItem Content="Mecze turnieju" FontSize="25" Margin="0,5"/>
-            <NavigationViewItem Content="Historia" FontSize="25" Margin="0,5"/>
+            <NavigationViewItem Content="Historia meczy" FontSize="25" Margin="0,5"/>
             <NavigationViewItem Content="Zawodnicy" FontSize="25" Margin="0,5"/>
             <NavigationViewItem Content="Dodaj zawodnika" FontSize="25" Margin="0,5"/>
             <NavigationViewItem Content="Ustawienia" FontSize="25" Margin="0,5"/>

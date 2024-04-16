@@ -100,18 +100,15 @@ namespace GameTools.Pages
             this.InitializeComponent();
         }
 
-        private void EndTournament(object sender, RoutedEventArgs e)
+        private async void EndTournament(object sender, RoutedEventArgs e)
         {
-            ContentDialogResult result = ShowConfirmationDialog("Czy na pewno chcesz zakoñczyæ turniej?\nPo zakoñczeniu turnieju, nie mo¿na aktualizowaæ wyników meczy.");
+            var result = await ShowConfirmationDialog("Czy na pewno chcesz zakoñczyæ turniej?\nPo zakoñczeniu turnieju, nie mo¿na aktualizowaæ wyników meczy.");
 
-            // Sprawdzenie, czy u¿ytkownik nacisn¹³ przycisk "Tak"
             if (result == ContentDialogResult.Primary)
             {
-                // Tutaj umieœæ kod do wykonania po potwierdzeniu
-            }
-            else
-            {
-                // Tutaj umieœæ kod, który ma byæ wykonany, jeœli u¿ytkownik anuluje dzia³anie
+                Tournament.Ended = true;
+                DbContext.Update(Tournament);
+                DbContext.SaveChanges();
             }
         }
 
@@ -173,7 +170,7 @@ namespace GameTools.Pages
                 }
                 if (matches.Any())
                 {
-                    var _round = matches.First().Round;
+                    _round = matches.First().Round;
                 }
             }
         }
@@ -250,11 +247,6 @@ namespace GameTools.Pages
                 default:
                     return null;
             }
-        }
-
-        private int CalculateTournamentScore(Player player, long tournmanetId)
-        {
-            return player.PlayerMatches.Where(x => x.Match?.TournamentId == tournmanetId && x.MatchPoint != null).Select(x => x.MatchPoint).Sum() ?? 0;
         }
     }
 }

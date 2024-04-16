@@ -11,9 +11,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <controls:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" Sorting="MyDataGrid_Sorting">
+        <controls:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" Sorting="MyDataGrid_Sorting" IsReadOnly="True">
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                <controls:DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                 <controls:DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" />
                 <controls:DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" />
                 <controls:DataGridTextColumn Header="Pseudonim" Binding="{Binding Nick}" />

@@ -40,6 +40,9 @@ namespace TenisRanking
                 case "Mecze turnieju":
                     ContentFrame.Navigate(typeof(MatchesPage), _context);
                     break;
+                case "Historia meczy":
+                    ContentFrame.Navigate(typeof(MatchesHistoryPage), _context);
+                    break;
                 case "Zawodnicy":
                     ContentFrame.Navigate(typeof(PlayersPage), _context);
                     break;
