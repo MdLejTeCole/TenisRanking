@@ -130,7 +130,7 @@ public class CalculateMatchScore
             {
                 return true;
             }
-            else
+            else if (setFirstPlayer < setSecondPlayer)
             {
                 return false;
             }

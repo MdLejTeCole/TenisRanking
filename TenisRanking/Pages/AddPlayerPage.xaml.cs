@@ -53,6 +53,9 @@ namespace GameTools.Pages
                 DbContext.Players.Add(new Player() { FirstName = FirstName.Text, LastName = LastName.Text, Nick = Nick.Text, Elo = elo });
                 DbContext.SaveChanges();
                 ShowInfoBar(SuccessInfoBar);
+                FirstName.Text = string.Empty;
+                LastName.Text = string.Empty;
+                Nick.Text = string.Empty;
             }
             catch (Exception)
             {

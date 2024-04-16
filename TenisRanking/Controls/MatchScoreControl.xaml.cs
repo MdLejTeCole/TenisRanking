@@ -186,6 +186,11 @@ namespace GameTools.Controls
 
         private void NumberBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
         {
+            if (Double.IsNaN(sender.Value))
+            {
+                sender.Value = 0;
+                sender.Text = "0";
+            }
             Color = _yellowColor;
         }
     }

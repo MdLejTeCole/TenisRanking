@@ -8,11 +8,11 @@ public class PlayerMatch
     public long PlayerId { get; set; }
     public long MatchId { get; set; }
     public int Elo { get; set; }
-    public int? Set1 { get; set; }
-    public int? Set2 { get; set; }
-    public int? Set3 { get; set; }
-    public int? Set4 { get; set; }
-    public int? Set5 { get; set; }
+    public int Set1 { get; set; }
+    public int Set2 { get; set; }
+    public int Set3 { get; set; }
+    public int Set4 { get; set; }
+    public int Set5 { get; set; }
     public int? TieBreak { get; set; }
     public WinnerResult WinnerResult { get; set; }
     public int? MatchPoint { get; set; }

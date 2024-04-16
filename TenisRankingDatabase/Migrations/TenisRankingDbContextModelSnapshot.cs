@@ -110,19 +110,19 @@ namespace TenisRankingDatabase.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Set1")
+                    b.Property<int>("Set1")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Set2")
+                    b.Property<int>("Set2")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Set3")
+                    b.Property<int>("Set3")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Set4")
+                    b.Property<int>("Set4")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Set5")
+                    b.Property<int>("Set5")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("TieBreak")

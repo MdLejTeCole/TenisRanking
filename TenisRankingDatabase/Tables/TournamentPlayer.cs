@@ -39,7 +39,7 @@ public class TournamentPlayer
     {
         return (Player.PlayerMatches?
             .Where(x => x.Match?.TournamentId == TournamentId && x.MatchPoint != null)
-            .Select(x => (x.Set1 ?? 0) + (x.Set2 ?? 0) + (x.Set3 ?? 0))
+            .Select(x => x.Set1 + x.Set2 + x.Set3 + x.Set4 + x.Set5)
             .Sum() ?? 0).ToString();
     }
 }

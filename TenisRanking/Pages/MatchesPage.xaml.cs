@@ -204,16 +204,23 @@ namespace GameTools.Pages
                     Matches1.Children.Add(matchScoreControl);
                 }
             }
-            else
+            else if (DbContext.Matches.Where(x => x.TournamentId == _lastTournamentId).All(x => x.Confirmed))
             {
                 _round += 1;
                 var matchIds = _matchGenerationService.GenerateNextRound(Tournament.Id, _round);
-                var wrapPanel = GetWrapPanel(_round);
-                foreach (var id in matchIds)
+                if (matchIds.Any())
                 {
-                    var matchScoreControl = new MatchScoreControl(DbContext, this, id);
-                    wrapPanel.Children.Add(matchScoreControl);
+                    var wrapPanel = GetWrapPanel(_round);
+                    foreach (var id in matchIds)
+                    {
+                        var matchScoreControl = new MatchScoreControl(DbContext, this, id);
+                        wrapPanel.Children.Add(matchScoreControl);
+                    }
                 }
+            }
+            else
+            {
+                ShowInfoBar(MissingConfirmationInfoBar);
             }
         }
 
@@ -237,12 +244,16 @@ namespace GameTools.Pages
                 case 1:
                     return Matches1;
                 case 2:
+                    Round2.Visibility = Visibility.Visible;
                     return Matches2;
                 case 3:
+                    Round3.Visibility = Visibility.Visible;
                     return Matches3;
                 case 4:
+                    Round4.Visibility = Visibility.Visible;
                     return Matches4;
                 case 5:
+                    Round5.Visibility = Visibility.Visible;
                     return Matches5;
                 default:
                     return null;
@@ -255,6 +266,18 @@ namespace GameTools.Pages
             {
                 DbContext.TournamentPlayers.Update(player);
                 DbContext.SaveChanges();
+            }
+        }
+
+        private Visibility VisableRound(int round)
+        {
+            if (round <= _round)
+            {
+                return Visibility.Visible;
+            }
+            else
+            {
+                return Visibility.Collapsed;
             }
         }
     }

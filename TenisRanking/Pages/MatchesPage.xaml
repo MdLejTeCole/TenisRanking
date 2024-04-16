@@ -38,7 +38,7 @@
         </Grid>
         <Grid Grid.Row="1">
             <StackPanel>
-                <TextBlock Text="Zawodnicy:" FontSize="25" Margin="10" HorizontalAlignment="Center"/>
+                <TextBlock Text="Zawodnicy" FontSize="25" Margin="10" HorizontalAlignment="Center"/>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" IsEnabled="{x:Bind Tournament.Ended, Mode=OneWay, Converter={StaticResource NegateBooleanConverter}}">
                     <ListView x:Name="playerListView" ItemsSource="{x:Bind Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="700">
                         <ListView.ItemTemplate>
@@ -82,20 +82,20 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" IsEnabled="{x:Bind Tournament.Ended, Mode=OneWay, Converter={StaticResource NegateBooleanConverter}}">
                 <Border Background="Transparent">
                     <StackPanel>
-                        <TextBlock Text="Round 1"/>
-                        <controls:WrapPanel x:Name="Matches1">
+                        <TextBlock Text="Round 1" HorizontalAlignment="Center"/>
+                        <controls:WrapPanel x:Name="Matches1" HorizontalAlignment="Center">
                         </controls:WrapPanel>
-                        <TextBlock Text="Round 2"/>
-                        <controls:WrapPanel x:Name="Matches2">
+                        <TextBlock x:Name="Round2" Text="Round 2" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(2)}"/>
+                        <controls:WrapPanel x:Name="Matches2" HorizontalAlignment="Center">
                         </controls:WrapPanel>
-                        <TextBlock Text="Round 3"/>
-                        <controls:WrapPanel x:Name="Matches3">
+                        <TextBlock x:Name="Round3" Text="Round 3" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(3)}"/>
+                        <controls:WrapPanel x:Name="Matches3" HorizontalAlignment="Center">
                         </controls:WrapPanel>
-                        <TextBlock Text="Round 4"/>
-                        <controls:WrapPanel x:Name="Matches4">
+                        <TextBlock x:Name="Round4" Text="Round 4" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(4)}"/>
+                        <controls:WrapPanel x:Name="Matches4" HorizontalAlignment="Center">
                         </controls:WrapPanel>
-                        <TextBlock Text="Round 5"/>
-                        <controls:WrapPanel x:Name="Matches5">
+                        <TextBlock x:Name="Round5" Text="Round 5" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(5)}"/>
+                        <controls:WrapPanel x:Name="Matches5" HorizontalAlignment="Center">
                         </controls:WrapPanel>
                     </StackPanel>
                 </Border>
@@ -103,6 +103,9 @@
         </Grid>
         <Button Grid.Row="2" Content="Generuj mecze" FontWeight="Bold" FontSize="30" Click="GenerateMatches" HorizontalAlignment="Left" Margin="10" IsEnabled="{x:Bind Tournament.Ended, Mode=OneWay, Converter={StaticResource NegateBooleanConverter}}"></Button>
         <Button Grid.Row="2" Grid.Column="2" Content="Zakończ turniej" FontWeight="Bold" FontSize="30" Click="EndTournament" HorizontalAlignment="Center" Margin="10" IsEnabled="{x:Bind Tournament.Ended, Mode=OneWay, Converter={StaticResource NegateBooleanConverter}}"></Button>
+        <controls2:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MissingConfirmationInfoBar" Title="Błąd" Severity="Warning" IsOpen="False">
+            <TextBlock Text="Zapisz wszystkie wyniki zanim wygenerujesz nowe mecze."/>
+        </controls2:InfoBar>
         <controls2:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
             <TextBlock Text="Wystąpił błąd podczas zapisu wyników."/>
         </controls2:InfoBar>
