@@ -22,15 +22,17 @@ public class CalculateAfterEndTournament
     {
         try
         {
+            var transaction = _dbContext.Database.BeginTransaction();
             UpdateElo(tournamentId);
             UpdateScore(tournamentId);
             var tournament = _dbContext.Tournaments.First(x => x.Id == tournamentId);
             tournament.Ended = true;
             _dbContext.Update(tournament);
             _dbContext.SaveChanges();
+            transaction.Commit();
             return true;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return false;
         }
@@ -43,16 +45,21 @@ public class CalculateAfterEndTournament
             .Where(x => x.Match.TournamentId == tournamentId);
         var players = _dbContext.TournamentPlayers
             .Include(x => x.Player)
+                .ThenInclude(x => x.PlayerMatches)
             .Where(x => x.TournamentId == tournamentId);
-        foreach (var player in players )
+        int place = 1;
+        foreach (var player in players.ToList().OrderByDescending(x => x.CalculateTournamentScoreInt()).ThenByDescending(x => x.CalculateWonSets()).ThenByDescending(x => x.CalculateWonGems()))
         {
             var playerMatches = matches.Where(x => x.PlayerId == player.PlayerId);
-            player.Player.WinTournaments += 0; //todo
-            player.Player.TournamentsPoints += playerMatches.Select(x => x.MatchPoint).Sum() ?? 0;
+            player.Player.Tournament1Place += place == 1 ? 1 : 0;
+            player.Player.Tournament2Place += place == 2 ? 1 : 0;
+            player.Player.Tournament3Place += place == 3 ? 1 : 0;
+            player.Player.TournamentsPoints += player.CalculateTournamentScoreInt();
             player.Player.TournamentsPlayed += 1;
             player.Player.WinMatches += playerMatches.Where(x => x.WinnerResult == WinnerResult.Win).Count();
             player.Player.LostMatches += playerMatches.Where(x => x.WinnerResult == WinnerResult.Lost).Count();
             _dbContext.Players.Update(player.Player);
+            place++;
         }
         _dbContext.SaveChanges();
     }

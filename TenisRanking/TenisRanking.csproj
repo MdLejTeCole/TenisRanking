@@ -12,7 +12,6 @@
 		<EnableMsixTooling>true</EnableMsixTooling>
 		<SupportedOSPlatformVersion>10.0.20348.0</SupportedOSPlatformVersion>
 		<!--<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>-->
-		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 		<UseRidGraph>true</UseRidGraph>
 		<DefaultLanguage>pl-PL</DefaultLanguage>
 

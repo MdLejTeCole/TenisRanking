@@ -23,10 +23,6 @@
                     <NumberBox FontSize="30" Width="150" HorizontalAlignment="Right" Text="{x:Bind Setting.NumberOfSets, Mode=TwoWay}"/>
                 </Grid>
                 <Grid Margin="10">
-                    <TextBlock Text="Tie Break:" HorizontalAlignment="Left"/>
-                    <ToggleSwitch OffContent="Wyłączone" OnContent="Włączone" HorizontalAlignment="Right" IsOn="{x:Bind Setting.TieBreak, Mode=TwoWay}"/>
-                </Grid>
-                <Grid Margin="10">
                     <TextBlock Text="Dodatkowe punkty za wygrany turniej:" HorizontalAlignment="Left"/>
                     <ToggleSwitch OffContent="Wyłączone" OnContent="Włączone" HorizontalAlignment="Right" IsOn="{x:Bind Setting.ExtraPointsForTournamentWon, Mode=TwoWay}"/>
                 </Grid>

@@ -21,9 +21,11 @@ namespace TenisRankingDatabase.Migrations
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
                     Nick = table.Column<string>(type: "TEXT", nullable: false),
                     Elo = table.Column<int>(type: "INTEGER", nullable: false),
-                    WinTournaments = table.Column<int>(type: "INTEGER", nullable: false),
                     TournamentsPoints = table.Column<int>(type: "INTEGER", nullable: false),
                     TournamentsPlayed = table.Column<int>(type: "INTEGER", nullable: false),
+                    Tournament1Place = table.Column<int>(type: "INTEGER", nullable: false),
+                    Tournament2Place = table.Column<int>(type: "INTEGER", nullable: false),
+                    Tournament3Place = table.Column<int>(type: "INTEGER", nullable: false),
                     WinMatches = table.Column<int>(type: "INTEGER", nullable: false),
                     LostMatches = table.Column<int>(type: "INTEGER", nullable: false),
                     Active = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -104,6 +106,7 @@ namespace TenisRankingDatabase.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     TournamentId = table.Column<long>(type: "INTEGER", nullable: false),
                     PlayerId = table.Column<long>(type: "INTEGER", nullable: false),
+                    Place = table.Column<int>(type: "INTEGER", nullable: false),
                     Active = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

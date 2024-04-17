@@ -58,14 +58,20 @@ namespace GameTools.Pages
                 case "Elo":
                     orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.Elo).ToList();
                     break;
-                case "Wygrane turnieje":
-                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.WinTournaments).ToList();
-                    break;
                 case "Punkty turniejowe":
                     orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.TournamentsPoints).ToList();
                     break;
                 case "Rozegrane turnieje":
                     orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.TournamentPlayers).ToList();
+                    break;
+                case "Pierwsze miejsca":
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.Tournament1Place).ToList();
+                    break;
+                case "Drugie miejsca":
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.Tournament2Place).ToList();
+                    break;
+                case "Trzecie miejsca":
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.Tournament3Place).ToList();
                     break;
                 case "Wygrane mecze":
                     orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.WinMatches).ToList();

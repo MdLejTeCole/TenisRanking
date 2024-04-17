@@ -51,6 +51,8 @@ public class CalculateMatchScore
             player2.MatchPoint = points.SecondPlayerScore;
             player1.WonSets = points.FirstPlayerSets;
             player2.WonSets = points.SecondPlayerSets;
+            player1.WonGames = points.FirstPlayerGames;
+            player2.WonGames = points.SecondPlayerGames;
             var winnerResult = GetWinnerResult(matchWinnerResult);
             player1.WinnerResult = winnerResult.Item1;
             player2.WinnerResult = winnerResult.Item2;
@@ -102,13 +104,13 @@ public class CalculateMatchScore
         return (firstPlayerMatchResult, secondPlayerMatchResult);
     }
 
-    private (int FirstPlayerScore, int FirstPlayerSets, int SecondPlayerScore, int SecondPlayerSets) CalculateMatchPointFirstPlayer(PlayerMatch player1, PlayerMatch player2, MatchWinnerResult matchWinnerResult)
+    private (int FirstPlayerScore, int FirstPlayerSets, int FirstPlayerGames, int SecondPlayerScore, int SecondPlayerSets, int SecondPlayerGames) CalculateMatchPointFirstPlayer(PlayerMatch player1, PlayerMatch player2, MatchWinnerResult matchWinnerResult)
     {
         var firstPlayer = 0;
         var secondPlayer = 0;
         if (matchWinnerResult == MatchWinnerResult.None)
         {
-            return (firstPlayer, 0, secondPlayer, 0);
+            return (firstPlayer, 0, 0, secondPlayer, 0, 0);
         }
         var sets = new List<bool?>
         {
@@ -141,7 +143,9 @@ public class CalculateMatchScore
         }
         var setsFirstPlayer = sets.Where(x => x == true).Count();
         var setsSecondPlayer = sets.Where(x => x == false).Count();
-        return (firstPlayer, setsFirstPlayer, secondPlayer, setsSecondPlayer);
+        var gamesFirstPlayer = player1.Set1 + player1.Set2 + player1.Set3 + player1.Set4 + player1.Set5;
+        var gamesSecondPlayer = player2.Set1 + player2.Set2 + player2.Set3 + player2.Set4 + player2.Set5;
+        return (firstPlayer, setsFirstPlayer, gamesFirstPlayer, secondPlayer, setsSecondPlayer, gamesSecondPlayer);
     }
 
     private bool? FirstPlayerWonSet(int? setFirstPlayer, int? setSecondPlayer)

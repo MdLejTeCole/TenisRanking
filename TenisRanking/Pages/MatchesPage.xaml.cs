@@ -201,7 +201,7 @@ namespace GameTools.Pages
                             .ThenInclude(x => x.Match)
                     .Where(x => x.TournamentId == _lastTournamentId)
                     .ToList();
-                foreach (var player in tournamentPlayers.OrderByDescending(x => x.CalculateTournamentScoreInt()))
+                foreach (var player in tournamentPlayers.OrderByDescending(x => x.CalculateTournamentScoreInt()).ThenByDescending(x => x.CalculateWonSets()).ThenByDescending(x => x.CalculateWonGems()))
                 {
                     Players.Add(player);
                 };

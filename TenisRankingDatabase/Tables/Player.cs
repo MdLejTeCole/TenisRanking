@@ -7,9 +7,11 @@ public class Player
     public string LastName { get; set; } = string.Empty;
     public string Nick { get; set; } = string.Empty;
     public int Elo { get; set; }
-    public int WinTournaments { get; set; }
     public int TournamentsPoints { get; set; }
     public int TournamentsPlayed { get; set; }
+    public int Tournament1Place { get; set; }
+    public int Tournament2Place { get; set; }
+    public int Tournament3Place { get; set; }
     public int WinMatches { get; set; }
     public int LostMatches { get; set; }
     public bool Active { get; set; } = true;
