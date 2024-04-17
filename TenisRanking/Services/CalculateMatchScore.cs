@@ -22,7 +22,7 @@ public class CalculateMatchScore
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
 
-    public bool CalculateAndSaveMatchScore(MatchDto matchDto, MatchResult matchResult, MatchWinnerResult matchWinnerResult)
+    public (bool Result, bool NeedRefresh) CalculateAndSaveMatchScore(MatchDto matchDto, MatchResult matchResult, MatchWinnerResult matchWinnerResult)
     {
         try
         {
@@ -30,6 +30,7 @@ public class CalculateMatchScore
                 .Include(x => x.PlayerMatches)
                     .ThenInclude(x => x.Player)
                 .First(x => x.Id == matchDto.Id);
+            var needRefresh = CheckNextMatchesWasGeneratedWithOtherWinner(matchDto, match, matchWinnerResult);
             var player1 = match.PlayerMatches.First(x => x.PlayerId == matchDto.Player1.Id);
             var player2 = match.PlayerMatches.First(x => x.PlayerId == matchDto.Player2.Id);
             match.MatchResult = matchResult;
@@ -55,12 +56,33 @@ public class CalculateMatchScore
             player2.WinnerResult = winnerResult.Item2;
             _dbContext.Matches.Update(match);
             _dbContext.SaveChanges();
-            return true;
+            return (true, needRefresh);
         }
         catch (Exception)
         {
-            return false;
+            return (false, false);
         }
+    }
+
+    private bool CheckNextMatchesWasGeneratedWithOtherWinner(MatchDto matchDto, Table.Match match, MatchWinnerResult matchWinnerResult)
+    {
+        if (matchDto.Confirmed && 
+            match.MatchWinnerResult is MatchWinnerResult.FirstPlayerWin or MatchWinnerResult.SecondPlayerWin &&
+            match.MatchWinnerResult != matchWinnerResult)
+        {
+            var playersMatches = _dbContext.PlayerMatches
+                .Include(x => x.Match)
+                .Where(x => x.Match.TournamentId == match.TournamentId && x.Match.Round == match.Round + 1 && !x.Match.Confirmed && (x.PlayerId == matchDto.Player1.Id || x.PlayerId == matchDto.Player2.Id));
+            if (playersMatches.Count() == 2)
+            {
+                var firstPlayerMatch = playersMatches.First(x => x.PlayerId == matchDto.Player1.Id);
+                var secondPlayerMatch = playersMatches.First(x => x.PlayerId == matchDto.Player2.Id);
+                firstPlayerMatch.PlayerId = matchDto.Player2.Id;
+                secondPlayerMatch.PlayerId = matchDto.Player1.Id;
+                return true;
+            }
+        }
+        return false;
     }
 
     private (WinnerResult, WinnerResult) GetWinnerResult(MatchWinnerResult matchWinnerResult)

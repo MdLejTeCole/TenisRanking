@@ -31,7 +31,6 @@ namespace GameTools.Controls
     {
         private readonly TenisRankingDbContext _dbContext;
         private readonly CalculateMatchScore _calculateMatchScore;
-        private readonly CalculateMatchElo _calculateMatchElo;
         private readonly MatchesPage _matchesPage;
 
         private MatchDto _match;
@@ -83,7 +82,6 @@ namespace GameTools.Controls
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _matchesPage = matchesPage ?? throw new ArgumentNullException(nameof(matchesPage));
             _calculateMatchScore = new CalculateMatchScore(_dbContext);
-            _calculateMatchElo = new CalculateMatchElo(_dbContext);
             Match = MatchDto.Create(_dbContext.Matches
                 .Include(x => x.PlayerMatches)
                     .ThenInclude(x => x.Player)
@@ -143,12 +141,17 @@ namespace GameTools.Controls
 
         private void ConfirmMatchResult(object sender, RoutedEventArgs e)
         {
-            var resultScore = _calculateMatchScore.CalculateAndSaveMatchScore(Match, MatchResult, MatchWinnerResult);
-            if (resultScore)
+            var result = _calculateMatchScore.CalculateAndSaveMatchScore(Match, MatchResult, MatchWinnerResult);
+            if (result.Result)
             {
+                Match.Confirmed = true;
                 Color = _greenColor;
             }
-            _matchesPage.ShowNotification(resultScore);
+            _matchesPage.ShowNotification(result.Result);
+            if (result.NeedRefresh)
+            {
+                _matchesPage.SetAfterChangePage();
+            }
         }
 
         private void DropDownMatchResult_Loaded(object sender, RoutedEventArgs e)

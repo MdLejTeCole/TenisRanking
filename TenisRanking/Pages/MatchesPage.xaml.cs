@@ -135,7 +135,7 @@ namespace GameTools.Pages
             SetAfterChangePage();
         }
 
-        private void SetAfterChangePage()
+        public void SetAfterChangePage()
         {
             _lastTournamentId = Tournament?.Id;
             SetPlayers();
@@ -182,6 +182,10 @@ namespace GameTools.Pages
                 if (matches.Any())
                 {
                     _round = matches.Last().Round;
+                }
+                else
+                {
+                    _round = 1;
                 }
             }
         }

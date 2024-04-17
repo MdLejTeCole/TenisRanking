@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Linq;
 using TenisRankingDatabase.Enums;
 using Table = TenisRankingDatabase.Tables;
 
@@ -15,6 +16,8 @@ public class MatchDto
 
     public static MatchDto Create(Table.Match match)
     {
+        var firstPlayer = match.PlayerMatches.OrderBy(x => x.Id).First();
+        var secondPlayer = match.PlayerMatches.OrderBy(x => x.Id).Last();
         return new MatchDto()
         {
             Id = match.Id,
@@ -23,29 +26,29 @@ public class MatchDto
             Confirmed = match.Confirmed,
             Player1 = new PlayerMatchDto()
             {
-                Id = match.PlayerMatches[0].Player.Id,
-                FirstName = match.PlayerMatches[0].Player.FirstName,
-                LastName = match.PlayerMatches[0].Player.LastName,
-                Nick = match.PlayerMatches[0].Player.Nick,
-                Set1 = match.PlayerMatches[0].Set1,
-                Set2 = match.PlayerMatches[0].Set2,
-                Set3 = match.PlayerMatches[0].Set3,
-                Set4 = match.PlayerMatches[0].Set4,
-                Set5 = match.PlayerMatches[0].Set5,
-                WinnerResult = match.PlayerMatches[0].WinnerResult,
+                Id = firstPlayer.Player.Id,
+                FirstName = firstPlayer.Player.FirstName,
+                LastName = firstPlayer.Player.LastName,
+                Nick = firstPlayer.Player.Nick,
+                Set1 = firstPlayer.Set1,
+                Set2 = firstPlayer.Set2,
+                Set3 = firstPlayer.Set3,
+                Set4 = firstPlayer.Set4,
+                Set5 = firstPlayer.Set5,
+                WinnerResult = firstPlayer.WinnerResult,
             },
             Player2 = new PlayerMatchDto()
             {
-                Id = match.PlayerMatches[1].Player.Id,
-                FirstName = match.PlayerMatches[1].Player.FirstName,
-                LastName = match.PlayerMatches[1].Player.LastName,
-                Nick = match.PlayerMatches[1].Player.Nick,
-                Set1 = match.PlayerMatches[1].Set1,
-                Set2 = match.PlayerMatches[1].Set2,
-                Set3 = match.PlayerMatches[1].Set3,
-                Set4 = match.PlayerMatches[1].Set4,
-                Set5 = match.PlayerMatches[1].Set5,
-                WinnerResult = match.PlayerMatches[1].WinnerResult,
+                Id = secondPlayer.Player.Id,
+                FirstName = secondPlayer.Player.FirstName,
+                LastName = secondPlayer.Player.LastName,
+                Nick = secondPlayer.Player.Nick,
+                Set1 = secondPlayer.Set1,
+                Set2 = secondPlayer.Set2,
+                Set3 = secondPlayer.Set3,
+                Set4 = secondPlayer.Set4,
+                Set5 = secondPlayer.Set5,
+                WinnerResult = secondPlayer.WinnerResult,
             }
         };
     }
