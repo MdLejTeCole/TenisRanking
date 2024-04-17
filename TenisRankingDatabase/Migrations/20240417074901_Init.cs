@@ -21,10 +21,11 @@ namespace TenisRankingDatabase.Migrations
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
                     Nick = table.Column<string>(type: "TEXT", nullable: false),
                     Elo = table.Column<int>(type: "INTEGER", nullable: false),
+                    WinTournaments = table.Column<int>(type: "INTEGER", nullable: false),
+                    TournamentsPoints = table.Column<int>(type: "INTEGER", nullable: false),
+                    TournamentsPlayed = table.Column<int>(type: "INTEGER", nullable: false),
                     WinMatches = table.Column<int>(type: "INTEGER", nullable: false),
                     LostMatches = table.Column<int>(type: "INTEGER", nullable: false),
-                    Draw = table.Column<int>(type: "INTEGER", nullable: false),
-                    WinTournaments = table.Column<int>(type: "INTEGER", nullable: false),
                     Active = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

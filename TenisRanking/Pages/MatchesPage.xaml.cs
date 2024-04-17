@@ -35,6 +35,7 @@ namespace GameTools.Pages
     {
         public ObservableCollection<TournamentPlayer> Players { get; set; } = new ObservableCollection<TournamentPlayer>();
         private MatchGenerationService _matchGenerationService;
+        private CalculateAfterEndTournament _calculateAfterEndTournament;
         private static long? _lastTournamentId;
         private static long? _minTournamentId;
         private static long? _maxTournamentId;
@@ -82,6 +83,7 @@ namespace GameTools.Pages
         protected override void GetValuesFromDatabase()
         {
             _matchGenerationService = new MatchGenerationService(DbContext);
+            _calculateAfterEndTournament = new CalculateAfterEndTournament(DbContext);
             if (_lastTournamentId is null)
             {
                 Tournament = DbContext.Tournaments.OrderBy(x => x.Id).LastOrDefault();
@@ -102,14 +104,23 @@ namespace GameTools.Pages
 
         private async void EndTournament(object sender, RoutedEventArgs e)
         {
-            var result = await ShowConfirmationDialog("Czy na pewno chcesz zakoñczyæ turniej?\nPo zakoñczeniu turnieju, nie mo¿na aktualizowaæ wyników meczy.");
-
-            if (result == ContentDialogResult.Primary)
+            if (DbContext.Matches.Where(x => x.TournamentId == _lastTournamentId).All(x => x.Confirmed))
             {
-                Tournament.Ended = true;
-                DbContext.Update(Tournament);
-                DbContext.SaveChanges();
+                var result = await ShowConfirmationDialog("Czy na pewno chcesz zakoñczyæ turniej?\nPo zakoñczeniu turnieju, nie mo¿na aktualizowaæ wyników meczy.");
+
+                if (result == ContentDialogResult.Primary)
+                {
+                    var tournamentResult = _calculateAfterEndTournament.CalculateAndSaveUpdatesForTournament(Tournament.Id);
+                    if (tournamentResult)
+                    {
+                        OnPropertyChanged(nameof(Tournament));
+                    }
+                }
             }
+            else
+            {
+                ShowInfoBar(MissingConfirmationInfoBar);
+            }  
         }
 
         private void PreviousTournament(object sender, RoutedEventArgs e)
@@ -156,7 +167,7 @@ namespace GameTools.Pages
         {
             for (int i = 1; i < 6; i++)
             {
-                var wrapPanel = GetWrapPanel(i);
+                var wrapPanel = GetWrapPanel(i, false);
                 wrapPanel.Children.Clear();
             }
             if (Tournament is not null)
@@ -237,26 +248,38 @@ namespace GameTools.Pages
             }
         }
 
-        private WrapPanel GetWrapPanel(int round)
+        private WrapPanel GetWrapPanel(int round, bool show = true)
         {
             switch (round)
             {
                 case 1:
                     return Matches1;
                 case 2:
-                    Round2.Visibility = Visibility.Visible;
+                    ShowOrHideRound(Round2, show);
                     return Matches2;
                 case 3:
-                    Round3.Visibility = Visibility.Visible;
+                    ShowOrHideRound(Round3, show);
                     return Matches3;
                 case 4:
-                    Round4.Visibility = Visibility.Visible;
+                    ShowOrHideRound(Round4, show);
                     return Matches4;
                 case 5:
-                    Round5.Visibility = Visibility.Visible;
+                    ShowOrHideRound(Round5, show);
                     return Matches5;
                 default:
                     return null;
+            }
+        }
+
+        private void ShowOrHideRound(TextBlock textblock, bool show)
+        {
+            if (show)
+            {
+                textblock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                textblock.Visibility = Visibility.Collapsed;
             }
         }
 

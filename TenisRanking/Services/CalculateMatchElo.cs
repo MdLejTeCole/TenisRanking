@@ -24,6 +24,7 @@ public class CalculateMatchElo
         {
             var match = _dbContext.Matches
                 .Include(x => x.PlayerMatches)
+                    .ThenInclude(x => x.Player)
                 .First(x => x.Id == matchId);
             if (match.MatchWinnerResult == MatchWinnerResult.None)
             {
@@ -35,9 +36,13 @@ public class CalculateMatchElo
             {
                 return true;
             }
-            var elo = CalculateEloReceivedForMatch(winPlayer.Elo, lostPlayer.Elo);
+            var elo = CalculateEloReceivedForMatch(winPlayer.Player.Elo, lostPlayer.Player.Elo);
+            winPlayer.Elo = winPlayer.Player.Elo;
+            lostPlayer.Elo = lostPlayer.Player.Elo;
             winPlayer.GrantedElo = elo.WinPlayerElo;
             lostPlayer.GrantedElo = elo.LostPlayerElo;
+            winPlayer.Player.Elo += elo.WinPlayerElo;
+            lostPlayer.Player.Elo += elo.LostPlayerElo;
             _dbContext.Update(match);
             _dbContext.SaveChanges();
             return true;

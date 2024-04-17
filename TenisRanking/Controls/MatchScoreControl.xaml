@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <local:NegateBooleanConverter x:Key="NegateBooleanConverter"/>
     </UserControl.Resources>
-    <Border BorderBrush="Green" BorderThickness="3" CornerRadius="10" Margin="10">
+    <Border BorderBrush="Green" BorderThickness="3" CornerRadius="4" Margin="10">
         <Grid Height="195" Width="500" Background="{x:Bind Color, Mode=OneWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />

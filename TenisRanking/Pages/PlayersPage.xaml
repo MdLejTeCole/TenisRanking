@@ -23,7 +23,7 @@
                 <controls:DataGridTemplateColumn Header="Edytuj">
                     <controls:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="Edit">Zapisz</Button>
+                            <Button Click="Edit" Padding="5">Zapisz</Button>
                         </DataTemplate>
                     </controls:DataGridTemplateColumn.CellTemplate>
                 </controls:DataGridTemplateColumn>

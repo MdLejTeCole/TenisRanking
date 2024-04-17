@@ -15,8 +15,10 @@ public class PlayersSeeder
     {
         _dbContext.Players.Add(new Player()
         {
+            FirstName = "Brak",
+            LastName = "Przeciwnika",
             Elo = 0,
-            Active = false
+            Active = false,
         });
         _dbContext.SaveChanges();
     }

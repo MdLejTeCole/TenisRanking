@@ -6,18 +6,19 @@
     xmlns:local="using:TenisRanking"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Title="Tenis Ranking">
 
-    <NavigationView x:Name="NavView" PaneTitle="Ranking tenisa" Loaded="NavView_Loaded" ItemInvoked="NavView_ItemInvoked" IsSettingsVisible="False" FontSize="40">
+    <NavigationView x:Name="NavView" PaneTitle="Ranking tenisa" Loaded="NavView_Loaded" ItemInvoked="NavView_ItemInvoked" IsSettingsVisible="False" FontSize="40" Background="YellowGreen">
         <NavigationView.MenuItems >
-            <NavigationViewItem Content="Ranking" FontSize="25" Margin="0,5"/>
-            <NavigationViewItem Content="Turniej" FontSize="25" Margin="0,5"/>
-            <NavigationViewItem Content="Mecze turnieju" FontSize="25" Margin="0,5"/>
-            <NavigationViewItem Content="Historia meczy" FontSize="25" Margin="0,5"/>
-            <NavigationViewItem Content="Zawodnicy" FontSize="25" Margin="0,5"/>
-            <NavigationViewItem Content="Dodaj zawodnika" FontSize="25" Margin="0,5"/>
-            <NavigationViewItem Content="Ustawienia" FontSize="25" Margin="0,5"/>
-            <NavigationViewItem Content="Informacje" FontSize="25" Margin="0,5"/>
+            <NavigationViewItem Content="Ranking" Icon="Favorite" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Turniej" Icon="Edit" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Mecze turnieju" Icon="SlideShow" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Historia meczy" Icon="View" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Zawodnicy" Icon="ContactInfo" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Dodaj zawodnika" Icon="AddFriend" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Ustawienia" Icon="Setting" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Informacje" Icon="ViewAll" FontSize="25" FontWeight="Bold" Margin="0,5"/>
         </NavigationView.MenuItems>
 
         <Frame x:Name="ContentFrame"/>

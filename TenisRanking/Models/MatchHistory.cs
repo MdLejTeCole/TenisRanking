@@ -47,7 +47,7 @@ public class MatchHistory
             Names = $"{player1.Player.FirstName} {player1.Player.LastName} ({player1.Player.FirstName})\n{player2.Player.Nick} {player2.Player.LastName} ({player2.Player.Nick})",
             WinnerResults = $"{player1.WinnerResult}\n{player2.WinnerResult}",
             Elos = $"{player1.Elo}\n{player2.Elo}",
-            GrantedElos = $"{player1.GrantedElo}\n{player2.GrantedElo}",
+            GrantedElos = $"+{player1.GrantedElo}\n {player2.GrantedElo}",
             Set1 = $"{player1.Set1}\n{player2.Set1}",
             Set2 = $"{player1.Set2}\n{player2.Set2}",
             Set3 = $"{player1.Set3}\n{player2.Set3}",

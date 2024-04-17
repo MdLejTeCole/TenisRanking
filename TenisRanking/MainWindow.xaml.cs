@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using GameTools.Pages;
 using Windows.Devices.Enumeration;
 using TenisRankingDatabase;
+using Windows.ApplicationModel.Core;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -24,7 +25,7 @@ namespace TenisRanking
 
         private void NavView_Loaded(object sender, RoutedEventArgs e)
         {
-            ContentFrame.Navigate(typeof(PlayersPage), _context);
+            ContentFrame.Navigate(typeof(RankingPage), _context);
         }
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)

@@ -54,9 +54,6 @@ namespace TenisRankingDatabase.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Draw")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("Elo")
                         .HasColumnType("INTEGER");
 
@@ -74,6 +71,12 @@ namespace TenisRankingDatabase.Migrations
                     b.Property<string>("Nick")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("TournamentsPlayed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TournamentsPoints")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("WinMatches")
                         .HasColumnType("INTEGER");

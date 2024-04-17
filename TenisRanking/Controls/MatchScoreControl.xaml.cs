@@ -144,12 +144,11 @@ namespace GameTools.Controls
         private void ConfirmMatchResult(object sender, RoutedEventArgs e)
         {
             var resultScore = _calculateMatchScore.CalculateAndSaveMatchScore(Match, MatchResult, MatchWinnerResult);
-            var resultElo = _calculateMatchElo.CalculateAndSaveMatchElo(Match.Id);
-            if (resultScore && resultElo)
+            if (resultScore)
             {
                 Color = _greenColor;
             }
-            _matchesPage.ShowNotification(resultScore && resultElo);
+            _matchesPage.ShowNotification(resultScore);
         }
 
         private void DropDownMatchResult_Loaded(object sender, RoutedEventArgs e)

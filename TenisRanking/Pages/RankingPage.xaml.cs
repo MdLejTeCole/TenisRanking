@@ -34,7 +34,7 @@ namespace GameTools.Pages
         protected override void GetValuesFromDatabase()
         {
             MyDataGrid.ItemsSource = null;
-            MyDataGrid.ItemsSource = DbContext.Players.Where(x => x.Id > 1 && x.Active).OrderBy(x => x.Elo).ToList();
+            MyDataGrid.ItemsSource = DbContext.Players.Where(x => x.Id > 1 && x.Active).OrderByDescending(x => x.Elo).ToList();
         }
 
         private void MyDataGrid_Sorting(object sender, DataGridColumnEventArgs e)
@@ -58,17 +58,20 @@ namespace GameTools.Pages
                 case "Elo":
                     orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.Elo).ToList();
                     break;
+                case "Wygrane turnieje":
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.WinTournaments).ToList();
+                    break;
+                case "Punkty turniejowe":
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.TournamentsPoints).ToList();
+                    break;
+                case "Rozegrane turnieje":
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.TournamentPlayers).ToList();
+                    break;
                 case "Wygrane mecze":
                     orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.WinMatches).ToList();
                     break;
                 case "Przegrane mecze":
                     orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.LostMatches).ToList();
-                    break;
-                case "Remisy":
-                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.Draw).ToList();
-                    break;
-                case "Wygrane turnieje":
-                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.WinTournaments).ToList();
                     break;
             }
             if (orderPlayers != null)

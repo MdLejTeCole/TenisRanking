@@ -18,10 +18,11 @@
                 <controls:DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" />
                 <controls:DataGridTextColumn Header="Pseudonim" Binding="{Binding Nick}" />
                 <controls:DataGridTextColumn Header="Elo" Binding="{Binding Elo}" />
+                <controls:DataGridTextColumn Header="Wygrane turnieje" Binding="{Binding WinTournaments}" />
+                <controls:DataGridTextColumn Header="Punkty turniejowe" Binding="{Binding TournamentsPoints}" />
+                <controls:DataGridTextColumn Header="Rozegrane turnieje" Binding="{Binding TournamentsPlayed}" />
                 <controls:DataGridTextColumn Header="Wygrane mecze" Binding="{Binding WinMatches}" />
                 <controls:DataGridTextColumn Header="Przegrane mecze" Binding="{Binding LostMatches}" />
-                <controls:DataGridTextColumn Header="Remisy" Binding="{Binding Draw}" />
-                <controls:DataGridTextColumn Header="Wygrane turnieje" Binding="{Binding WinTournaments}" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
     </Grid>

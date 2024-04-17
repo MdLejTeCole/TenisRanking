@@ -24,9 +24,9 @@
         <TextBox x:Name="Name" PlaceholderText="Nazwa turnieju" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="500" FontSize="30" Margin="10" LostFocus="Name_LostFocus"></TextBox>
         <Grid Grid.Column="0" Grid.Row="1">
             <StackPanel HorizontalAlignment="Stretch">
-                <TextBlock Text="Dodaj zawodników:" FontSize="25" Margin="10" HorizontalAlignment="Center"/>
+                <TextBlock Text="Dodaj zawodników" FontSize="30" Margin="10" HorizontalAlignment="Center"/>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView x:Name="playerListView" ItemsSource="{x:Bind Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="500">
+                    <ListView x:Name="playerListView" ItemsSource="{x:Bind Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="800">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="player:Player">
                                 <Grid>
@@ -63,7 +63,7 @@
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <StackPanel>
-                <TextBlock Text="Ustawienia" HorizontalAlignment="Center"/>
+                <TextBlock Text="Ustawienia" FontSize="30" Margin="10" HorizontalAlignment="Center"/>
                 <!--<Grid Margin="10">
                     <TextBlock Text="Wszystkie mecze:" FontSize="20" HorizontalAlignment="Left"/>
                     <ToggleSwitch OffContent="Wyłączone" OnContent="Włączone" HorizontalAlignment="Right" IsOn="{x:Bind Tournament.AllMatches, Mode=TwoWay}"/>

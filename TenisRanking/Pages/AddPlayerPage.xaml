@@ -13,7 +13,7 @@
     <Grid>
         <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="600">
             <StackPanel>
-                <TextBlock Text="Dodaj zawodnika" HorizontalAlignment="Center"/>
+                <TextBlock Text="Dodaj zawodnika" HorizontalAlignment="Center" Margin="0,20"/>
                 <Grid Margin="10">
                     <TextBlock Text="Imię:" HorizontalAlignment="Left"/>
                     <TextBox x:Name="FirstName"  PlaceholderText="Imię" FontSize="30" Width="300" HorizontalAlignment="Right"/>
@@ -26,7 +26,7 @@
                     <TextBlock Text="Pseudonim:" HorizontalAlignment="Left"/>
                     <TextBox x:Name="Nick" PlaceholderText="Pseudonim" FontSize="30" Width="300" HorizontalAlignment="Right"/>
                 </Grid>
-                <Button Content="Dodaj" FontWeight="Bold" FontSize="30" Click="AddPlayer" HorizontalAlignment="Center"></Button>
+                <Button Content="Dodaj" FontWeight="Bold" FontSize="30" Click="AddPlayer" Width="200" HorizontalAlignment="Center" Margin="0,20"></Button>
             </StackPanel>
         </Grid>
 
