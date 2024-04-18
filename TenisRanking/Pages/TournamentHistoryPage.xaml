@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<local:ExtendedPage
+    x:Class="GameTools.Pages.TournamentHistoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GameTools.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <controls:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                <controls:DataGridTextColumn Header="Nazwa" Binding="{Binding Name}" />
+                <controls:DataGridTextColumn Header="Data" Binding="{Binding Date}" />
+                <controls:DataGridTextColumn Header="Ilość setów" Binding="{Binding NumberOfSets}" />
+                <controls:DataGridTextColumn Header="Średnie elo" Binding="{Binding AvarageElo}" />
+                <controls:DataGridTextColumn Header="Elo" Binding="{Binding Elos}" />
+                <controls:DataGridTextColumn Header="Dodatkowe punkty" Binding="{Binding ExtraPointsForTournamentWon}" />
+                <controls:DataGridTextColumn Header="Punkty za 1 miejsce" Binding="{Binding ExtraPoints1Place}" />
+                <controls:DataGridTextColumn Header="Punkty za 2 miejsce" Binding="{Binding ExtraPoints2Place}" />
+                <controls:DataGridTextColumn Header="Punkty za 3 miejsce" Binding="{Binding ExtraPoints3Place}" />
+                <controls:DataGridTextColumn Header="M 1" Binding="{Binding Players[0]}" />
+                <controls:DataGridTextColumn Header="M 2" Binding="{Binding Players[1]}" />
+                <controls:DataGridTextColumn Header="M 3" Binding="{Binding Players[2]}" />
+                <controls:DataGridTextColumn Header="M 4" Binding="{Binding Players[3]}" />
+                <controls:DataGridTextColumn Header="M 5" Binding="{Binding Players[4]}" />
+                <controls:DataGridTextColumn Header="M 6" Binding="{Binding Players[5]}" />
+                <controls:DataGridTextColumn Header="M 7" Binding="{Binding Players[6]}" />
+                <controls:DataGridTextColumn Header="M 8" Binding="{Binding Players[7]}" />
+                <controls:DataGridTextColumn Header="M 9" Binding="{Binding Players[8]}" />
+                <controls:DataGridTextColumn Header="M 10" Binding="{Binding Players[9]}" />
+                <controls:DataGridTextColumn Header="M 11" Binding="{Binding Players[10]}" />
+                <controls:DataGridTextColumn Header="M 12" Binding="{Binding Players[11]}" />
+                <controls:DataGridTextColumn Header="M 13" Binding="{Binding Players[12]}" />
+                <controls:DataGridTextColumn Header="M 14" Binding="{Binding Players[13]}" />
+                <controls:DataGridTextColumn Header="M 15" Binding="{Binding Players[14]}" />
+                <controls:DataGridTextColumn Header="M 16" Binding="{Binding Players[15]}" />
+                <controls:DataGridTextColumn Header="M 17" Binding="{Binding Players[16]}" />
+                <controls:DataGridTextColumn Header="M 18" Binding="{Binding Players[17]}" />
+                <controls:DataGridTextColumn Header="M 19" Binding="{Binding Players[18]}" />
+                <controls:DataGridTextColumn Header="M 120" Binding="{Binding Players[19]}" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+    </Grid>
+</local:ExtendedPage>

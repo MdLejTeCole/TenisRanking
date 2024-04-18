@@ -13,6 +13,7 @@
         <NavigationView.MenuItems >
             <NavigationViewItem Content="Ranking" Icon="Favorite" FontSize="25" FontWeight="Bold" Margin="0,5"/>
             <NavigationViewItem Content="Turniej" Icon="Edit" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Historia turniejów" Icon="View" FontSize="25" FontWeight="Bold" Margin="0,5"/>
             <NavigationViewItem Content="Mecze turnieju" Icon="SlideShow" FontSize="25" FontWeight="Bold" Margin="0,5"/>
             <NavigationViewItem Content="Historia meczy" Icon="View" FontSize="25" FontWeight="Bold" Margin="0,5"/>
             <NavigationViewItem Content="Zawodnicy" Icon="ContactInfo" FontSize="25" FontWeight="Bold" Margin="0,5"/>

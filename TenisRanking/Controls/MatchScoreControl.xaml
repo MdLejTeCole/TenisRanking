@@ -79,7 +79,7 @@
                     <DropDownButton.Flyout>
                         <MenuFlyout Placement="Bottom">
                             <MenuFlyoutItem Text="Brak" Tag="{x:Bind enums:MatchWinnerResult.None}" Click="UpdateWinnerResult"/>
-                            <MenuFlyoutItem Text="Wygrana pierszy zawodnik" Tag="{x:Bind enums:MatchWinnerResult.FirstPlayerWin}" Click="UpdateWinnerResult"/>
+                            <MenuFlyoutItem Text="Wygrana pierwszy zawodnik" Tag="{x:Bind enums:MatchWinnerResult.FirstPlayerWin}" Click="UpdateWinnerResult"/>
                             <MenuFlyoutItem Text="Wygrana drugi zawodnik" Tag="{x:Bind enums:MatchWinnerResult.SecondPlayerWin}" Click="UpdateWinnerResult"/>
                         </MenuFlyout>
                     </DropDownButton.Flyout>

@@ -54,6 +54,17 @@ namespace GameTools.Pages
             this.InitializeComponent();
         }
 
+        private int _avarageElo;
+
+        public int AvarageElo
+        {
+            get { return _avarageElo; }
+            set { _avarageElo = value;
+                OnPropertyChanged(nameof(AvarageElo));
+            }
+        }
+
+
         protected override void GetValuesFromDatabase()
         {        
             CreateNewTournament();
@@ -67,7 +78,6 @@ namespace GameTools.Pages
             Tournament = new Tournament()
             {
                 NumberOfSets = settings.NumberOfSets,
-                TieBreak = settings.TieBreak,
                 ExtraPointsForTournamentWon = settings.ExtraPointsForTournamentWon,
                 ExtraPoints1Place = settings.ExtraPoints1Place,
                 ExtraPoints2Place = settings.ExtraPoints2Place,
@@ -106,6 +116,7 @@ namespace GameTools.Pages
                 Players.Add(player);
                 _allPlayers.Remove(player);
                 sender.Text = "";
+                AvarageElo = (int)Players.Select(x => x.Elo).Average();
             }
         }
 
@@ -130,6 +141,7 @@ namespace GameTools.Pages
                 }
                 var transaction = DbContext.Database.BeginTransaction();
                 Tournament.Name = Name.Text;
+                Tournament.AvarageElo = AvarageElo;
                 if (!_isUpdate)
                 {
                     Tournament.Date = DateOnly.FromDateTime(DateTime.UtcNow);

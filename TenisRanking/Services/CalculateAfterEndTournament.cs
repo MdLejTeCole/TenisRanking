@@ -47,10 +47,18 @@ public class CalculateAfterEndTournament
             .Include(x => x.Player)
                 .ThenInclude(x => x.PlayerMatches)
             .Where(x => x.TournamentId == tournamentId);
+        var tournament = _dbContext.Tournaments.First(x => x.Id == tournamentId);
         int place = 1;
         foreach (var player in players.ToList().OrderByDescending(x => x.CalculateTournamentScoreInt()).ThenByDescending(x => x.CalculateWonSets()).ThenByDescending(x => x.CalculateWonGems()))
         {
             var playerMatches = matches.Where(x => x.PlayerId == player.PlayerId);
+            if (tournament.ExtraPointsForTournamentWon)
+            {
+                player.Player.Elo += place == 1 ? tournament.ExtraPoints1Place : 0;
+                player.Player.Elo += place == 2 ? tournament.ExtraPoints2Place : 0;
+                player.Player.Elo += place == 3 ? tournament.ExtraPoints3Place : 0;
+            }
+            player.Place = place;
             player.Player.Tournament1Place += place == 1 ? 1 : 0;
             player.Player.Tournament2Place += place == 2 ? 1 : 0;
             player.Player.Tournament3Place += place == 3 ? 1 : 0;

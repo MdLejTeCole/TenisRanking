@@ -11,7 +11,7 @@ using TenisRankingDatabase;
 namespace TenisRankingDatabase.Migrations
 {
     [DbContext(typeof(TenisRankingDbContext))]
-    [Migration("20240417130725_Init")]
+    [Migration("20240418141746_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -197,6 +197,9 @@ namespace TenisRankingDatabase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("AvarageElo")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateOnly>("Date")
                         .HasColumnType("TEXT");
 
@@ -220,9 +223,6 @@ namespace TenisRankingDatabase.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("NumberOfSets")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("TieBreak")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

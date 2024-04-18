@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommunityToolkit.WinUI.UI.Controls.TextToolbarSymbols;
+using GameTools.Services;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TenisRankingDatabase.Enums;
@@ -12,6 +14,7 @@ public class MatchHistory
     public long Id { get; set; }
     public string TournmentName { get; set; }
     public DateOnly TournmentDate { get; set; }
+    public string MatchResult { get; set; }
     public string Names { get; set; }
     public string WinnerResults { get; set; }
     public string GrantedElos { get; set; }
@@ -44,8 +47,9 @@ public class MatchHistory
             Id = match.Id,
             TournmentName = match.Tournament.Name,
             TournmentDate = match.Tournament.Date,
+            MatchResult = Translation.MatchResultTranslation[match.MatchResult],
             Names = $"{player1.Player.FirstName} {player1.Player.LastName} ({player1.Player.FirstName})\n{player2.Player.Nick} {player2.Player.LastName} ({player2.Player.Nick})",
-            WinnerResults = $"{player1.WinnerResult}\n{player2.WinnerResult}",
+            WinnerResults = $"{Translation.WinnerResultTranslation[player1.WinnerResult]}\n{Translation.WinnerResultTranslation[player2.WinnerResult]}",
             Elos = $"{player1.Elo}\n{player2.Elo}",
             GrantedElos = $"+{player1.GrantedElo}\n {player2.GrantedElo}",
             Set1 = $"{player1.Set1}\n{player2.Set1}",

@@ -63,7 +63,7 @@ namespace TenisRankingDatabase.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Date = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     NumberOfSets = table.Column<int>(type: "INTEGER", nullable: false),
-                    TieBreak = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AvarageElo = table.Column<int>(type: "INTEGER", nullable: false),
                     ExtraPointsForTournamentWon = table.Column<bool>(type: "INTEGER", nullable: false),
                     ExtraPoints1Place = table.Column<int>(type: "INTEGER", nullable: false),
                     ExtraPoints2Place = table.Column<int>(type: "INTEGER", nullable: false),
