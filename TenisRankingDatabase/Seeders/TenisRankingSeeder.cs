@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using TenisRankingDatabase.Enums;
 
 namespace TenisRankingDatabase.Seeders;
 
@@ -31,6 +32,17 @@ public class TenisRankingSeeder
         if (!_dbContext.Players.Any())
         {
             _playersSeeder.Seed();
+        }
+
+        var tournaments = _dbContext.Tournaments.Where(x => x.Ended && x.TournamentStatus != TournamentStatus.Ended).ToList();
+        if (tournaments.Any())
+        {
+            foreach (var item in tournaments)
+            {
+                item.TournamentStatus = TournamentStatus.Ended;
+            }
+            _dbContext.Tournaments.UpdateRange(tournaments);
+            _dbContext.SaveChanges();
         }
 
         UpdateDatabase();

@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TenisRankingDatabase;
+using TenisRankingDatabase.Enums;
 using TenisRankingDatabase.Tables;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -194,7 +195,7 @@ namespace GameTools.Pages
 
             if (tournament != null)
             {
-                if (tournament.Ended)
+                if (tournament.TournamentStatus == TournamentStatus.Ended)
                 {
                     await ShowInformationDialog($"Intnieje juz turniej zakoñczony turniej o takiej nazwie {tournament.Name}. Zmieñ nazwe turnieju na unikaln¹");
                     return;

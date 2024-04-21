@@ -10,3 +10,10 @@ public enum MatchResult
     Walkover,
     JudgesDecision //decyzja sedziow
 }
+
+public enum TournamentStatus
+{
+    Started,
+    Ended,
+    Cancelled
+}

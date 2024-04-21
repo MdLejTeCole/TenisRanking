@@ -26,7 +26,7 @@ public class CalculateAfterEndTournament
             UpdateElo(tournamentId);
             UpdateScore(tournamentId);
             var tournament = _dbContext.Tournaments.First(x => x.Id == tournamentId);
-            tournament.Ended = true;
+            tournament.TournamentStatus = TournamentStatus.Ended;
             _dbContext.Update(tournament);
             _dbContext.SaveChanges();
             transaction.Commit();

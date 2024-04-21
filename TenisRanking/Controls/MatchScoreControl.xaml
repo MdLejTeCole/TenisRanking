@@ -59,7 +59,7 @@
 
             <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
                 <TextBlock Text="Wynik:" FontSize="20" Margin="10,0,29,0"/>
-                <DropDownButton  x:Name="DropDownMatchResult" Content="Nierozstrzygnięty" Margin="5,0,0,0" Loaded="DropDownMatchResult_Loaded">
+                <DropDownButton x:Name="DropDownMatchResult" Content="Nierozstrzygnięty" Margin="5,0,0,0" Loaded="DropDownMatchResult_Loaded">
                     <DropDownButton.Flyout>
                         <MenuFlyout Placement="Bottom">
                             <MenuFlyoutItem Text="Nierozstrzygnięty" Tag="{x:Bind enums:MatchResult.Unsolved}" Click="UpdateMatchResult"/>

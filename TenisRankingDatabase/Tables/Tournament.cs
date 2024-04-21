@@ -1,4 +1,6 @@
-﻿namespace TenisRankingDatabase.Tables;
+﻿using TenisRankingDatabase.Enums;
+
+namespace TenisRankingDatabase.Tables;
 
 public class Tournament
 {
@@ -12,6 +14,7 @@ public class Tournament
     public int ExtraPoints2Place { get; set; }
     public int ExtraPoints3Place { get; set; }
     public bool Ended { get; set; }
+    public TournamentStatus TournamentStatus { get; set; }
     public virtual List<TournamentPlayer> TournamentPlayers { get; set; } = null!;
     public virtual List<Match> Matches { get; set; } = null!;
 }

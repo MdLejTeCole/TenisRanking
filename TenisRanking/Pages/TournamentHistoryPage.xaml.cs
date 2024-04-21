@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TenisRankingDatabase.Enums;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -36,7 +37,7 @@ namespace GameTools.Pages
             var tournamentsHistory = DbContext.Tournaments
                 .Include(x => x.TournamentPlayers)
                     .ThenInclude(x => x.Player)
-                .Where(x => x.Ended)
+                .Where(x => x.TournamentStatus == TournamentStatus.Ended)
                 .OrderByDescending(x => x.Id)
                 .Select(x => TournamentHistory.Create(x));
             MyDataGrid.ItemsSource = tournamentsHistory;

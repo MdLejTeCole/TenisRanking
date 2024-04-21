@@ -30,8 +30,9 @@
             <Button Content="&lt;" FontSize="40" HorizontalAlignment="Center" Padding="0, -10, 0, 0" Width="50" Height="50" Margin="0,0,600,0" Click="PreviousTournament" IsEnabled="{x:Bind IsPreviousButtonEnabled, Mode=OneWay}"></Button>
             <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock FontSize="30" Margin="10" Text="{x:Bind Tournament.Name, Mode=OneWay}" HorizontalAlignment="Center"/>
-                <TextBlock FontSize="30" Text="(" Margin="5" HorizontalAlignment="Center"/>
                 <TextBlock FontSize="30" Margin="10" Text="{x:Bind Tournament.Date, Mode=OneWay}"/>
+                <TextBlock FontSize="30" Text="(" Margin="5" HorizontalAlignment="Center"/>
+                <TextBlock FontSize="30" Text="{x:Bind TournamentStatusTranslation, Mode=OneWay}" Margin="5" HorizontalAlignment="Center"/>
                 <TextBlock FontSize="30" Text=")" Margin="5" HorizontalAlignment="Center"/>
             </StackPanel>
             <Button Content=">" FontSize="40" HorizontalAlignment="Center" Padding="0, -10, 0, 0" Width="50" Height="50"  Margin="600,0,0,0" Click="NextTournament" IsEnabled="{x:Bind IsNextButtonEnabled, Mode=OneWay}"></Button>
@@ -39,8 +40,8 @@
         <Grid Grid.Row="1">
             <StackPanel>
                 <TextBlock Text="Zawodnicy" FontSize="25" Margin="10" HorizontalAlignment="Center"/>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" IsEnabled="{x:Bind Tournament.Ended, Mode=OneWay, Converter={StaticResource NegateBooleanConverter}}">
-                    <ListView x:Name="playerListView" ItemsSource="{x:Bind Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="700">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListView x:Name="playerListView" ItemsSource="{x:Bind Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="700" IsEnabled="{x:Bind IsEnable, Mode=OneWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="player:TournamentPlayer">
                                 <Grid>
@@ -80,30 +81,35 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" IsEnabled="{x:Bind Tournament.Ended, Mode=OneWay, Converter={StaticResource NegateBooleanConverter}}">
-                <Border Background="Transparent">
-                    <StackPanel>
-                        <TextBlock Text="Runda 1" HorizontalAlignment="Center"/>
-                        <controls:WrapPanel x:Name="Matches1" HorizontalAlignment="Center">
-                        </controls:WrapPanel>
-                        <TextBlock x:Name="Round2" Text="Runda 2" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(2)}"/>
-                        <controls:WrapPanel x:Name="Matches2" HorizontalAlignment="Center">
-                        </controls:WrapPanel>
-                        <TextBlock x:Name="Round3" Text="Runda 3" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(3)}"/>
-                        <controls:WrapPanel x:Name="Matches3" HorizontalAlignment="Center">
-                        </controls:WrapPanel>
-                        <TextBlock x:Name="Round4" Text="Runda 4" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(4)}"/>
-                        <controls:WrapPanel x:Name="Matches4" HorizontalAlignment="Center">
-                        </controls:WrapPanel>
-                        <TextBlock x:Name="Round5" Text="Runda 5" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(5)}"/>
-                        <controls:WrapPanel x:Name="Matches5" HorizontalAlignment="Center">
-                        </controls:WrapPanel>
-                    </StackPanel>
-                </Border>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ContentControl IsEnabled="{x:Bind IsEnable, Mode=OneWay}">
+                    <Border Background="Transparent">
+                        <StackPanel>
+                            <TextBlock Text="Runda 1" HorizontalAlignment="Center"/>
+                            <controls:WrapPanel x:Name="Matches1" HorizontalAlignment="Center">
+                            </controls:WrapPanel>
+                            <TextBlock x:Name="Round2" Text="Runda 2" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(2)}"/>
+                            <controls:WrapPanel x:Name="Matches2" HorizontalAlignment="Center">
+                            </controls:WrapPanel>
+                            <TextBlock x:Name="Round3" Text="Runda 3" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(3)}"/>
+                            <controls:WrapPanel x:Name="Matches3" HorizontalAlignment="Center">
+                            </controls:WrapPanel>
+                            <TextBlock x:Name="Round4" Text="Runda 4" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(4)}"/>
+                            <controls:WrapPanel x:Name="Matches4" HorizontalAlignment="Center">
+                            </controls:WrapPanel>
+                            <TextBlock x:Name="Round5" Text="Runda 5" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(5)}"/>
+                            <controls:WrapPanel x:Name="Matches5" HorizontalAlignment="Center">
+                            </controls:WrapPanel>
+                        </StackPanel>
+                    </Border>
+                </ContentControl>
             </ScrollViewer>
         </Grid>
-        <Button Grid.Row="2" Content="Generuj mecze" FontWeight="Bold" FontSize="30" Click="GenerateMatches" HorizontalAlignment="Left" Margin="10" IsEnabled="{x:Bind Tournament.Ended, Mode=OneWay, Converter={StaticResource NegateBooleanConverter}}"></Button>
-        <Button Grid.Row="2" Grid.Column="2" Content="Zakończ turniej" FontWeight="Bold" FontSize="30" Click="EndTournament" HorizontalAlignment="Center" Margin="10" IsEnabled="{x:Bind Tournament.Ended, Mode=OneWay, Converter={StaticResource NegateBooleanConverter}}"></Button>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Button Content="Generuj mecze" FontWeight="Bold" FontSize="30" Click="GenerateMatches" Margin="200,10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
+            <Button Content="Anuluj turniej" FontWeight="Bold" FontSize="30" Click="CancelTournament" Margin="20,10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
+            <Button Content="Zakończ turniej" FontWeight="Bold" FontSize="30" Click="EndTournament" Margin="20, 10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
+        </StackPanel>
         <controls2:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MissingConfirmationInfoBar" Title="Błąd" Severity="Warning" IsOpen="False">
             <TextBlock Text="Zapisz wszystkie wyniki zanim wygenerujesz nowe mecze."/>
         </controls2:InfoBar>

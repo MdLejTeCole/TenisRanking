@@ -22,6 +22,7 @@ using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.Extensions.FileSystemGlobbing;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using TenisRankingDatabase.Enums;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -79,6 +80,26 @@ namespace GameTools.Pages
             }
         }
 
+        private bool _isEnable;
+
+        public bool IsEnable
+        {
+            get { return _isEnable; }
+            set { _isEnable = value;
+                OnPropertyChanged(nameof(IsEnable));
+            }
+        }
+
+        private string _tournamentStatus;
+
+        public string TournamentStatusTranslation
+        {
+            get { return _tournamentStatus; }
+            set { _tournamentStatus = value;
+                OnPropertyChanged(nameof(TournamentStatusTranslation));
+            }
+        }
+
 
         protected override void GetValuesFromDatabase()
         {
@@ -113,7 +134,8 @@ namespace GameTools.Pages
                     var tournamentResult = _calculateAfterEndTournament.CalculateAndSaveUpdatesForTournament(Tournament.Id);
                     if (tournamentResult)
                     {
-                        OnPropertyChanged(nameof(Tournament));
+                        IsEnable = false;
+                        SetTranslationTournamentStatus(TournamentStatus.Ended);
                     }
                 }
             }
@@ -141,6 +163,25 @@ namespace GameTools.Pages
             SetPlayers();
             SetEnableForButton();
             GetExistingMatches();
+            SetEnable();
+        }
+
+        private void SetEnable()
+        {
+            if (Tournament != null)
+            {
+                SetTranslationTournamentStatus(Tournament.TournamentStatus);
+            }
+            if (Tournament == null || Tournament.TournamentStatus != TournamentStatus.Started)
+            {
+                IsEnable = false;
+
+            }
+            else
+            {
+                IsEnable = true;
+            }
+
         }
 
         private void SetEnableForButton()
@@ -305,6 +346,37 @@ namespace GameTools.Pages
             else
             {
                 return Visibility.Collapsed;
+            }
+        }
+
+        private async void CancelTournament(object sender, RoutedEventArgs e)
+        {
+            var result = await ShowConfirmationDialog("Czy na pewno chcesz anulowaæ turniej?\nPo anulowaniu turnieju, punkty oraz elo meczy nie zostanie podliczone.");
+
+            if (result == ContentDialogResult.Primary)
+            {
+                Tournament.TournamentStatus = TournamentStatus.Cancelled;
+                DbContext.Tournaments.Update(Tournament);
+                DbContext.SaveChanges();
+                IsEnable = false;
+                SetTranslationTournamentStatus(TournamentStatus.Cancelled);
+            }
+
+        }
+
+        private void SetTranslationTournamentStatus(TournamentStatus tournamentStatus)
+        {
+            switch (tournamentStatus)
+            {
+                case TournamentStatus.Started:
+                    TournamentStatusTranslation = "Rozpoczêty";
+                    break;
+                case TournamentStatus.Ended:
+                    TournamentStatusTranslation = "Zakoñczony";
+                    break;
+                case TournamentStatus.Cancelled:
+                    TournamentStatusTranslation = "Anulowany";
+                    break;
             }
         }
     }

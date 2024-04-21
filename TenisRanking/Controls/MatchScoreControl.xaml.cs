@@ -21,6 +21,8 @@ using GameTools.Services;
 using GameTools.Pages;
 using Microsoft.UI;
 using GameTools.Models;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -47,6 +49,7 @@ namespace GameTools.Controls
                 }
             }
         }
+
         private SolidColorBrush _defaultColor = new SolidColorBrush(Colors.DarkGray);
         private SolidColorBrush _greenColor = new SolidColorBrush(Colors.YellowGreen);
         private SolidColorBrush _yellowColor = new SolidColorBrush(Colors.SandyBrown);
@@ -65,6 +68,7 @@ namespace GameTools.Controls
             }
         }
 
+        public int Sets { get; set; }
         public bool Set2Enabled { get; set; }
         public bool Set3Enabled { get; set; }
 
@@ -72,6 +76,7 @@ namespace GameTools.Controls
 
         public MatchResult MatchResult { get; set; }
         public MatchWinnerResult MatchWinnerResult { get; set; }
+
         public MatchScoreControl()
         {
             this.InitializeComponent();
@@ -92,6 +97,7 @@ namespace GameTools.Controls
                 MatchWinnerResult = Match.MatchWinnerResult;
             }
             var tournament = _dbContext.Matches.Include(x => x.Tournament).Select(x => x.Tournament).First();
+            Sets = tournament.NumberOfSets;
             Set2Enabled = tournament.NumberOfSets >= 2;
             Set3Enabled = tournament.NumberOfSets >= 3;
             Loaded += Page_Loaded;
@@ -186,7 +192,7 @@ namespace GameTools.Controls
             }
         }
 
-        private void NumberBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        private async  void NumberBox_ValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
         {
             if (Double.IsNaN(sender.Value))
             {
@@ -194,6 +200,60 @@ namespace GameTools.Controls
                 sender.Text = "0";
             }
             Color = _yellowColor;
+
+            await Task.Delay(200);
+
+            UpdateWinner();
+        }
+
+        private void UpdateWinner()
+        { 
+            if (_match.Confirmed)
+            {
+                return;
+            }
+            var sets = new List<bool?>
+            {
+                FirstPlayerWonSet(_match.Player1.Set1, _match.Player2.Set1),
+                FirstPlayerWonSet(_match.Player1.Set2, _match.Player2.Set2),
+                FirstPlayerWonSet(_match.Player1.Set3, _match.Player2.Set3),
+                FirstPlayerWonSet(_match.Player1.Set4, _match.Player2.Set4),
+                FirstPlayerWonSet(_match.Player1.Set5, _match.Player2.Set5)
+            };
+            if (sets.All(x => !x.HasValue))
+            {
+                return;
+            }
+            else if (sets.Where(x => x.HasValue && x.Value == true).Count() > sets.Where(x => x.HasValue && x.Value == false).Count() && sets.Where(x => x.HasValue && x.Value == true).Count() == Sets)
+            {
+                MatchResult = MatchResult.Finished;
+                MatchWinnerResult = MatchWinnerResult.FirstPlayerWin;
+                DropDownMatchResult_Loaded(DropDownMatchResult, null);
+                WinnerResultMatchResult_Loaded(WinnerResultMatchResult, null);
+            }
+            else if (sets.Where(x => x.HasValue && x.Value == true).Count() < sets.Where(x => x.HasValue && x.Value == false).Count() && sets.Where(x => x.HasValue && x.Value == false).Count() == Sets)
+            {
+                MatchResult = MatchResult.Finished;
+                MatchWinnerResult = MatchWinnerResult.SecondPlayerWin;
+                DropDownMatchResult_Loaded(DropDownMatchResult, null);
+                WinnerResultMatchResult_Loaded(WinnerResultMatchResult, null);
+            }
+        }
+
+        private bool? FirstPlayerWonSet(int? setFirstPlayer, int? setSecondPlayer)
+        {
+            if (setFirstPlayer != null && setSecondPlayer != null)
+            {
+                if (setFirstPlayer > setSecondPlayer)
+                {
+                    return true;
+                }
+                else if (setFirstPlayer < setSecondPlayer)
+                {
+                    return false;
+                }
+            }
+            return null;
         }
     }
 }
