@@ -23,6 +23,8 @@ using Microsoft.Extensions.FileSystemGlobbing;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TenisRankingDatabase.Enums;
+using GameTools.Services.Double;
+using GameTools.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -32,11 +34,12 @@ namespace GameTools.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MatchesPage : ExtendedPage
+    public sealed partial class MixedDoubleMatchesPage : ExtendedPage
     {
         public ObservableCollection<TournamentPlayer> Players { get; set; } = new ObservableCollection<TournamentPlayer>();
-        private MatchGenerationService _matchGenerationService;
+        private DoubleMatchGenerationService _matchGenerationService;
         private CalculateAfterEndTournament _calculateAfterEndTournament;
+        private CalculateMatchScore _calculateAndSaveMatchScore;
         private static long? _lastTournamentId;
         private static long? _minTournamentId;
         private static long? _maxTournamentId;
@@ -103,22 +106,23 @@ namespace GameTools.Pages
 
         protected override void GetValuesFromDatabase()
         {
-            _matchGenerationService = new MatchGenerationService(DbContext);
+            _matchGenerationService = new DoubleMatchGenerationService(DbContext);
             _calculateAfterEndTournament = new CalculateAfterEndTournament(DbContext);
+            _calculateAndSaveMatchScore = new CalculateMatchScore(DbContext);
             if (_lastTournamentId is null)
             {
-                Tournament = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.Single).OrderBy(x => x.Id).LastOrDefault();
+                Tournament = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.MixedDouble).OrderBy(x => x.Id).LastOrDefault();
             }
             else
             {
-                Tournament = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.Single).First(x => x.Id == _lastTournamentId);
+                Tournament = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.MixedDouble).First(x => x.Id == _lastTournamentId);
             }
-            _minTournamentId = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.Single).OrderBy(x => x.Id).FirstOrDefault()?.Id;
-            _maxTournamentId = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.Single).OrderBy(x => x.Id).LastOrDefault()?.Id;
+            _minTournamentId = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.MixedDouble).OrderBy(x => x.Id).FirstOrDefault()?.Id;
+            _maxTournamentId = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.MixedDouble).OrderBy(x => x.Id).LastOrDefault()?.Id;
             SetAfterChangePage();
         }
 
-        public MatchesPage()
+        public MixedDoubleMatchesPage()
         {
             this.InitializeComponent();
         }
@@ -127,14 +131,14 @@ namespace GameTools.Pages
         {
             if (DbContext.Matches
                 .Include(x => x.Tournament)
-                .Where(x => x.TournamentId == _lastTournamentId && x.Tournament.TenisMatchType == TenisMatchType.Single)
+                .Where(x => x.TournamentId == _lastTournamentId && x.Tournament.TenisMatchType == TenisMatchType.MixedDouble)
                 .All(x => x.Confirmed))
             {
                 var result = await ShowConfirmationDialog("Czy na pewno chcesz zakoñczyæ turniej?\nPo zakoñczeniu turnieju, nie mo¿na aktualizowaæ wyników meczy.");
 
                 if (result == ContentDialogResult.Primary)
                 {
-                    var tournamentResult = _calculateAfterEndTournament.CalculateAndSaveUpdatesForTournament(Tournament.Id, false);
+                    var tournamentResult = _calculateAfterEndTournament.CalculateAndSaveUpdatesForTournament(Tournament.Id, true);
                     if (tournamentResult)
                     {
                         IsEnable = false;
@@ -150,13 +154,13 @@ namespace GameTools.Pages
 
         private void PreviousTournament(object sender, RoutedEventArgs e)
         {
-            Tournament = DbContext.Tournaments.Where(x => x.Id < _lastTournamentId && x.TenisMatchType == TenisMatchType.Single).OrderBy(x => x.Id).LastOrDefault();
+            Tournament = DbContext.Tournaments.Where(x => x.Id < _lastTournamentId && x.TenisMatchType == TenisMatchType.MixedDouble).OrderBy(x => x.Id).LastOrDefault();
             SetAfterChangePage();
         }
 
         private void NextTournament(object sender, RoutedEventArgs e)
         {
-            Tournament = DbContext.Tournaments.Where(x => x.Id > _lastTournamentId && x.TenisMatchType == TenisMatchType.Single).OrderBy(x => x.Id).FirstOrDefault();
+            Tournament = DbContext.Tournaments.Where(x => x.Id > _lastTournamentId && x.TenisMatchType == TenisMatchType.MixedDouble).OrderBy(x => x.Id).FirstOrDefault();
             SetAfterChangePage();
         }
 
@@ -216,11 +220,13 @@ namespace GameTools.Pages
             }
             if (Tournament is not null)
             {
-                var matches = DbContext.Matches.Where(x => x.TournamentId == Tournament.Id).OrderBy(x => x.Id);
+                var matches = DbContext.Matches
+                    .Include(x => x.PlayerMatches)
+                    .Where(x => x.TournamentId == Tournament.Id && x.PlayerMatches.Count() == 4).OrderBy(x => x.Id);
                 foreach (var match in matches)
                 {
                     var wrapPanel = GetWrapPanel(match.Round);
-                    var matchScoreControl = new MatchScoreControl(DbContext, this, match.Id);
+                    var matchScoreControl = new MatchScoreDoubleControl(DbContext, this, match.Id);
                     wrapPanel.Children.Add(matchScoreControl);
                 }
                 if (matches.Any())
@@ -244,7 +250,7 @@ namespace GameTools.Pages
                         .ThenInclude(x => x.PlayerMatches)
                             .ThenInclude(x => x.Match)
                     .Include(x => x.Tournament)
-                    .Where(x => x.TournamentId == _lastTournamentId && x.Tournament.TenisMatchType == TenisMatchType.Single)
+                    .Where(x => x.TournamentId == _lastTournamentId && x.Tournament.TenisMatchType == TenisMatchType.MixedDouble)
                     .ToList();
                 foreach (var player in tournamentPlayers.OrderByDescending(x => x.CalculateTournamentScoreInt()).ThenByDescending(x => x.CalculateWonSets()).ThenByDescending(x => x.CalculateWonGems()))
                 {
@@ -258,32 +264,47 @@ namespace GameTools.Pages
             if (Matches1.Children.Count() == 0)
             {
                 var matchIds = _matchGenerationService.GenerateFirstRound(Tournament.Id);
-                foreach (var id in matchIds) 
+                foreach (var id in matchIds.Matches) 
                 {
-                    var matchScoreControl = new MatchScoreControl(DbContext, this, id);
+                    var matchScoreControl = new MatchScoreDoubleControl(DbContext, this, id);
                     Matches1.Children.Add(matchScoreControl);
                 }
+                UpdateScoreForPauses(matchIds.Pauses);
             }
             else if (DbContext.Matches
                 .Include(x => x.Tournament)
-                .Where(x => x.TournamentId == _lastTournamentId && x.Tournament.TenisMatchType == TenisMatchType.Single)
+                .Where(x => x.TournamentId == _lastTournamentId && x.Tournament.TenisMatchType == TenisMatchType.MixedDouble)
                 .All(x => x.Confirmed))
             {
                 _round += 1;
                 var matchIds = _matchGenerationService.GenerateNextRound(Tournament.Id, _round);
-                if (matchIds.Any())
+                if (matchIds.Matches.Any())
                 {
                     var wrapPanel = GetWrapPanel(_round);
-                    foreach (var id in matchIds)
+                    foreach (var id in matchIds.Matches)
                     {
-                        var matchScoreControl = new MatchScoreControl(DbContext, this, id);
+                        var matchScoreControl = new MatchScoreDoubleControl(DbContext, this, id);
                         wrapPanel.Children.Add(matchScoreControl);
                     }
+                    UpdateScoreForPauses(matchIds.Pauses);
                 }
             }
             else
             {
                 ShowInfoBar(MissingConfirmationInfoBar);
+            }
+        }
+
+        private void UpdateScoreForPauses(List<long> matchIds)
+        {
+            foreach (var id in matchIds)
+            {
+                _calculateAndSaveMatchScore.CalculateAndSaveMatchScore(MatchDto.Create(
+                    DbContext.Matches
+                    .Include(x => x.PlayerMatches)
+                    .ThenInclude(x => x.Player)
+                    .First(x => x.Id == id)),
+                    MatchResult.NoOpponent, MatchWinnerResult.FirstPlayerWin);
             }
         }
 

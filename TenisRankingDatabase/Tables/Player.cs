@@ -7,6 +7,7 @@ public class Player
     public string LastName { get; set; } = string.Empty;
     public string Nick { get; set; } = string.Empty;
     public int Elo { get; set; }
+    public int MixedDoubleElo { get; set; }
     public int TournamentsPoints { get; set; }
     public int TournamentsPlayed { get; set; }
     public int Tournament1Place { get; set; }

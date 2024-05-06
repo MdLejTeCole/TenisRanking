@@ -8,12 +8,6 @@ public enum MatchResult
     Retired, //kontuzja zawodnika (Krecz)
     Disqualification,
     Walkover,
-    JudgesDecision //decyzja sedziow
-}
-
-public enum TournamentStatus
-{
-    Started,
-    Ended,
-    Cancelled
+    JudgesDecision, //decyzja sedziow
+    NoOpponent
 }

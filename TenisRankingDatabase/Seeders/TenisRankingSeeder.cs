@@ -23,6 +23,7 @@ public class TenisRankingSeeder
         {
             return;
         }
+        UpdateDatabase();
 
         if (!_dbContext.Settings.Any())
         {
@@ -44,8 +45,23 @@ public class TenisRankingSeeder
             _dbContext.Tournaments.UpdateRange(tournaments);
             _dbContext.SaveChanges();
         }
-
-        UpdateDatabase();
+        var players = _dbContext.Players.Where(x => x.MixedDoubleElo == 0).ToList();
+        if (players.Any())
+        {
+            foreach (var item in players)
+            {
+                item.MixedDoubleElo = 1000;
+            }
+            _dbContext.Players.UpdateRange(players);
+            _dbContext.SaveChanges();
+        }
+        var setting = _dbContext.Settings.First();
+        if (setting.StartMixedDoubleElo == 0) 
+        {
+            setting.StartMixedDoubleElo = 1000;
+            _dbContext.Settings.UpdateRange(setting);
+            _dbContext.SaveChanges();
+        }
     }
 
     private void UpdateDatabase()

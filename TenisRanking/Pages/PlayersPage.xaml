@@ -19,6 +19,7 @@
                 <controls:DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" />
                 <controls:DataGridTextColumn Header="Pseudonim" Binding="{Binding Nick}" />
                 <controls:DataGridTextColumn Header="Elo" Binding="{Binding Elo}" IsReadOnly="True"/>
+                <controls:DataGridTextColumn Header="Debel elo" Binding="{Binding MixedDoubleElo}" IsReadOnly="True"/>
                 <controls:DataGridCheckBoxColumn Header="Aktywny" Binding="{Binding Active}" />
                 <controls:DataGridTemplateColumn Header="Edytuj">
                     <controls:DataGridTemplateColumn.CellTemplate>

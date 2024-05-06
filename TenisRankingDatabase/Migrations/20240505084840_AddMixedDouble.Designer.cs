@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TenisRankingDatabase;
 
@@ -10,9 +11,11 @@ using TenisRankingDatabase;
 namespace TenisRankingDatabase.Migrations
 {
     [DbContext(typeof(TenisRankingDbContext))]
-    partial class TenisRankingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240505084840_AddMixedDouble")]
+    partial class AddMixedDouble
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
@@ -181,9 +184,6 @@ namespace TenisRankingDatabase.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("StartElo")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("StartMixedDoubleElo")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("TieBreak")

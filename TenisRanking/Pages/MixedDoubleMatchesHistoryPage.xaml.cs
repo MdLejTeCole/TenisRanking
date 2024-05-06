@@ -26,9 +26,9 @@ namespace GameTools.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MatchesHistoryPage : ExtendedPage
+    public sealed partial class MixedDoubleMatchesHistoryPage : ExtendedPage
     {
-        public MatchesHistoryPage()
+        public MixedDoubleMatchesHistoryPage()
         {
             this.InitializeComponent();
         }
@@ -40,9 +40,9 @@ namespace GameTools.Pages
                 .Include(x => x.Tournament)
                 .Include(x => x.PlayerMatches)
                     .ThenInclude(x => x.Player)
-                .Where(x => x.Tournament.TenisMatchType == TenisMatchType.Single)
+                .Where(x => x.Tournament.TenisMatchType == TenisMatchType.MixedDouble)
                 .OrderByDescending(x => x.Id)
-                .Select(x => MatchHistory.Create(x));
+                .Select(x => DoubleMatchHistory.Create(x));
             MyDataGrid.ItemsSource = matchesHistory;
         }
     }

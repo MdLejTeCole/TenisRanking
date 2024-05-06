@@ -41,11 +41,17 @@ namespace TenisRanking
                 case "Historia turniejów":
                     ContentFrame.Navigate(typeof(TournamentHistoryPage), _context);
                     break;
-                case "Mecze turnieju":
+                case "Historia singiel":
+                    ContentFrame.Navigate(typeof(MatchesHistoryPage), _context);
+                    break;
+                case "Historia debel":
+                    ContentFrame.Navigate(typeof(MixedDoubleMatchesHistoryPage), _context);
+                    break;
+                case "Mecze singiel":
                     ContentFrame.Navigate(typeof(MatchesPage), _context);
                     break;
-                case "Historia meczy":
-                    ContentFrame.Navigate(typeof(MatchesHistoryPage), _context);
+                case "Mecze debel":
+                    ContentFrame.Navigate(typeof(MixedDoubleMatchesPage), _context);
                     break;
                 case "Zawodnicy":
                     ContentFrame.Navigate(typeof(PlayersPage), _context);

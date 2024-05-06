@@ -128,7 +128,7 @@ namespace GameTools.Pages
                 ShowInfoBar(MissingValuesInfoBar);
                 return;
             }
-            if (Players.Count < 2)
+            if ((Players.Count < 2 && Tournament.TenisMatchType == TenisMatchType.Single) || (Players.Count < 4 && Tournament.TenisMatchType == TenisMatchType.MixedDouble))
             {
                 ShowInfoBar(MissingPlayersInfoBar);
                 return;
@@ -212,6 +212,26 @@ namespace GameTools.Pages
                         _allPlayers.Remove(player);
                     }
                 }
+            }
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Tournament == null)
+            {
+                return;
+            }
+            var content = (sender as RadioButton).Content;
+            switch (content)
+            {
+                case "Singiel":
+                    Tournament.TenisMatchType = TenisMatchType.Single;
+                    break;
+                case "Debel mieszany":
+                    Tournament.TenisMatchType = TenisMatchType.MixedDouble;
+                    break;
+                default:
+                    break;
             }
         }
     }

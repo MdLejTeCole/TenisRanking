@@ -32,7 +32,6 @@ public class MatchGenerationService
             .ToList();
 
         activePlayers = activePlayers.Where(x => x.Active).ToList();
-        //activePlayers = activePlayers.Where(x => activePlayerIds.Any(y => y == x.PlayerId)).ToList();
 
         if (activePlayers.Count() < 2)
         {
@@ -81,8 +80,6 @@ public class MatchGenerationService
             {
                 Player1Id = item.Player1Id,
                 Player2Id = item.Player2Id,
-                Player1Elo = 1000,
-                Player2Elo = 1000,
             });
         }
         return CreateMatches(tournamentId, roundNumber, incomingMatch);
@@ -121,7 +118,7 @@ public class MatchGenerationService
         }
     }
 
-    public List<long> GetPlayerIdsInScoreOrder(long tournamentId)
+    private List<long> GetPlayerIdsInScoreOrder(long tournamentId)
     {
         var playerPoints = _dbContext.TournamentPlayers
             .Include(x => x.Player)

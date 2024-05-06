@@ -10,7 +10,7 @@
   <Identity
     Name="f44dde1f-9ca7-4a7f-b300-c75f92664ce6"
     Publisher="CN=Mateusz Rybak"
-    Version="1.0.0.0" />
+    Version="1.0.6.0" />
 
   <mp:PhoneIdentity PhoneProductId="f44dde1f-9ca7-4a7f-b300-c75f92664ce6" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

@@ -40,7 +40,7 @@ namespace TenisRanking
                     options.UseSqlite("Data Source=TenisRanking.db"));
                 //services.AddDbContext<TenisRankingDbContext>(options =>
                 //    options.UseSqlite("Data Source=C:\\Users\\MdLejTeCole\\Desktop\\Db\\TenisRanking.db"));
-                
+
                 services.AddTransient<MainWindow>();
                 services.AddScoped<SettingsSeeder>();
                 services.AddScoped<PlayersSeeder>();

@@ -18,6 +18,15 @@
 
 		<PackageCertificateThumbprint>3871C27F928EA2851BFCEC1F63F2041F1A0C997D</PackageCertificateThumbprint>
 		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<GenerateAppInstallerFile>True</GenerateAppInstallerFile>
+		<AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+		<AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+		<AppxPackageDir>C:\Users\MdLejTeCole\source\repos\TenisRanking\TenisRanking\bin\x64\Release\net8.0-windows10.0.20348.0\win-x64\AppPackages\</AppxPackageDir>
+		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+		<GenerateTestArtifacts>True</GenerateTestArtifacts>
+		<AppxBundle>Never</AppxBundle>
+		<AppInstallerUri>C:\Users\MdLejTeCole\Desktop\TenisRanking</AppInstallerUri>
+		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Content Remove="Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
@@ -44,6 +53,8 @@
 	  <None Remove="Pages\AddPlayerPage.xaml" />
 	  <None Remove="Pages\MatchesHistoryPage.xaml" />
 	  <None Remove="Pages\MatchesPage.xaml" />
+	  <None Remove="Pages\MixedDoubleMatchesHistoryPage.xaml" />
+	  <None Remove="Pages\MixedDoubleMatchesPage.xaml" />
 	  <None Remove="Pages\PlayersPage.xaml" />
 	  <None Remove="Pages\RankingPage.xaml" />
 	  <None Remove="Pages\SettingPage.xaml" />
@@ -55,7 +66,9 @@
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
@@ -87,12 +100,48 @@
     <ProjectReference Include="..\TenisRankingDatabase\TenisRankingDatabase.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Assets\Square44x44Logo.scale-100.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Square44x44Logo.scale-125.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Square44x44Logo.scale-150.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Square44x44Logo.scale-400.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\MatchScoreDoubleControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\MixedDoubleMatchesHistoryPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Pages\MatchesHistoryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\MixedDoubleMatchesPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\TournamentHistoryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <None Update="Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Square44x44Logo.altform-unplated_targetsize-48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Square44x44Logo.targetsize-48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TenisRanking.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

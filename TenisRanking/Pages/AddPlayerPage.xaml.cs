@@ -50,7 +50,8 @@ namespace GameTools.Pages
                     return;
                 }
                 var elo = DbContext.Settings.First().StartElo;
-                DbContext.Players.Add(new Player() { FirstName = FirstName.Text, LastName = LastName.Text, Nick = Nick.Text, Elo = elo });
+                var doublElo = DbContext.Settings.First().StartMixedDoubleElo;
+                DbContext.Players.Add(new Player() { FirstName = FirstName.Text, LastName = LastName.Text, Nick = Nick.Text, Elo = elo, MixedDoubleElo = doublElo });
                 DbContext.SaveChanges();
                 ShowInfoBar(SuccessInfoBar);
                 FirstName.Text = string.Empty;

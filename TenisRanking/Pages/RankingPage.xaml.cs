@@ -62,7 +62,7 @@ namespace GameTools.Pages
                     orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.TournamentsPoints).ToList();
                     break;
                 case "Rozegrane turnieje":
-                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.TournamentPlayers).ToList();
+                    orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.TournamentsPlayed).ToList();
                     break;
                 case "Pierwsze miejsca":
                     orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.Tournament1Place).ToList();

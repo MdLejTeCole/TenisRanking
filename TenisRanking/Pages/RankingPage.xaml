@@ -18,6 +18,7 @@
                 <controls:DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" />
                 <controls:DataGridTextColumn Header="Pseudonim" Binding="{Binding Nick}" />
                 <controls:DataGridTextColumn Header="Elo" Binding="{Binding Elo}" />
+                <controls:DataGridTextColumn Header="Debel elo" Binding="{Binding MixedDoubleElo}" />
                 <controls:DataGridTextColumn Header="Punkty turniejowe" Binding="{Binding TournamentsPoints}" />
                 <controls:DataGridTextColumn Header="Rozegrane turnieje" Binding="{Binding TournamentsPlayed}" />
                 <controls:DataGridTextColumn Header="Pierwsze miejsca" Binding="{Binding Tournament1Place}" />

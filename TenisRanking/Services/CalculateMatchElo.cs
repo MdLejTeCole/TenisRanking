@@ -18,7 +18,7 @@ public class CalculateMatchElo
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
 
-    public bool CalculateAndSaveMatchElo(long matchId)
+    public bool CalculateAndSaveMatchElo(long matchId, bool isDouble)
     {
         try
         {
@@ -30,19 +30,48 @@ public class CalculateMatchElo
             {
                 return true;
             }
-            var winPlayer = match.PlayerMatches.First(x => x.WinnerResult == WinnerResult.Win);
-            var lostPlayer = match.PlayerMatches.First(x => x.WinnerResult == WinnerResult.Lost);
+            var playerMatches = match.PlayerMatches.OrderBy(x => x.Id);
+            var winPlayer = playerMatches.First(x => x.WinnerResult == WinnerResult.Win);
+            var lostPlayer = playerMatches.First(x => x.WinnerResult == WinnerResult.Lost);
             if (lostPlayer.Id == 1)
             {
                 return true;
             }
-            var elo = CalculateEloReceivedForMatch(winPlayer.Player.Elo, lostPlayer.Player.Elo);
-            winPlayer.Elo = winPlayer.Player.Elo;
-            lostPlayer.Elo = lostPlayer.Player.Elo;
+            (int WinPlayerElo, int LostPlayerElo) elo;
+            if (match.PlayerMatches.Count() == 2)
+            {
+                elo = CalculateEloReceivedForMatch(winPlayer.Player.Elo, lostPlayer.Player.Elo);
+            }
+            else
+            {
+                var winPlayer2 = playerMatches.Last(x => x.WinnerResult == WinnerResult.Win);
+                var lostPlayer2 = playerMatches.Last(x => x.WinnerResult == WinnerResult.Lost);
+                elo = CalculateEloReceivedForMatch((winPlayer.Player.MixedDoubleElo + winPlayer2.Player.MixedDoubleElo) / 2, (lostPlayer.Player.MixedDoubleElo + lostPlayer2.Player.MixedDoubleElo) / 2);
+                winPlayer2.Elo = winPlayer2.Player.MixedDoubleElo;
+                lostPlayer2.Elo = lostPlayer2.Player.MixedDoubleElo;
+                winPlayer2.GrantedElo = elo.WinPlayerElo;
+                lostPlayer2.GrantedElo = elo.LostPlayerElo;
+                winPlayer2.Player.MixedDoubleElo += elo.WinPlayerElo;
+                lostPlayer2.Player.MixedDoubleElo += elo.LostPlayerElo;
+            }
+
             winPlayer.GrantedElo = elo.WinPlayerElo;
             lostPlayer.GrantedElo = elo.LostPlayerElo;
-            winPlayer.Player.Elo += elo.WinPlayerElo;
-            lostPlayer.Player.Elo += elo.LostPlayerElo;
+            if (isDouble)
+            {
+                winPlayer.Elo = winPlayer.Player.MixedDoubleElo;
+                lostPlayer.Elo = lostPlayer.Player.MixedDoubleElo;
+                winPlayer.Player.MixedDoubleElo += elo.WinPlayerElo;
+                lostPlayer.Player.MixedDoubleElo += elo.LostPlayerElo;
+            }
+            else
+            {
+                winPlayer.Elo = winPlayer.Player.Elo;
+                lostPlayer.Elo = lostPlayer.Player.Elo;
+                winPlayer.Player.Elo += elo.WinPlayerElo;
+                lostPlayer.Player.Elo += elo.LostPlayerElo;
+            }
+
             _dbContext.Update(match);
             _dbContext.SaveChanges();
             return true;

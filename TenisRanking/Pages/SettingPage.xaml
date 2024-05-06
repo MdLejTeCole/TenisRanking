@@ -15,8 +15,12 @@
             <StackPanel >
                 <TextBlock Text="Ustawienia" HorizontalAlignment="Center"/>
                 <Grid Margin="10">
-                    <TextBlock Text="Początkowe elo:" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Początkowe elo singiel:" HorizontalAlignment="Left"/>
                     <NumberBox FontSize="30" Width="150" HorizontalAlignment="Right" Text="{x:Bind Setting.StartElo, Mode=TwoWay}"/>
+                </Grid>
+                <Grid Margin="10">
+                    <TextBlock Text="Początkowe elo debel:" HorizontalAlignment="Left"/>
+                    <NumberBox FontSize="30" Width="150" HorizontalAlignment="Right" Text="{x:Bind Setting.StartMixedDoubleElo, Mode=TwoWay}"/>
                 </Grid>
                 <Grid Margin="10">
                     <TextBlock Text="Liczba setów:" HorizontalAlignment="Left"/>

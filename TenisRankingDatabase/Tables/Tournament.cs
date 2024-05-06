@@ -15,6 +15,7 @@ public class Tournament
     public int ExtraPoints3Place { get; set; }
     public bool Ended { get; set; }
     public TournamentStatus TournamentStatus { get; set; }
+    public TenisMatchType TenisMatchType { get; set; }
     public virtual List<TournamentPlayer> TournamentPlayers { get; set; } = null!;
     public virtual List<Match> Matches { get; set; } = null!;
 }

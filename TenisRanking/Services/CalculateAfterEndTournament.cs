@@ -18,12 +18,12 @@ public class CalculateAfterEndTournament
         _calculateMatchElo = new CalculateMatchElo(dbContext);
     }
 
-    public bool CalculateAndSaveUpdatesForTournament(long tournamentId)
+    public bool CalculateAndSaveUpdatesForTournament(long tournamentId, bool isDouble)
     {
         try
         {
             var transaction = _dbContext.Database.BeginTransaction();
-            UpdateElo(tournamentId);
+            UpdateElo(tournamentId, isDouble);
             UpdateScore(tournamentId);
             var tournament = _dbContext.Tournaments.First(x => x.Id == tournamentId);
             tournament.TournamentStatus = TournamentStatus.Ended;
@@ -72,7 +72,7 @@ public class CalculateAfterEndTournament
         _dbContext.SaveChanges();
     }
 
-    public void UpdateElo(long tournamentId)
+    public void UpdateElo(long tournamentId, bool isDouble)
     {
         var matchIds = _dbContext.Matches
             .Include(x => x.PlayerMatches)
@@ -81,7 +81,7 @@ public class CalculateAfterEndTournament
 
         foreach (var matchId in matchIds)
         {
-            _calculateMatchElo.CalculateAndSaveMatchElo(matchId);
+            _calculateMatchElo.CalculateAndSaveMatchElo(matchId, isDouble);
         }
     }
 }

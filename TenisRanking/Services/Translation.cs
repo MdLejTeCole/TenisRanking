@@ -18,6 +18,7 @@ public class Translation
         [MatchResult.Disqualification] = "Dyskfalifikacja",
         [MatchResult.Walkover] = "Poddanie",
         [MatchResult.JudgesDecision] = "Decyzja sędziów",
+        [MatchResult.NoOpponent] = "Brak przeciwnika",
     };
 
     public static Dictionary<WinnerResult, string> WinnerResultTranslation = new()
@@ -31,5 +32,12 @@ public class Translation
     {
         [false] = "Wyłączona",
         [true] = "Włączona",
+    };
+
+    public static Dictionary<TenisMatchType, string> TenisMatchTypeTranslation = new()
+    {
+        [TenisMatchType.Single] = "Singiel",
+        [TenisMatchType.Double] = "Debel",
+        [TenisMatchType.MixedDouble] = "Debel mieszany",
     };
 }

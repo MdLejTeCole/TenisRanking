@@ -69,22 +69,17 @@
         <Grid Grid.Column="1" Grid.Row="1">
             <StackPanel>
                 <TextBlock Text="Ustawienia" FontSize="30" Margin="10" HorizontalAlignment="Center"/>
-                <!--<Grid Margin="10">
-                    <TextBlock Text="Wszystkie mecze:" FontSize="20" HorizontalAlignment="Left"/>
-                    <ToggleSwitch OffContent="Wyłączone" OnContent="Włączone" HorizontalAlignment="Right" IsOn="{x:Bind Tournament.AllMatches, Mode=TwoWay}"/>
-                </Grid>-->
-                <!--<Grid Margin="10">
-                    <TextBlock Text="Liczba meczy dla gracza:" FontSize="20" HorizontalAlignment="Left"/>
-                    <NumberBox FontSize="30" Width="150" HorizontalAlignment="Right" Text="{x:Bind Tournament.NumberOfMatchesPerPlayer, Mode=TwoWay}"/>
-                </Grid>-->
+                <Grid Margin="10">
+                    <TextBlock Text="Typ turnieju:" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <StackPanel Margin="10" HorizontalAlignment="Right">
+                        <RadioButton Content="Singiel" Checked="RadioButton_Checked" IsChecked="True" FontSize="15"/>
+                        <RadioButton Content="Debel mieszany" Checked="RadioButton_Checked" FontSize="15"/>
+                    </StackPanel>
+                </Grid>
                 <Grid Margin="10">
                     <TextBlock Text="Liczba setów:" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <NumberBox FontSize="30" Width="150" HorizontalAlignment="Right" Text="{x:Bind Tournament.NumberOfSets, Mode=TwoWay}"/>
                 </Grid>
-                <!--<Grid Margin="10">
-                    <TextBlock Text="Tie Break:" FontSize="20" HorizontalAlignment="Left"/>
-                    <ToggleSwitch OffContent="Wyłączone" OnContent="Włączone" HorizontalAlignment="Right" IsOn="{x:Bind Tournament.TieBreak, Mode=TwoWay}"/>
-                </Grid>-->
                 <Grid Margin="10">
                     <TextBlock Text="Dodatkowe punkty za wygrany turniej:" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <ToggleSwitch OffContent="Wyłączone" OnContent="Włączone" HorizontalAlignment="Right" IsOn="{x:Bind Tournament.ExtraPointsForTournamentWon, Mode=TwoWay}"/>
@@ -108,7 +103,7 @@
             <TextBlock Text="Nazwa turnieju nie moze byc pusta." TextWrapping="Wrap"/>
         </controls:InfoBar>
         <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MissingPlayersInfoBar" Title="Brakujące wartości" Severity="Warning" IsOpen="False">
-            <TextBlock Text="Turniej musi zawierac conajmniej 2 zawodników." TextWrapping="Wrap"/>
+            <TextBlock Text="Turniej singiel musi zawierac conajmniej 2 zawodników oraz double conajmniej 4." TextWrapping="Wrap"/>
         </controls:InfoBar>
         <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="NotUniqueInfoBar" Title="Unikanly turniej" Severity="Warning" IsOpen="False">
             <TextBlock Text="Turniej o danej nazwie juz istnieje. Nazwa turnieju musi unikalna." TextWrapping="Wrap"/>

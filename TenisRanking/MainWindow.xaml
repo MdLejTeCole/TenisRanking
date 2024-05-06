@@ -12,22 +12,18 @@
     <NavigationView x:Name="NavView" PaneTitle="Ranking tenisa" Loaded="NavView_Loaded" ItemInvoked="NavView_ItemInvoked" IsSettingsVisible="False" FontSize="40" Background="YellowGreen">
         <NavigationView.MenuItems >
             <NavigationViewItem Content="Ranking" Icon="Favorite" FontSize="25" FontWeight="Bold" Margin="0,5"/>
-            <NavigationViewItem Content="Turniej" Icon="Edit" FontSize="25" FontWeight="Bold" Margin="0,5"/>
             <NavigationViewItem Content="Historia turniejów" Icon="View" FontSize="25" FontWeight="Bold" Margin="0,5"/>
-            <NavigationViewItem Content="Mecze turnieju" Icon="SlideShow" FontSize="25" FontWeight="Bold" Margin="0,5"/>
-            <NavigationViewItem Content="Historia meczy" Icon="View" FontSize="25" FontWeight="Bold" Margin="0,5"/>
-            <NavigationViewItem Content="Zawodnicy" Icon="ContactInfo" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Historia singiel" Icon="View" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Historia debel" Icon="View" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Turniej" Icon="Edit" FontSize="25" FontWeight="Bold" Margin="0,30,0,5"/>
+            <NavigationViewItem Content="Mecze singiel" Icon="SlideShow" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Mecze debel" Icon="SlideShow" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Zawodnicy" Icon="ContactInfo" FontSize="25" FontWeight="Bold" Margin="0,30,0,5"/>
             <NavigationViewItem Content="Dodaj zawodnika" Icon="AddFriend" FontSize="25" FontWeight="Bold" Margin="0,5"/>
-            <NavigationViewItem Content="Ustawienia" Icon="Setting" FontSize="25" FontWeight="Bold" Margin="0,5"/>
+            <NavigationViewItem Content="Ustawienia" Icon="Setting" FontSize="25" FontWeight="Bold" Margin="0,30,0,5"/>
             <NavigationViewItem Content="Informacje" Icon="ViewAll" FontSize="25" FontWeight="Bold" Margin="0,5"/>
         </NavigationView.MenuItems>
 
         <Frame x:Name="ContentFrame"/>
-        <!--<NavigationView.PaneFooter>
-            <StackPanel Orientation="Vertical">
-                <NavigationViewItem Content="Ustawienia" FontSize="25" Margin="0,5"/>
-                <NavigationViewItem Content="Informacje" FontSize="25" Margin="0,5"/>
-            </StackPanel>
-        </NavigationView.PaneFooter>-->
     </NavigationView>
 </Window>

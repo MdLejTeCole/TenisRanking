@@ -16,6 +16,7 @@
                 <controls:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
                 <controls:DataGridTextColumn Header="Nazwa" Binding="{Binding Name}" />
                 <controls:DataGridTextColumn Header="Data" Binding="{Binding Date}" />
+                <controls:DataGridTextColumn Header="Typ turnieju" Binding="{Binding TenisMatchType}" />
                 <controls:DataGridTextColumn Header="Ilość setów" Binding="{Binding NumberOfSets}" />
                 <controls:DataGridTextColumn Header="Średnie elo" Binding="{Binding AvarageElo}" />
                 <controls:DataGridTextColumn Header="Elo" Binding="{Binding Elos}" />

@@ -11,6 +11,7 @@ public class TournamentHistory
     public long Id { get; set; }
     public string Name { get; set; }
     public DateOnly Date { get; set; }
+    public string TenisMatchType { get; set; }
     public int NumberOfSets { get; set; }
     public int AvarageElo { get; set; }
     public string ExtraPointsForTournamentWon { get; set; }
@@ -29,6 +30,7 @@ public class TournamentHistory
             Id = tournament.Id,
             Name = tournament.Name,
             Date = tournament.Date,
+            TenisMatchType = Translation.TenisMatchTypeTranslation[tournament.TenisMatchType],
             NumberOfSets = tournament.NumberOfSets,
             AvarageElo = tournament.AvarageElo,
             ExtraPointsForTournamentWon = Translation.ExtraPointsTranslation[tournament.ExtraPointsForTournamentWon],
