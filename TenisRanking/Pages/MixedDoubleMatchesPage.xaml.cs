@@ -115,7 +115,7 @@ namespace GameTools.Pages
             }
             else
             {
-                Tournament = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.MixedDouble).First(x => x.Id == _lastTournamentId);
+                Tournament = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.MixedDouble).FirstOrDefault(x => x.Id == _lastTournamentId);
             }
             _minTournamentId = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.MixedDouble).OrderBy(x => x.Id).FirstOrDefault()?.Id;
             _maxTournamentId = DbContext.Tournaments.Where(x => x.TenisMatchType == TenisMatchType.MixedDouble).OrderBy(x => x.Id).LastOrDefault()?.Id;

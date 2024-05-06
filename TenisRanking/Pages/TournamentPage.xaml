@@ -4,13 +4,16 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:GameTools.Pages"
+    xmlns:local2="using:GameTools.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:player ="using:TenisRankingDatabase.Tables"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <UserControl.Resources>
+        <local2:NegateBooleanConverter x:Key="NegateBooleanConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -72,8 +75,8 @@
                 <Grid Margin="10">
                     <TextBlock Text="Typ turnieju:" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <StackPanel Margin="10" HorizontalAlignment="Right">
-                        <RadioButton Content="Singiel" Checked="RadioButton_Checked" IsChecked="True" FontSize="15"/>
-                        <RadioButton Content="Debel mieszany" Checked="RadioButton_Checked" FontSize="15"/>
+                        <RadioButton Content="Singiel" Checked="RadioButton_Checked" IsChecked="{x:Bind IsSingle, Mode=OneWay}" FontSize="15" IsEnabled="{x:Bind ChangeMatchTypeEnabled, Mode=OneWay}"/>
+                        <RadioButton Content="Debel mieszany" Checked="RadioButton_Checked" IsChecked="{x:Bind IsSingle, Converter={StaticResource NegateBooleanConverter}, Mode=OneWay}" FontSize="15" IsEnabled="{x:Bind ChangeMatchTypeEnabled, Mode=OneWay}"/>
                     </StackPanel>
                 </Grid>
                 <Grid Margin="10">

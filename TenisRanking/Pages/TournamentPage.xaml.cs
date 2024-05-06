@@ -50,11 +50,6 @@ namespace GameTools.Pages
 
         private bool _isUpdate = false;
 
-        public TournamentPage()
-        {
-            this.InitializeComponent();
-        }
-
         private int _avarageElo;
 
         public int AvarageElo
@@ -63,6 +58,34 @@ namespace GameTools.Pages
             set { _avarageElo = value;
                 OnPropertyChanged(nameof(AvarageElo));
             }
+        }
+
+        private bool changeMatchTypeEnabled;
+
+        public bool ChangeMatchTypeEnabled
+        {
+            get { return changeMatchTypeEnabled; }
+            set { changeMatchTypeEnabled = value;
+                OnPropertyChanged(nameof(ChangeMatchTypeEnabled));
+            }
+        }
+
+        private bool isSingle;
+
+        public bool IsSingle
+        {
+            get { return isSingle; }
+            set { isSingle = value; 
+                OnPropertyChanged(nameof(IsSingle));
+            }
+        }
+
+
+
+        public TournamentPage()
+        {
+            IsSingle = true;
+            this.InitializeComponent();
         }
 
 
@@ -84,6 +107,7 @@ namespace GameTools.Pages
                 ExtraPoints2Place = settings.ExtraPoints2Place,
                 ExtraPoints3Place = settings.ExtraPoints3Place
             };
+            ChangeMatchTypeEnabled = true;
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -211,6 +235,8 @@ namespace GameTools.Pages
                         Players.Add(player);
                         _allPlayers.Remove(player);
                     }
+                    IsSingle = tournament.TenisMatchType == TenisMatchType.Single;
+                    ChangeMatchTypeEnabled = !DbContext.Matches.Any(x => x.TournamentId == tournament.Id);
                 }
             }
         }
