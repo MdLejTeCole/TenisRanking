@@ -3,6 +3,8 @@
 
 Aplikacja przeznaczona na system Windows 10 lub wyższy!
 
+Pobierz plik TenisRanking_v1.7z z [Link](https://github.com/MdLejTeCole/TenisRanking/releases/tag/v1.0.0)
+
 # Co umożliwia aplikacja Tenis Ranking
 1. Organizowanie turniejów tenisowych.
 2. Prowadzenie rankingu elo.
