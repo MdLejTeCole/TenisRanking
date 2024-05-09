@@ -3,11 +3,11 @@
 
 Aplikacja przeznaczona na system Windows 10 lub wyższy!
 
-# Co zawiera aplikacja Tenis Ranking
-1. Aplikacja umożliwia organizowanie turniejów tenisowych
-2. Prowadzi ranking elo
-3. Wyświetlanie historii meczy oraz turniejów
-4. Dodawanie oraz edytowanie zawodników
+# Co umożliwia aplikacja Tenis Ranking
+1. Organizowanie turniejów tenisowych.
+2. Prowadzenie rankingu elo.
+3. Wyświetlanie historii meczy oraz turniejów.
+4. Dodawanie oraz edytowanie zawodników.
 
 # Jak wygląda aplikacja
 ![image](https://github.com/MdLejTeCole/TenisRanking/assets/48440272/c75b2539-9fb5-4fdd-872c-7193fdb9a861)
@@ -20,14 +20,14 @@ W zakładce Dodaj zawodnika wprowadź imię nazwisko i unikalny pseudonim dla za
 # Tworzenie turniejów
 
 Przejdź do zakładki turniej
-1. Podaj unikaną nazwe turnieju
-2. Dodaj zawodników
-3. Wybierz typ turnieju Singiel/Debel mieszany
-4. Wrowadź reszte ustawień
-5. Naciśnij przycisk stwórz turniej
+1. Podaj unikaną nazwe turnieju.
+2. Dodaj zawodników.
+3. Wybierz typ turnieju Singiel/Debel mieszany.
+4. Wrowadź reszte ustawień.
+5. Naciśnij przycisk stwórz turniej.
 ![image](https://github.com/MdLejTeCole/TenisRanking/assets/48440272/c0d26922-396c-4934-b798-b54e9022178c)
 
-Możliwe jest edycja turnieju. Po wpisaniu nazwy turnieju i zatwierdzeniu jej enterem pojawi się komunikat.
+Możliwe jest edycja turnieju. Po wpisaniu nazwy turnieju i zatwierdzeniu jej pojawi się komunikat.
 ![image](https://github.com/MdLejTeCole/TenisRanking/assets/48440272/3f365b7d-3107-4982-9457-21c3607391b1)
 Należy wcisnąc przycisk ok, aby zaktualizować ustawienia dla turnieju.
 
@@ -35,8 +35,8 @@ Należy wcisnąc przycisk ok, aby zaktualizować ustawienia dla turnieju.
 Po przejściu do zakładki Mecze singiel/debel możemy generować i wprowadzać wyniki meczów.
 
 1. Na samej górze wyświetli sie nam nazwa turnieju, data jego utworzenia oraz status.
-2. Lista zawodników dodanych do turnieju
-3. Check box oznacza, że dany zawodnik jest aktywny i będzie brany pod uwagę podczas generowania meczy
+2. Lista zawodników dodanych do turnieju.
+3. Check box oznacza, że dany zawodnik jest aktywny i będzie brany pod uwagę podczas generowania meczy.
 4. Przycisk umożliwiający generowanie kolejnych meczy. Algorytm przy pierwszym losowaniu bierze pod uwagę elo zawodników. Każda kolejna runda dobiera zawodników o podobnej liczbie punktów. Każdy zawodnik, może zagrać tylko jeden mecz z innym zawodnikiem.
 5. Po wygenerowaniu meczy pokaże się lista wszystkich meczy.
 6. Po wprowadzeniu i zatwierdzeniu wyników zostaną podliczone punkty, a tło zapisaniego meczu zmieni się na zielone.
@@ -47,6 +47,9 @@ Po przejściu do zakładki Mecze singiel/debel możemy generować i wprowadzać 
 11. Zakończenie turnieju spowoduje podliczenie uzyskanych punktów turniejowych i podliczenie elo. Również w tym przypadku nie ma możliwości edycji wyników meczy.
 12. Strzałki umożliwiają przechodzenie między turniejami.
 ![image](https://github.com/MdLejTeCole/TenisRanking/assets/48440272/ee0a5601-abce-4df4-9d61-f5d3977039a7)
+
+# Przewidywanie wyników meczy
+W przypadku gry singiel, aplikacja umożliwia przewidywanie wyników meczy. Aby móc generować kolejną rundę, należy zatwierdzić wszystkie wyniki meczów. Ale możemy przewidywać wyniki meczów. Jeśli wynik meczu zakończy się nie tak jak przewidziano, w kolejnej rundzie zawodnicy zamienią się przeciwnikami.
 
 ## Warunki użytkowania niekomercyjnego:
 
