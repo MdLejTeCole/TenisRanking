@@ -51,6 +51,15 @@ Po przejściu do zakładki Mecze singiel/debel możemy generować i wprowadzać 
 # Przewidywanie wyników meczy
 W przypadku gry singiel, aplikacja umożliwia przewidywanie wyników meczy. Aby móc generować kolejną rundę, należy zatwierdzić wszystkie wyniki meczów. Ale możemy przewidywać wyniki meczów. Jeśli wynik meczu zakończy się nie tak jak przewidziano, w kolejnej rundzie zawodnicy zamienią się przeciwnikami.
 
+# Uruchomienie aplikacji
+W folderze z aplikacja znajduje się plik TenisRanking.exe, który pozwala na uruchomienie aplikacji
+![image](https://github.com/MdLejTeCole/TenisRanking/assets/48440272/8c635ba1-c408-443f-bff0-0325dc93f5ba)
+
+# Baza danych
+Wszystkie dane zapisane w aplikacji znajdują się w pliku TenisRanking.db (Zaleca się robienie kopi tego pliku, aby nie utracić danych).
+![image](https://github.com/MdLejTeCole/TenisRanking/assets/48440272/4c7351c2-ca52-4364-9c14-7572175e98be)
+
+
 ## Warunki użytkowania niekomercyjnego:
 
 Aplikacja, w tym wszelkie powiązane z nią zasoby, może być używana wyłącznie w celach niekomercyjnych.
