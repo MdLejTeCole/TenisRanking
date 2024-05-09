@@ -51,11 +51,15 @@ Po przejściu do zakładki Mecze singiel/debel możemy generować i wprowadzać 
 ## Warunki użytkowania niekomercyjnego:
 
 Aplikacja, w tym wszelkie powiązane z nią zasoby, może być używana wyłącznie w celach niekomercyjnych.
+
 Użytkownik nie ma prawa wykorzystywać aplikacji do celów zarobkowych, w tym, lecz nie ograniczając się do, sprzedaży, wynajmu, dystrybucji, czy udostępniania aplikacji dla zysku.
+
 W przypadku chęci wykorzystania aplikacji w celach komercyjnych, użytkownik zobowiązuje się do uzyskania uprzedniej zgody od właściciela praw autorskich lub licencjodawcy.
+
 Korzystanie z aplikacji w ramach edukacji, nauki, osobistego użytku lub innych niekomercyjnych celów jest dozwolone i nie podlega tym ograniczeniom.
 
 ## Aktualizacje i Kontakt:
 
 Aktualizacje płatne: W celu zapewnienia ciągłego rozwoju i ulepszania aplikacji, zastrzegamy sobie prawo do wprowadzania płatnych aktualizacji. Takie aktualizacje mogą obejmować dodatkowe funkcje, usprawnienia lub poprawki.
+
 Kontakt: Jeśli jesteś zainteresowany zakupem płatnych aktualizacji lub masz pytania dotyczące naszej aplikacji, zachęcamy do kontaktu. Możesz wysłać wiadomość e-mail na adres m.rybak996@gmail.com.
