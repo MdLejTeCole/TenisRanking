@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<local:ExtendedPage
+    x:Class="GameTools.Pages.InfoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GameTools.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Text="TenisRanking" Style="{StaticResource HeaderTextBlockStyle}" Margin="10"/>
+
+                <!-- Tekst i obrazek 1 -->
+                <RichTextBlock Margin="10,25">
+                    <Paragraph>
+                        <Bold>Aplikacja do organizowania turniejów tenisowych (singiel lub debel z mieszanymi teamami).</Bold>
+                    </Paragraph>
+                </RichTextBlock>
+
+                <!-- Tekst i obrazek 2 -->
+                <RichTextBlock Margin="10,25">
+                    <Paragraph>
+                        <Bold>Co umożliwia aplikacja Tenis Ranking</Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        1. Organizowanie turniejów tenisowych.
+                    </Paragraph>
+                    <Paragraph>
+                        2. Prowadzenie rankingu elo.
+                    </Paragraph>
+                    <Paragraph>
+                        3. Wyświetlanie historii meczy oraz turniejów.
+                    </Paragraph>
+                    <Paragraph>
+                        4. Dodawanie oraz edytowanie zawodników.
+                    </Paragraph>
+                </RichTextBlock>
+
+                <!-- Tekst i obrazek 3 -->
+                <RichTextBlock Margin="10,25">
+                    <Paragraph>
+                        <Bold>Dodawanie zawodników</Bold>
+                    </Paragraph>
+                    <Paragraph>W zakładce Dodaj zawodnika wprowadź imię nazwisko i unikalny pseudonim dla zawodnika.</Paragraph>
+                </RichTextBlock>
+                <Image Source="https://github.com/MdLejTeCole/TenisRanking/assets/48440272/50caffe3-50b4-4ec2-8394-fc0a227415ae" Stretch="Uniform" MaxHeight="400" Margin="10"/>
+
+                <!-- Tworzenie turniejów -->
+                <RichTextBlock Margin="10,25">
+                    <Paragraph>
+                        <Bold>Tworzenie turniejów</Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        Przejdź do zakładki Turniej:
+                    </Paragraph>
+                    <Paragraph>
+                        1. Podaj unikatową nazwę turnieju.
+                    </Paragraph>
+                    <Paragraph>
+                        2. Dodaj zawodników.
+                    </Paragraph>
+                    <Paragraph>
+                        3. Wybierz typ turnieju: Singiel/Debel mieszany.
+                    </Paragraph>
+                    <Paragraph>
+                        4. Wprowadź pozostałe ustawienia.
+                    </Paragraph>
+                    <Paragraph>
+                        5. Naciśnij przycisk "Stwórz turniej".
+                    </Paragraph>
+                </RichTextBlock>
+                <Image Source="https://github.com/MdLejTeCole/TenisRanking/assets/48440272/c0d26922-396c-4934-b798-b54e9022178c" Stretch="Uniform" MaxHeight="600" Margin="10"/>
+
+                <!-- Edycja turnieju -->
+                <RichTextBlock Margin="10,25">
+                    <Paragraph>
+                        <Bold>Edycja turnieju</Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        Możliwe jest edytowanie turnieju. Po wpisaniu nazwy turnieju i zatwierdzeniu jej pojawi się komunikat.
+                    </Paragraph>
+                </RichTextBlock>
+                <Image Source="https://github.com/MdLejTeCole/TenisRanking/assets/48440272/3f365b7d-3107-4982-9457-21c3607391b1" Stretch="Uniform" MaxHeight="200" Margin="10"/>
+                <RichTextBlock Margin="10">
+                    <Paragraph>
+                        Należy wcisnąc przycisk ok, aby zaktualizować ustawienia dla turnieju.
+                    </Paragraph>
+                </RichTextBlock>
+                
+                <!-- Sekcja Mecze -->
+                <RichTextBlock Margin="10,25">
+                    <Paragraph>
+                        <Bold>Mecze</Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        Po przejściu do zakładki Mecze singiel/debel możemy generować i wprowadzać wyniki meczów.
+                    </Paragraph>
+                    <Paragraph>
+                        1. Na samej górze wyświetli sie nam nazwa turnieju, data jego utworzenia oraz status.
+                    </Paragraph>
+                    <Paragraph>
+                        2. Lista zawodników dodanych do turnieju.
+                    </Paragraph>
+                    <Paragraph>
+                        3. Check box oznacza, że dany zawodnik jest aktywny i będzie brany pod uwagę podczas generowania meczy.
+                    </Paragraph>
+                    <Paragraph>
+                        4. Przycisk umożliwiający generowanie kolejnych meczy. Algorytm przy pierwszym losowaniu bierze pod uwagę elo zawodników. Każda kolejna runda dobiera zawodników o podobnej liczbie punktów. Każdy zawodnik, może zagrać tylko jeden mecz z innym zawodnikiem.
+                    </Paragraph>
+                    <Paragraph>
+                        5. Po wygenerowaniu meczy pokaże się lista wszystkich meczy.
+                    </Paragraph>
+                    <Paragraph>
+                        6. Po wprowadzeniu i zatwierdzeniu wyników zostaną podliczone punkty, a tło zapisaniego meczu zmieni się na zielone.
+                    </Paragraph>
+                    <Paragraph>
+                        7. Tło pomarańczowe oznacza, że nie zostały jeszcze zapisane zatwierdzone wyniki danego meczu.
+                    </Paragraph>
+                    <Paragraph>
+                        8. Tło szare zostanie wyświetlone dla meczu, dla którego jeszcze nie wprowadzone.
+                    </Paragraph>
+                    <Paragraph>
+                        9. W przypadku nieparzystej liczby graczy w singlu jeden zawodnik pasuję runde. (W debel, liczba pasujących graczy może być od 0-3) każdy z nich dostaje 3 punkty turniejowe.
+                    </Paragraph>
+                    <Paragraph>
+                        10. W przypadku jeśli turniej zostanie przerwany lub nie chcemy zapisywać jego wyników możemy go anulować (Jego historia będzie dostępna). Po anulowaniu turnieju nie bedzie już możliwości edycji wyników.
+                    </Paragraph>
+                    <Paragraph>
+                        11. Zakończenie turnieju spowoduje podliczenie uzyskanych punktów turniejowych i podliczenie elo. Również w tym przypadku nie ma możliwości edycji wyników meczy.
+                    </Paragraph>
+                    <Paragraph>
+                        12. Strzałki umożliwiają przechodzenie między turniejami.
+                    </Paragraph>
+                </RichTextBlock>
+                <Image Source="https://github.com/MdLejTeCole/TenisRanking/assets/48440272/ee0a5601-abce-4df4-9d61-f5d3977039a7" Stretch="Uniform" MaxHeight="600" Margin="10"/>
+
+                <!-- Przewidywanie meczy -->
+                <RichTextBlock Margin="10,25">
+                    <Paragraph>
+                        <Bold>Przewidywanie wyników meczy</Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        W przypadku gry singiel, aplikacja umożliwia przewidywanie wyników meczy. Aby móc generować kolejną rundę, należy zatwierdzić wszystkie wyniki meczów. Ale możemy przewidywać wyniki meczów. Jeśli wynik meczu zakończy się nie tak jak przewidziano, w kolejnej rundzie zawodnicy zamienią się przeciwnikami.
+                    </Paragraph>
+                </RichTextBlock>
+
+                <!-- Baza danych -->
+                <RichTextBlock Margin="10,25">
+                    <Paragraph>
+                        <Bold>Baza danych</Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        Wszystkie dane zapisane w aplikacji znajdują się w pliku TenisRanking.db (Zaleca się robienie kopi tego pliku, aby nie utracić danych).
+                    </Paragraph>
+                </RichTextBlock>
+                <Image Source="https://github.com/MdLejTeCole/TenisRanking/assets/48440272/4c7351c2-ca52-4364-9c14-7572175e98be" Stretch="Uniform" MaxHeight="50" Margin="10"/>
+                
+                <!-- Warunki użytkowania niekomercyjnego -->
+                <RichTextBlock Margin="10,25">
+                    <Paragraph>
+                        <Bold>Warunki użytkowania niekomercyjnego:</Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        Aplikacja, w tym wszelkie powiązane z nią zasoby, może być używana wyłącznie w celach niekomercyjnych.
+                    </Paragraph>
+                    <Paragraph>
+                        Użytkownik nie ma prawa wykorzystywać aplikacji do celów zarobkowych, w tym, lecz nie ograniczając się do, sprzedaży, wynajmu, dystrybucji, czy udostępniania aplikacji dla zysku.
+                    </Paragraph>
+                    <Paragraph>
+                        W przypadku chęci wykorzystania aplikacji w celach komercyjnych, użytkownik zobowiązuje się do uzyskania uprzedniej zgody od właściciela praw autorskich lub licencjodawcy.
+                    </Paragraph>
+                    <Paragraph>
+                        Korzystanie z aplikacji w ramach edukacji, nauki, osobistego użytku lub innych niekomercyjnych celów jest dozwolone i nie podlega tym ograniczeniom.
+                    </Paragraph>
+                </RichTextBlock>
+
+                <!-- Warunki użytkowania niekomercyjnego -->
+                <RichTextBlock Margin="10,25,10,50">
+                    <Paragraph>
+                        <Bold>Kontakt:</Bold>
+                    </Paragraph>
+                    <Paragraph>
+                        m.rybak996@gmail.com
+                    </Paragraph>
+                </RichTextBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</local:ExtendedPage>

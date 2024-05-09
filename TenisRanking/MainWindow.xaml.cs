@@ -62,6 +62,9 @@ namespace TenisRanking
                 case "Ustawienia":
                     ContentFrame.Navigate(typeof(SettingPage), _context);
                     break;
+                case "Informacje":
+                    ContentFrame.Navigate(typeof(InfoPage), _context);
+                    break;
             }
         }
     }

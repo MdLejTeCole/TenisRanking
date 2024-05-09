@@ -50,6 +50,7 @@
 	  <None Remove="Assets\Square44x44Logo.scale-400.png" />
 	  <None Remove="Controls\MatchScoreControl.xaml" />
 	  <None Remove="Pages\AddPlayerPage.xaml" />
+	  <None Remove="Pages\InfoPage.xaml" />
 	  <None Remove="Pages\MatchesHistoryPage.xaml" />
 	  <None Remove="Pages\MatchesPage.xaml" />
 	  <None Remove="Pages\MixedDoubleMatchesHistoryPage.xaml" />
@@ -126,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="Pages\MixedDoubleMatchesPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\InfoPage.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

@@ -23,7 +23,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="2" >
-            <Button Content="&lt;" FontSize="40" HorizontalAlignment="Center" Padding="0, -10, 0, 0" Width="50" Height="50" Margin="0,0,600,0" Click="PreviousTournament" IsEnabled="{x:Bind IsPreviousButtonEnabled, Mode=OneWay}"></Button>
+            <Button Content="&lt;" FontSize="40" HorizontalAlignment="Center" Padding="0, -10, 0, 0" Width="50" Height="50" Margin="0,0,700,0" Click="PreviousTournament" IsEnabled="{x:Bind IsPreviousButtonEnabled, Mode=OneWay}"></Button>
             <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock FontSize="30" Margin="10" Text="{x:Bind Tournament.Name, Mode=OneWay}" HorizontalAlignment="Center"/>
                 <TextBlock FontSize="30" Margin="10" Text="{x:Bind Tournament.Date, Mode=OneWay}"/>
@@ -31,7 +31,7 @@
                 <TextBlock FontSize="30" Text="{x:Bind TournamentStatusTranslation, Mode=OneWay}" Margin="5" HorizontalAlignment="Center"/>
                 <TextBlock FontSize="30" Text=")" Margin="5" HorizontalAlignment="Center"/>
             </StackPanel>
-            <Button Content=">" FontSize="40" HorizontalAlignment="Center" Padding="0, -10, 0, 0" Width="50" Height="50"  Margin="600,0,0,0" Click="NextTournament" IsEnabled="{x:Bind IsNextButtonEnabled, Mode=OneWay}"></Button>
+            <Button Content=">" FontSize="40" HorizontalAlignment="Center" Padding="0, -10, 0, 0" Width="50" Height="50"  Margin="700,0,0,0" Click="NextTournament" IsEnabled="{x:Bind IsNextButtonEnabled, Mode=OneWay}"></Button>
         </Grid>
         <Grid Grid.Row="1">
             <StackPanel>
