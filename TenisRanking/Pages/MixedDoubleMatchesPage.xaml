@@ -4,18 +4,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:GameTools.Pages"
-    xmlns:local2="using:GameTools.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:controls2="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkitcontrols="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     xmlns:player ="using:TenisRankingDatabase.Tables"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     
-    <UserControl.Resources>
-        <local2:NegateBooleanConverter x:Key="NegateBooleanConverter"/>
-    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
@@ -86,20 +82,20 @@
                     <Border Background="Transparent">
                         <StackPanel>
                             <TextBlock Text="Runda 1" HorizontalAlignment="Center"/>
-                            <controls:WrapPanel x:Name="Matches1" HorizontalAlignment="Center">
-                            </controls:WrapPanel>
+                            <toolkitcontrols:WrapPanel x:Name="Matches1" HorizontalAlignment="Center">
+                            </toolkitcontrols:WrapPanel>
                             <TextBlock x:Name="Round2" Text="Runda 2" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(2)}"/>
-                            <controls:WrapPanel x:Name="Matches2" HorizontalAlignment="Center">
-                            </controls:WrapPanel>
+                            <toolkitcontrols:WrapPanel x:Name="Matches2" HorizontalAlignment="Center">
+                            </toolkitcontrols:WrapPanel>
                             <TextBlock x:Name="Round3" Text="Runda 3" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(3)}"/>
-                            <controls:WrapPanel x:Name="Matches3" HorizontalAlignment="Center">
-                            </controls:WrapPanel>
+                            <toolkitcontrols:WrapPanel x:Name="Matches3" HorizontalAlignment="Center">
+                            </toolkitcontrols:WrapPanel>
                             <TextBlock x:Name="Round4" Text="Runda 4" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(4)}"/>
-                            <controls:WrapPanel x:Name="Matches4" HorizontalAlignment="Center">
-                            </controls:WrapPanel>
+                            <toolkitcontrols:WrapPanel x:Name="Matches4" HorizontalAlignment="Center">
+                            </toolkitcontrols:WrapPanel>
                             <TextBlock x:Name="Round5" Text="Runda 5" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(5)}"/>
-                            <controls:WrapPanel x:Name="Matches5" HorizontalAlignment="Center">
-                            </controls:WrapPanel>
+                            <toolkitcontrols:WrapPanel x:Name="Matches5" HorizontalAlignment="Center">
+                            </toolkitcontrols:WrapPanel>
                         </StackPanel>
                     </Border>
                 </ContentControl>
@@ -110,17 +106,18 @@
             <Button Content="Anuluj turniej" FontWeight="Bold" FontSize="30" Click="CancelTournament" Margin="20,10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
             <Button Content="Zakończ turniej" FontWeight="Bold" FontSize="30" Click="EndTournament" Margin="20, 10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
         </StackPanel>
-        <controls2:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MissingConfirmationInfoBar" Title="Błąd" Severity="Warning" IsOpen="False">
+        
+        <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MissingConfirmationInfoBar" Title="Błąd" Severity="Warning" IsOpen="False">
             <TextBlock Text="Zapisz wszystkie wyniki zanim wygenerujesz nowe mecze."/>
-        </controls2:InfoBar>
-        <controls2:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MissingConfirmation2InfoBar" Title="Błąd" Severity="Warning" IsOpen="False">
+        </controls:InfoBar>
+        <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MissingConfirmation2InfoBar" Title="Błąd" Severity="Warning" IsOpen="False">
             <TextBlock Text="Zapisz wszystkie wyniki zanim zakończysz turniej."/>
-        </controls2:InfoBar>
-        <controls2:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
+        </controls:InfoBar>
+        <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
             <TextBlock Text="Wystąpił błąd podczas zapisu wyników."/>
-        </controls2:InfoBar>
-        <controls2:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
+        </controls:InfoBar>
+        <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
             <TextBlock Text="Pomyślnie zapisano wyniki."/>
-        </controls2:InfoBar>
+        </controls:InfoBar>
     </Grid>
 </local:ExtendedPage>

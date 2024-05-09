@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Title="Tenis Ranking">
 
-    <NavigationView x:Name="NavView" PaneTitle="Ranking tenisa" Loaded="NavView_Loaded" ItemInvoked="NavView_ItemInvoked" IsSettingsVisible="False" FontSize="40" Background="YellowGreen">
+    <NavigationView x:Name="NavView" PaneTitle="Tenis Ranking" Loaded="NavView_Loaded" ItemInvoked="NavView_ItemInvoked" IsSettingsVisible="False" FontSize="40" Background="YellowGreen">
         <NavigationView.MenuItems >
             <NavigationViewItem Content="Ranking" Icon="Favorite" FontSize="25" FontWeight="Bold" Margin="0,5"/>
             <NavigationViewItem Content="Historia turniejów" Icon="View" FontSize="25" FontWeight="Bold" Margin="0,5"/>

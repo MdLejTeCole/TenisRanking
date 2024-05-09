@@ -1,16 +1,11 @@
 ﻿using GameTools.Models;
-using GameTools.Pages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileSystemGlobbing;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TenisRankingDatabase;
 using TenisRankingDatabase.Tables;
-using Windows.UI;
 
 namespace GameTools.Services;
 

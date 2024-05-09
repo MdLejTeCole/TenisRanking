@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 using TenisRankingDatabase.Enums;
 
 namespace TenisRankingDatabase.Seeders;

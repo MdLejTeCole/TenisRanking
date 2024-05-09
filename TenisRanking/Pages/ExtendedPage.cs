@@ -1,20 +1,17 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Dispatching;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TenisRankingDatabase;
-using TenisRankingDatabase.Tables;
-using Microsoft.UI.Dispatching;
 
 namespace GameTools.Pages;
 
 public class ExtendedPage : Page, INotifyPropertyChanged
 {
     public TenisRankingDbContext DbContext { get; private set; }
+    public event PropertyChangedEventHandler PropertyChanged;
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
@@ -29,7 +26,6 @@ public class ExtendedPage : Page, INotifyPropertyChanged
 
     protected virtual void GetValuesFromDatabase()
     {
-
     }
 
     protected void ShowInfoBar(InfoBar infoBar)
@@ -73,6 +69,5 @@ public class ExtendedPage : Page, INotifyPropertyChanged
         return await confirmationDialog.ShowAsync();
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }

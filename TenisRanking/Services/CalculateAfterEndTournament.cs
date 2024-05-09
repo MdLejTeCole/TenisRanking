@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using TenisRankingDatabase;
 using TenisRankingDatabase.Enums;
-using TenisRankingDatabase.Tables;
 
 namespace GameTools.Services;
 

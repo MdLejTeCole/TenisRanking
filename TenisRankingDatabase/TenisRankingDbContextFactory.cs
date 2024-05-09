@@ -9,7 +9,6 @@ public class TenisRankingDbContextFactory : IDesignTimeDbContextFactory<TenisRan
     public TenisRankingDbContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<TenisRankingDbContext>();
-        optionsBuilder.UseSqlite("Data Source=C:\\Users\\MdLejTeCole\\Desktop\\Db\\TenisRanking.db");
 
         return new TenisRankingDbContext(optionsBuilder.Options);
     }

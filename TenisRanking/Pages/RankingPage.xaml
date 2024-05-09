@@ -6,27 +6,27 @@
     xmlns:local="using:GameTools.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:toolkitcontrols="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <controls:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" Sorting="MyDataGrid_Sorting" IsReadOnly="True">
-            <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <controls:DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" />
-                <controls:DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" />
-                <controls:DataGridTextColumn Header="Pseudonim" Binding="{Binding Nick}" />
-                <controls:DataGridTextColumn Header="Elo" Binding="{Binding Elo}" />
-                <controls:DataGridTextColumn Header="Debel elo" Binding="{Binding MixedDoubleElo}" />
-                <controls:DataGridTextColumn Header="Punkty turniejowe" Binding="{Binding TournamentsPoints}" />
-                <controls:DataGridTextColumn Header="Rozegrane turnieje" Binding="{Binding TournamentsPlayed}" />
-                <controls:DataGridTextColumn Header="Pierwsze miejsca" Binding="{Binding Tournament1Place}" />
-                <controls:DataGridTextColumn Header="Drugie miejsca" Binding="{Binding Tournament2Place}" />
-                <controls:DataGridTextColumn Header="Trzecie miejsca" Binding="{Binding Tournament3Place}" />
-                <controls:DataGridTextColumn Header="Wygrane mecze" Binding="{Binding WinMatches}" />
-                <controls:DataGridTextColumn Header="Przegrane mecze" Binding="{Binding LostMatches}" />
-            </controls:DataGrid.Columns>
-        </controls:DataGrid>
+        <toolkitcontrols:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" Sorting="MyDataGrid_Sorting" IsReadOnly="True">
+            <toolkitcontrols:DataGrid.Columns>
+                <toolkitcontrols:DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                <toolkitcontrols:DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" />
+                <toolkitcontrols:DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" />
+                <toolkitcontrols:DataGridTextColumn Header="Pseudonim" Binding="{Binding Nick}" />
+                <toolkitcontrols:DataGridTextColumn Header="Elo" Binding="{Binding Elo}" />
+                <toolkitcontrols:DataGridTextColumn Header="Debel elo" Binding="{Binding MixedDoubleElo}" />
+                <toolkitcontrols:DataGridTextColumn Header="Punkty turniejowe" Binding="{Binding TournamentsPoints}" />
+                <toolkitcontrols:DataGridTextColumn Header="Rozegrane turnieje" Binding="{Binding TournamentsPlayed}" />
+                <toolkitcontrols:DataGridTextColumn Header="Pierwsze miejsca" Binding="{Binding Tournament1Place}" />
+                <toolkitcontrols:DataGridTextColumn Header="Drugie miejsca" Binding="{Binding Tournament2Place}" />
+                <toolkitcontrols:DataGridTextColumn Header="Trzecie miejsca" Binding="{Binding Tournament3Place}" />
+                <toolkitcontrols:DataGridTextColumn Header="Wygrane mecze" Binding="{Binding WinMatches}" />
+                <toolkitcontrols:DataGridTextColumn Header="Przegrane mecze" Binding="{Binding LostMatches}" />
+            </toolkitcontrols:DataGrid.Columns>
+        </toolkitcontrols:DataGrid>
     </Grid>
 </local:ExtendedPage>

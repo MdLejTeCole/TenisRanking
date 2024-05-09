@@ -6,35 +6,36 @@
     xmlns:local="using:GameTools.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:controls2="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkitcontrols="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <controls:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" Sorting="MyDataGrid_Sorting">
-            <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
-                <controls:DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" />
-                <controls:DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" />
-                <controls:DataGridTextColumn Header="Pseudonim" Binding="{Binding Nick}" />
-                <controls:DataGridTextColumn Header="Elo" Binding="{Binding Elo}" IsReadOnly="True"/>
-                <controls:DataGridTextColumn Header="Debel elo" Binding="{Binding MixedDoubleElo}" IsReadOnly="True"/>
-                <controls:DataGridCheckBoxColumn Header="Aktywny" Binding="{Binding Active}" />
-                <controls:DataGridTemplateColumn Header="Edytuj">
-                    <controls:DataGridTemplateColumn.CellTemplate>
+        <toolkitcontrols:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" Sorting="MyDataGrid_Sorting">
+            <toolkitcontrols:DataGrid.Columns>
+                <toolkitcontrols:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                <toolkitcontrols:DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" />
+                <toolkitcontrols:DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" />
+                <toolkitcontrols:DataGridTextColumn Header="Pseudonim" Binding="{Binding Nick}" />
+                <toolkitcontrols:DataGridTextColumn Header="Elo" Binding="{Binding Elo}" IsReadOnly="True"/>
+                <toolkitcontrols:DataGridTextColumn Header="Debel elo" Binding="{Binding MixedDoubleElo}" IsReadOnly="True"/>
+                <toolkitcontrols:DataGridCheckBoxColumn Header="Aktywny" Binding="{Binding Active}" />
+                <toolkitcontrols:DataGridTemplateColumn Header="Edytuj">
+                    <toolkitcontrols:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Click="Edit" Padding="5">Zapisz</Button>
                         </DataTemplate>
-                    </controls:DataGridTemplateColumn.CellTemplate>
-                </controls:DataGridTemplateColumn>
-            </controls:DataGrid.Columns>
-        </controls:DataGrid>
-        <controls2:InfoBar x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
+                    </toolkitcontrols:DataGridTemplateColumn.CellTemplate>
+                </toolkitcontrols:DataGridTemplateColumn>
+            </toolkitcontrols:DataGrid.Columns>
+        </toolkitcontrols:DataGrid>
+        
+        <controls:InfoBar x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
             <TextBlock Text="Wystąpił błąd podczas aktualizacji zawodnika."/>
-        </controls2:InfoBar>
-        <controls2:InfoBar x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
+        </controls:InfoBar>
+        <controls:InfoBar x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
             <TextBlock Text="Pomyślnie zaktualizowano zawodnika."/>
-        </controls2:InfoBar>
+        </controls:InfoBar>
     </Grid>
 </local:ExtendedPage>

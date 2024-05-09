@@ -6,29 +6,29 @@
     xmlns:local="using:GameTools.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:toolkitcontrols="using:CommunityToolkit.WinUI.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <controls:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
-            <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
-                <controls:DataGridTextColumn Header="Nazwa turnieju" Binding="{Binding TournmentName}" />
-                <controls:DataGridTextColumn Header="Data" Binding="{Binding TournmentDate}" />
-                <controls:DataGridTextColumn Header="Imię Nazwisko" Binding="{Binding Names}" />
-                <controls:DataGridTextColumn Header="Wynik" Binding="{Binding WinnerResults}" />
-                <controls:DataGridTextColumn Header="Elo" Binding="{Binding Elos}" />
-                <controls:DataGridTextColumn Header="Zdobyte elo" Binding="{Binding GrantedElos}" />
-                <controls:DataGridTextColumn Header="Set 1" Binding="{Binding Set1}" />
-                <controls:DataGridTextColumn Header="Set 2" Binding="{Binding Set2}" />
-                <controls:DataGridTextColumn Header="Set 3" Binding="{Binding Set3}" />
-                <controls:DataGridTextColumn Header="Set 4" Binding="{Binding Set4}" />
-                <controls:DataGridTextColumn Header="Set 5" Binding="{Binding Set5}" />
-                <controls:DataGridTextColumn Header="Punkty" Binding="{Binding MatchPoint}" />
-                <controls:DataGridTextColumn Header="Sety" Binding="{Binding WonSets}" />
-                <controls:DataGridTextColumn Header="Gemy" Binding="{Binding WonGames}" />
-            </controls:DataGrid.Columns>
-        </controls:DataGrid>
+        <toolkitcontrols:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True">
+            <toolkitcontrols:DataGrid.Columns>
+                <toolkitcontrols:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+                <toolkitcontrols:DataGridTextColumn Header="Nazwa turnieju" Binding="{Binding TournmentName}" />
+                <toolkitcontrols:DataGridTextColumn Header="Data" Binding="{Binding TournmentDate}" />
+                <toolkitcontrols:DataGridTextColumn Header="Imię Nazwisko" Binding="{Binding Names}" />
+                <toolkitcontrols:DataGridTextColumn Header="Wynik" Binding="{Binding WinnerResults}" />
+                <toolkitcontrols:DataGridTextColumn Header="Elo" Binding="{Binding Elos}" />
+                <toolkitcontrols:DataGridTextColumn Header="Zdobyte elo" Binding="{Binding GrantedElos}" />
+                <toolkitcontrols:DataGridTextColumn Header="Set 1" Binding="{Binding Set1}" />
+                <toolkitcontrols:DataGridTextColumn Header="Set 2" Binding="{Binding Set2}" />
+                <toolkitcontrols:DataGridTextColumn Header="Set 3" Binding="{Binding Set3}" />
+                <toolkitcontrols:DataGridTextColumn Header="Set 4" Binding="{Binding Set4}" />
+                <toolkitcontrols:DataGridTextColumn Header="Set 5" Binding="{Binding Set5}" />
+                <toolkitcontrols:DataGridTextColumn Header="Punkty" Binding="{Binding MatchPoint}" />
+                <toolkitcontrols:DataGridTextColumn Header="Sety" Binding="{Binding WonSets}" />
+                <toolkitcontrols:DataGridTextColumn Header="Gemy" Binding="{Binding WonGames}" />
+            </toolkitcontrols:DataGrid.Columns>
+        </toolkitcontrols:DataGrid>
     </Grid>
 </local:ExtendedPage>

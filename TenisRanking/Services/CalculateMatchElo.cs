@@ -1,11 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore;
-using TenisRankingDatabase.Enums;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
-using Table = TenisRankingDatabase.Tables;
-using TenisRankingDatabase;
 using System.Linq;
-using GameTools.Models;
+using TenisRankingDatabase;
+using TenisRankingDatabase.Enums;
 
 namespace GameTools.Services;
 
