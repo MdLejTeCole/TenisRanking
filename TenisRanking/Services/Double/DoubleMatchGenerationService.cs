@@ -35,20 +35,20 @@ public class DoubleMatchGenerationService
             return (new List<long>(), new List<long>());
         }
 
-        var sortedPlayers = activePlayers.OrderByDescending(x => x.Player.Elo).ThenBy(x => Guid.NewGuid()).ToList();
+        var sortedPlayers = activePlayers.OrderByDescending(x => x.Player.MixedDoubleElo).ThenBy(x => Guid.NewGuid()).ToList();
         var incomingMatches = new List<DoubleIncomingMatch>();
         for (int i = 0; i < sortedPlayers.Count / 4 * 2;)
         {
             incomingMatches.Add(new DoubleIncomingMatch()
             {
                 Team1Player1Id = sortedPlayers[i].PlayerId,
-                Team1Player1Elo = sortedPlayers[i].Player.Elo,
+                Team1Player1Elo = sortedPlayers[i].Player.MixedDoubleElo,
                 Team1Player2Id = sortedPlayers[i + 1].PlayerId,
-                Team1Player2Elo = sortedPlayers[i + 1].Player.Elo,
+                Team1Player2Elo = sortedPlayers[i + 1].Player.MixedDoubleElo,
                 Team2Player1Id = sortedPlayers[i + sortedPlayers.Count / 2].PlayerId,
-                Team2Player1Elo = sortedPlayers[i + sortedPlayers.Count / 2].Player.Elo,
+                Team2Player1Elo = sortedPlayers[i + sortedPlayers.Count / 2].Player.MixedDoubleElo,
                 Team2Player2Id = sortedPlayers[i + 1 + sortedPlayers.Count / 2].PlayerId,
-                Team2Player2Elo = sortedPlayers[i + 1 + sortedPlayers.Count / 2].Player.Elo
+                Team2Player2Elo = sortedPlayers[i + 1 + sortedPlayers.Count / 2].Player.MixedDoubleElo
             });
             i += 2;
         }
@@ -57,7 +57,7 @@ public class DoubleMatchGenerationService
             incomingMatches.Add(new DoubleIncomingMatch()
             {
                 Team1Player1Id = item.PlayerId,
-                Team1Player1Elo = item.Player.Elo,
+                Team1Player1Elo = item.Player.MixedDoubleElo,
                 Team1Player2Id = 1, //default
                 Team1Player2Elo = 0
             });

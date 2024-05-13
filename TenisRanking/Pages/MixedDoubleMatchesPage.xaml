@@ -82,29 +82,35 @@
                     <Border Background="Transparent">
                         <StackPanel>
                             <TextBlock Text="Runda 1" HorizontalAlignment="Center"/>
-                            <toolkitcontrols:WrapPanel x:Name="Matches1" HorizontalAlignment="Center">
-                            </toolkitcontrols:WrapPanel>
+                            <toolkitcontrols:WrapPanel x:Name="Matches1" HorizontalAlignment="Center"/>
                             <TextBlock x:Name="Round2" Text="Runda 2" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(2)}"/>
-                            <toolkitcontrols:WrapPanel x:Name="Matches2" HorizontalAlignment="Center">
-                            </toolkitcontrols:WrapPanel>
+                            <toolkitcontrols:WrapPanel x:Name="Matches2" HorizontalAlignment="Center"/>
                             <TextBlock x:Name="Round3" Text="Runda 3" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(3)}"/>
-                            <toolkitcontrols:WrapPanel x:Name="Matches3" HorizontalAlignment="Center">
-                            </toolkitcontrols:WrapPanel>
+                            <toolkitcontrols:WrapPanel x:Name="Matches3" HorizontalAlignment="Center"/>
                             <TextBlock x:Name="Round4" Text="Runda 4" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(4)}"/>
-                            <toolkitcontrols:WrapPanel x:Name="Matches4" HorizontalAlignment="Center">
-                            </toolkitcontrols:WrapPanel>
+                            <toolkitcontrols:WrapPanel x:Name="Matches4" HorizontalAlignment="Center"/>
                             <TextBlock x:Name="Round5" Text="Runda 5" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(5)}"/>
-                            <toolkitcontrols:WrapPanel x:Name="Matches5" HorizontalAlignment="Center">
-                            </toolkitcontrols:WrapPanel>
+                            <toolkitcontrols:WrapPanel x:Name="Matches5" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="Round6" Text="Runda 6" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(6)}"/>
+                            <toolkitcontrols:WrapPanel x:Name="Matches6" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="Round7" Text="Runda 7" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(7)}"/>
+                            <toolkitcontrols:WrapPanel x:Name="Matches7" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="Round8" Text="Runda 8" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(8)}"/>
+                            <toolkitcontrols:WrapPanel x:Name="Matches8" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="Round9" Text="Runda 9" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(9)}"/>
+                            <toolkitcontrols:WrapPanel x:Name="Matches9" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="Round10" Text="Runda 10" HorizontalAlignment="Center" Visibility="{x:Bind VisableRound(10)}"/>
+                            <toolkitcontrols:WrapPanel x:Name="Matches10" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>
                 </ContentControl>
             </ScrollViewer>
         </Grid>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Button Content="Generuj mecze" FontWeight="Bold" FontSize="30" Click="GenerateMatches" Margin="200,10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
-            <Button Content="Anuluj turniej" FontWeight="Bold" FontSize="30" Click="CancelTournament" Margin="20,10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
-            <Button Content="Zakończ turniej" FontWeight="Bold" FontSize="30" Click="EndTournament" Margin="20, 10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
+            <Button Content="Generuj mecze" FontWeight="Bold" FontSize="30" Click="GenerateMatches" Margin="20,10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
+            <Button Content="Generuj ponownie" Background="SandyBrown" FontWeight="Bold" FontSize="30" Click="RegenerateMatches" Margin="20,10,100,10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
+            <Button Content="Anuluj turniej" FontWeight="Bold" Background="LightGray" FontSize="30" Click="CancelTournament" Margin="20,10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
+            <Button Content="Zakończ turniej" FontWeight="Bold" FontSize="30" Click="EndTournament" Margin="20,10" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"></Button>
         </StackPanel>
         
         <controls:InfoBar Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="MissingConfirmationInfoBar" Title="Błąd" Severity="Warning" IsOpen="False">

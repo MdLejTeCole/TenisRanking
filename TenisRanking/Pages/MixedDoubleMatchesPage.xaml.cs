@@ -202,7 +202,7 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
 
     private void GetExistingMatches()
     {
-        for (int i = 1; i < 6; i++)
+        for (int i = 1; i < 11; i++)
         {
             var wrapPanel = GetWrapPanel(i, false);
             wrapPanel.Children.Clear();
@@ -328,8 +328,23 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
             case 5:
                 ShowOrHideRound(Round5, show);
                 return Matches5;
+            case 6:
+                ShowOrHideRound(Round6, show);
+                return Matches6;
+            case 7:
+                ShowOrHideRound(Round7, show);
+                return Matches7;
+            case 8:
+                ShowOrHideRound(Round8, show);
+                return Matches8;
+            case 9:
+                ShowOrHideRound(Round9, show);
+                return Matches9;
+            case 10:
+                ShowOrHideRound(Round10, show);
+                return Matches10;
             default:
-                return Matches5;
+                return Matches10;
         }
     }
 
@@ -394,6 +409,42 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
             case TournamentStatus.Cancelled:
                 TournamentStatusTranslation = "Anulowany";
                 break;
+        }
+    }
+
+    private async void RegenerateMatches(object sender, RoutedEventArgs e)
+    {
+        var result = await ShowConfirmationDialog($"Czy na pewno chcesz ponownie wygenerowaæ mecze dla rundy {_round}?");
+        if (result == ContentDialogResult.Primary)
+        {
+            var wrapPanel = GetWrapPanel(_round);
+            wrapPanel.Children.Clear();
+            DbContext.Matches.RemoveRange(DbContext.Matches.Where(x => x.TournamentId == Tournament.Id && x.Round == _round));
+            DbContext.SaveChanges();
+            if (Matches1.Children.Count() == 0)
+            {
+                var matchIds = _matchGenerationService.GenerateFirstRound(Tournament.Id);
+                foreach (var id in matchIds.Matches)
+                {
+                    var matchScoreControl = new MatchScoreDoubleControl(DbContext, this, id);
+                    Matches1.Children.Add(matchScoreControl);
+                }
+                UpdateScoreForPauses(matchIds.Pauses);
+            }
+            else
+            {
+                var matchIds = _matchGenerationService.GenerateNextRound(Tournament.Id, _round);
+                if (matchIds.Matches.Any())
+                {
+                    foreach (var id in matchIds.Matches)
+                    {
+                        var matchScoreControl = new MatchScoreDoubleControl(DbContext, this, id);
+                        wrapPanel.Children.Add(matchScoreControl);
+                    }
+                    UpdateScoreForPauses(matchIds.Pauses);
+                }
+            }
+            SetPlayers();
         }
     }
 }
