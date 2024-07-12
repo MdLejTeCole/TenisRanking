@@ -36,10 +36,10 @@ namespace TenisRanking
             Host.CreateDefaultBuilder().
             ConfigureServices((context, services) =>
             {
-                //services.AddDbContext<TenisRankingDbContext>(options =>
-                //    options.UseSqlite("Data Source=TenisRanking.db"));
                 services.AddDbContext<TenisRankingDbContext>(options =>
-                    options.UseSqlite("Data Source=C:\\Users\\MdLejTeCole\\Desktop\\Db\\TenisRanking.db"));
+                    options.UseSqlite("Data Source=TenisRanking.db"));
+                //services.AddDbContext<TenisRankingDbContext>(options =>
+                //    options.UseSqlite("Data Source=C:\\Users\\MdLejTeCole\\Desktop\\Db\\TenisRanking.db"));
 
                 services.AddTransient<MainWindow>();
                 services.AddScoped<SettingsSeeder>();
