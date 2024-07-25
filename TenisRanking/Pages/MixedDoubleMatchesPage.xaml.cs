@@ -13,6 +13,7 @@ using Microsoft.Extensions.FileSystemGlobbing;
 using TenisRankingDatabase.Enums;
 using GameTools.Services.Double;
 using GameTools.Models;
+using System.Text.RegularExpressions;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -153,7 +154,7 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
         SetAfterChangePage();
     }
 
-    private void SetAfterChangePage()
+    public void SetAfterChangePage()
     {
         _lastTournamentId = Tournament?.Id;
         SetPlayers();
@@ -246,6 +247,14 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
                 Players.Add(player);
             };
         }
+        PlayerComboBox.ItemsSource = null;
+        PlayerComboBox.ItemsSource = Players;
+        PlayerComboBox2.ItemsSource = null;
+        PlayerComboBox2.ItemsSource = Players;
+        PlayerComboBox3.ItemsSource = null;
+        PlayerComboBox3.ItemsSource = Players;
+        PlayerComboBox4.ItemsSource = null;
+        PlayerComboBox4.ItemsSource = Players;
     }
 
     private void GenerateMatches(object sender, RoutedEventArgs e)
@@ -446,5 +455,62 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
             }
             SetPlayers();
         }
+    }
+
+    private void OpenPopup_Click(object sender, RoutedEventArgs e)
+    {
+        popup.IsOpen = true;
+    }
+
+    private async void SaveButton_Click(object sender, RoutedEventArgs e)
+    {
+        popup.IsOpen = false;
+        if (PlayerComboBox.SelectedValue != null && long.TryParse(PlayerComboBox.SelectedValue.ToString(), out long id1) &&
+            PlayerComboBox2.SelectedValue != null && long.TryParse(PlayerComboBox2.SelectedValue.ToString(), out long id2) &&
+            PlayerComboBox3.SelectedValue != null && long.TryParse(PlayerComboBox3.SelectedValue.ToString(), out long id3) &&
+            PlayerComboBox4.SelectedValue != null && long.TryParse(PlayerComboBox4.SelectedValue.ToString(), out long id4) &&
+            SelectedRound.SelectionBoxItem != null && int.TryParse(SelectedRound.SelectionBoxItem.ToString(), out int round))
+        {
+            var playerMatches = new List<PlayerMatch>()
+                {
+                    new PlayerMatch
+                    {
+                        PlayerId = id1,
+                        Elo = 0,
+                    },
+                    new PlayerMatch
+                    {
+                        PlayerId = id2,
+                        Elo = 0,
+                    },
+                    new PlayerMatch
+                    {
+                        PlayerId = id3,
+                        Elo = 0,
+                    },
+                    new PlayerMatch
+                    {
+                        PlayerId = id4,
+                        Elo = 0,
+                    }
+                };
+            DbContext.Matches.Add(new TenisRankingDatabase.Tables.Match()
+            {
+                TournamentId = Tournament.Id,
+                Round = round,
+                PlayerMatches = playerMatches
+            });
+            DbContext.SaveChanges();
+            SetAfterChangePage();
+        }
+        else
+        {
+            await ShowInformationDialog("Aby dodaæ mecz, nale¿y wype³niæ wszystkie wartoœci");
+        }
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        popup.IsOpen = false;
     }
 }

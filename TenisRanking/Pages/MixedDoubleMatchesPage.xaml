@@ -22,6 +22,50 @@
             <ColumnDefinition Width="400" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Popup Grid.ColumnSpan="2" Grid.RowSpan="3" x:Name="popup" MinHeight="500" Width="600" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border BorderBrush="Black" BorderThickness="1" Background="White" Padding="10">
+                <StackPanel Height="400" Width="400">
+                    <TextBlock Text="Runda:" FontSize="20" HorizontalAlignment="Center"/>
+                    <ComboBox x:Name="SelectedRound" Width="200" Margin="5" HorizontalAlignment="Center">
+                        <ComboBoxItem Content="1"/>
+                        <ComboBoxItem Content="2"/>
+                        <ComboBoxItem Content="3"/>
+                        <ComboBoxItem Content="4"/>
+                        <ComboBoxItem Content="5"/>
+                        <ComboBoxItem Content="6"/>
+                        <ComboBoxItem Content="7"/>
+                        <ComboBoxItem Content="8"/>
+                        <ComboBoxItem Content="9"/>
+                        <ComboBoxItem Content="10"/>
+                        <ComboBoxItem Content="11"/>
+                        <ComboBoxItem Content="12"/>
+                    </ComboBox>
+                    <TextBlock Text="Team 1:" FontSize="20" HorizontalAlignment="Center"/>
+                    <ComboBox x:Name="PlayerComboBox" Width="200" Margin="5" HorizontalAlignment="Center"
+                        ItemsSource="{Binding Players}" 
+                        DisplayMemberPath="Player.FirstName" 
+                        SelectedValuePath="Player.Id" />
+                    <ComboBox x:Name="PlayerComboBox2" Width="200" Margin="5" HorizontalAlignment="Center"
+                        ItemsSource="{Binding Players}" 
+                        DisplayMemberPath="Player.FirstName" 
+                        SelectedValuePath="Player.Id" />
+                    <TextBlock Text="Team 2:" FontSize="20" HorizontalAlignment="Center"/>
+                    <ComboBox x:Name="PlayerComboBox3" Width="200" Margin="5" HorizontalAlignment="Center"
+                        ItemsSource="{Binding Players}" 
+                        DisplayMemberPath="Player.FirstName" 
+                        SelectedValuePath="Player.Id" />
+                    <ComboBox x:Name="PlayerComboBox4" Width="200" Margin="5" HorizontalAlignment="Center"
+                        ItemsSource="{Binding Players}" 
+                        DisplayMemberPath="Player.FirstName" 
+                        SelectedValuePath="Player.Id" />
+                    <!-- Buttons -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <Button Content="Zapisz" Width="75" Margin="25" Click="SaveButton_Click"/>
+                        <Button Content="Anuluj" Width="75" Margin="25" Click="CancelButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Popup>
         <Grid Grid.ColumnSpan="2" >
             <Button Content="&lt;" FontSize="40" HorizontalAlignment="Center" Padding="0, -10, 0, 0" Width="50" Height="50" Margin="0,0,700,0" Click="PreviousTournament" IsEnabled="{x:Bind IsPreviousButtonEnabled, Mode=OneWay}"></Button>
             <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -32,6 +76,7 @@
                 <TextBlock FontSize="30" Text=")" Margin="5" HorizontalAlignment="Center"/>
             </StackPanel>
             <Button Content=">" FontSize="40" HorizontalAlignment="Center" Padding="0, -10, 0, 0" Width="50" Height="50"  Margin="700,0,0,0" Click="NextTournament" IsEnabled="{x:Bind IsNextButtonEnabled, Mode=OneWay}"></Button>
+            <Button Content="Dodaj mecz" Click="OpenPopup_Click" HorizontalAlignment="Right" Margin="0,0,100,0"/>
         </Grid>
         <Grid Grid.Row="1">
             <StackPanel>
@@ -47,9 +92,9 @@
                                     </Grid.RowDefinitions>
                                     <StackPanel Grid.RowSpan="2" Orientation="Vertical" Width="235" HorizontalAlignment="Left" Margin="5,3">
                                         <TextBlock FontSize="18">
-                                        <Run Text="{x:Bind Player.FirstName}" />
-                                        <Run Text=" " />
-                                        <Run Text="{x:Bind Player.LastName}" />
+                                            <Run Text="{x:Bind Player.FirstName}" />
+                                            <Run Text=" " />
+                                            <Run Text="{x:Bind Player.LastName}" />
                                         </TextBlock>
                                         <TextBlock Text="{x:Bind Player.Nick}" FontSize="14"/>
                                     </StackPanel>
@@ -59,13 +104,17 @@
                                     </TextBlock>
                                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,40,0" Padding="0, -3, 0, 0">
                                         <TextBlock FontSize="13" Margin="0,0,30,0">
-                                        <Run Text="Sety: " />
-                                        <Run Text="{x:Bind CalculateWonSets()}" />
-                                    </TextBlock>
+                                            <Run Text="Mecze: " />
+                                            <Run Text="{x:Bind PlayedMatch}" />
+                                        </TextBlock>
+                                        <TextBlock FontSize="13" Margin="0,0,30,0">
+                                            <Run Text="Sety: " />
+                                            <Run Text="{x:Bind CalculateWonSets()}" />
+                                        </TextBlock>
                                         <TextBlock FontSize="13" HorizontalAlignment="Right">
-                                        <Run Text="Gemy: " />
-                                        <Run Text="{x:Bind CalculateWonGems()}" />
-                                    </TextBlock>
+                                            <Run Text="Gemy: " />
+                                            <Run Text="{x:Bind CalculateWonGems()}" />
+                                        </TextBlock>
                                     </StackPanel>
                                     <CheckBox IsChecked="{x:Bind Active, Mode=TwoWay}" HorizontalAlignment="Right" Margin="5,0" Background="red" Padding="0" MinWidth="0" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
                                     <Rectangle Grid.Row="1" Stroke="Black" StrokeThickness="1" VerticalAlignment="Bottom" Width="500" Height="1"></Rectangle>

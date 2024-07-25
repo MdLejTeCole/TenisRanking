@@ -84,9 +84,9 @@
                                     </Grid.RowDefinitions>
                                     <StackPanel Grid.RowSpan="2" Orientation="Vertical" Width="235" HorizontalAlignment="Left" Margin="5,3">
                                         <TextBlock FontSize="18">
-                                        <Run Text="{x:Bind Player.FirstName}" />
-                                        <Run Text=" " />
-                                        <Run Text="{x:Bind Player.LastName}" />
+                                            <Run Text="{x:Bind Player.FirstName}" />
+                                            <Run Text=" " />
+                                            <Run Text="{x:Bind Player.LastName}" />
                                         </TextBlock>
                                         <TextBlock Text="{x:Bind Player.Nick}" FontSize="14"/>
                                     </StackPanel>
@@ -96,13 +96,17 @@
                                     </TextBlock>
                                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,40,0" Padding="0, -3, 0, 0">
                                         <TextBlock FontSize="13" Margin="0,0,30,0">
-                                        <Run Text="Sety: " />
-                                        <Run Text="{x:Bind CalculateWonSets()}" />
-                                    </TextBlock>
+                                            <Run Text="Mecze: " />
+                                            <Run Text="{x:Bind PlayedMatch}" />
+                                        </TextBlock>
+                                        <TextBlock FontSize="13" Margin="0,0,30,0">
+                                            <Run Text="Sety: " />
+                                            <Run Text="{x:Bind CalculateWonSets()}" />
+                                        </TextBlock>
                                         <TextBlock FontSize="13" HorizontalAlignment="Right">
-                                        <Run Text="Gemy: " />
-                                        <Run Text="{x:Bind CalculateWonGems()}" />
-                                    </TextBlock>
+                                            <Run Text="Gemy: " />
+                                            <Run Text="{x:Bind CalculateWonGems()}" />
+                                        </TextBlock>
                                     </StackPanel>
                                     <CheckBox IsChecked="{x:Bind Active, Mode=TwoWay}" HorizontalAlignment="Right" Margin="5,0" Background="red" Padding="0" MinWidth="0" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
                                     <Rectangle Grid.Row="1" Stroke="Black" StrokeThickness="1" VerticalAlignment="Bottom" Width="500" Height="1"></Rectangle>

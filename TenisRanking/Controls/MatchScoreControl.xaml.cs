@@ -159,7 +159,6 @@ public sealed partial class MatchScoreControl : UserControl, INotifyPropertyChan
             {
                 Color = _greenDefaultColor;
             }
-
         }
         _matchesPage.ShowNotification(result.Result);
         if (result.NeedRefresh)

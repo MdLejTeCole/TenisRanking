@@ -1,4 +1,6 @@
-﻿namespace TenisRankingDatabase.Tables;
+﻿using TenisRankingDatabase.Persistances;
+
+namespace TenisRankingDatabase.Tables;
 
 public class TournamentPlayer
 {
@@ -9,6 +11,8 @@ public class TournamentPlayer
     public bool Active { get; set; } = true;
     public virtual Tournament Tournament { get; set; } = null!;
     public virtual Player Player { get; set; } = null!;
+
+    public int PlayedMatch => Player.PlayerMatches.Where(x => x.Match.TournamentId == TournamentId).Count();
 
     public string CalculateTournamentScore()
     {
