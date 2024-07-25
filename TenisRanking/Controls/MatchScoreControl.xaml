@@ -12,10 +12,11 @@
         <local:NegateBooleanConverter x:Key="NegateBooleanConverter"/>
     </UserControl.Resources>
     <Border BorderBrush="Green" BorderThickness="3" CornerRadius="4" Margin="10">
-        <Grid Height="195" Width="500" Background="{x:Bind Color, Mode=OneWay}">
+        <Grid Height="195" Width="525" Background="{x:Bind Color, Mode=OneWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="25" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" />
@@ -23,7 +24,7 @@
                 <RowDefinition Height="35" />
                 <RowDefinition Height="35" />
             </Grid.RowDefinitions>
-
+            <Button Grid.Column="2" Grid.Row="0" Margin="0" VerticalAlignment="Top" Background="Red" Content="X" Foreground="Black" FontSize="15" Height="25" Width="25" Padding="0" BorderBrush="Black" FontWeight="Bold" Click="DeleteMatch"/>
             <StackPanel Grid.ColumnSpan="2">
                 <TextBlock FontSize="22" Margin="5,0,0,0">
                 <Run Text="{x:Bind Match.Player1.FirstName}" />

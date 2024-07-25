@@ -45,6 +45,9 @@ public sealed partial class RankingPage : ExtendedPage
             case "Elo":
                 orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.Elo).ToList();
                 break;
+            case "Debel elo":
+                orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.MixedDoubleElo).ToList();
+                break;
             case "Punkty turniejowe":
                 orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderByDescending(x => x.TournamentsPoints).ToList();
                 break;

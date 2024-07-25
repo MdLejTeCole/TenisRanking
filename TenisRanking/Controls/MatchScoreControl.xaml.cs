@@ -41,6 +41,7 @@ public sealed partial class MatchScoreControl : UserControl, INotifyPropertyChan
     }
 
     private readonly SolidColorBrush _defaultColor = new SolidColorBrush(Colors.DarkGray);
+    private readonly SolidColorBrush _greenDefaultColor = new SolidColorBrush(Colors.SlateGray);
     private readonly SolidColorBrush _greenColor = new SolidColorBrush(Colors.YellowGreen);
     private readonly SolidColorBrush _yellowColor = new SolidColorBrush(Colors.SandyBrown);
 
@@ -104,9 +105,13 @@ public sealed partial class MatchScoreControl : UserControl, INotifyPropertyChan
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        if (Match.Confirmed)
+        if (Match.Confirmed && Match.MatchWinnerResult != MatchWinnerResult.None)
         {
             Color = _greenColor;
+        }
+        else if (Match.Confirmed && Match.MatchWinnerResult == MatchWinnerResult.None)
+        {
+            Color = _greenDefaultColor;
         }
         else
         {
@@ -146,7 +151,15 @@ public sealed partial class MatchScoreControl : UserControl, INotifyPropertyChan
         if (result.Result)
         {
             Match.Confirmed = true;
-            Color = _greenColor;
+            if (MatchWinnerResult != MatchWinnerResult.None)
+            {
+                Color = _greenColor;
+            }
+            else
+            {
+                Color = _greenDefaultColor;
+            }
+
         }
         _matchesPage.ShowNotification(result.Result);
         if (result.NeedRefresh)
@@ -249,6 +262,32 @@ public sealed partial class MatchScoreControl : UserControl, INotifyPropertyChan
             }
         }
         return null;
+    }
+
+    private async void DeleteMatch(object sender, RoutedEventArgs e)
+    {
+        var result = await ShowConfirmationDialog($"Czy na pewno chcesz usunac mecz?");
+
+        if (result == ContentDialogResult.Primary)
+        {
+            _dbContext.Matches.Remove(_dbContext.Matches.First(x => x.Id == Match.Id));
+            _dbContext.SaveChanges();
+            _matchesPage.SetAfterChangePage();
+        }
+    }
+
+    private async Task<ContentDialogResult> ShowConfirmationDialog(string content)
+    {
+        ContentDialog confirmationDialog = new ContentDialog
+        {
+            XamlRoot = this.XamlRoot,
+            Title = "Potwierdzenie",
+            Content = content,
+            PrimaryButtonText = "Tak",
+            CloseButtonText = "Anuluj"
+        };
+
+        return await confirmationDialog.ShowAsync();
     }
 
     private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
