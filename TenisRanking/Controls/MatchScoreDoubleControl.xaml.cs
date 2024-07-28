@@ -105,7 +105,7 @@ public sealed partial class MatchScoreDoubleControl : UserControl, INotifyProper
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        if (Match.Confirmed)
+        if (Match.Confirmed && Match.MatchWinnerResult != MatchWinnerResult.None)
         {
             Color = _greenColor;
         }

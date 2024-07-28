@@ -212,7 +212,7 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
         {
             var matches = DbContext.Matches
                 .Include(x => x.PlayerMatches)
-                .Where(x => x.TournamentId == Tournament.Id && x.PlayerMatches.Count() == 4).OrderBy(x => x.Id);
+                .Where(x => x.TournamentId == Tournament.Id).OrderBy(x => x.Id);
             foreach (var match in matches)
             {
                 var wrapPanel = GetWrapPanel(match.Round);
@@ -262,12 +262,12 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
         if (Matches1.Children.Count() == 0)
         {
             var matchIds = _matchGenerationService.GenerateFirstRound(Tournament.Id);
+            UpdateScoreForPauses(matchIds.Pauses);
             foreach (var id in matchIds.Matches) 
             {
                 var matchScoreControl = new MatchScoreDoubleControl(DbContext, this, id);
                 Matches1.Children.Add(matchScoreControl);
             }
-            UpdateScoreForPauses(matchIds.Pauses);
         }
         else if (DbContext.Matches
             .Include(x => x.Tournament)
@@ -279,12 +279,12 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
             if (matchIds.Matches.Any())
             {
                 var wrapPanel = GetWrapPanel(_round);
+                UpdateScoreForPauses(matchIds.Pauses);
                 foreach (var id in matchIds.Matches)
                 {
                     var matchScoreControl = new MatchScoreDoubleControl(DbContext, this, id);
                     wrapPanel.Children.Add(matchScoreControl);
                 }
-                UpdateScoreForPauses(matchIds.Pauses);
             }
         }
         else
@@ -466,11 +466,14 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
     {
         popup.IsOpen = false;
         if (PlayerComboBox.SelectedValue != null && long.TryParse(PlayerComboBox.SelectedValue.ToString(), out long id1) &&
-            PlayerComboBox2.SelectedValue != null && long.TryParse(PlayerComboBox2.SelectedValue.ToString(), out long id2) &&
-            PlayerComboBox3.SelectedValue != null && long.TryParse(PlayerComboBox3.SelectedValue.ToString(), out long id3) &&
-            PlayerComboBox4.SelectedValue != null && long.TryParse(PlayerComboBox4.SelectedValue.ToString(), out long id4) &&
             SelectedRound.SelectionBoxItem != null && int.TryParse(SelectedRound.SelectionBoxItem.ToString(), out int round))
         {
+            var id2 = PlayerComboBox2.SelectedValue != null ?
+            long.Parse(PlayerComboBox2.SelectedValue.ToString()) : 1;
+            var id3 = PlayerComboBox3.SelectedValue != null ?
+            long.Parse(PlayerComboBox3.SelectedValue.ToString()) : 1;
+            var id4 = PlayerComboBox4.SelectedValue != null ?
+            long.Parse(PlayerComboBox4.SelectedValue.ToString()) : 1;
             var playerMatches = new List<PlayerMatch>()
                 {
                     new PlayerMatch
@@ -482,7 +485,12 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
                     {
                         PlayerId = id2,
                         Elo = 0,
-                    },
+                    }
+                };
+            if (id2 > 1)
+            {
+                playerMatches.AddRange(new List<PlayerMatch>()
+                {
                     new PlayerMatch
                     {
                         PlayerId = id3,
@@ -493,7 +501,8 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
                         PlayerId = id4,
                         Elo = 0,
                     }
-                };
+                });
+            }
             DbContext.Matches.Add(new TenisRankingDatabase.Tables.Match()
             {
                 TournamentId = Tournament.Id,

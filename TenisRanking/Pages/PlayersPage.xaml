@@ -12,7 +12,30 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <toolkitcontrols:DataGrid x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" Sorting="MyDataGrid_Sorting">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="600" Margin="0,150">
+            <StackPanel>
+                <TextBlock Text="Dodaj zawodnika" HorizontalAlignment="Center" Margin="0,20"/>
+                <Grid Margin="10">
+                    <TextBlock Text="Imię:" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="FirstName"  PlaceholderText="Imię" FontSize="30" Width="300" HorizontalAlignment="Right"/>
+                </Grid>
+                <Grid Margin="10">
+                    <TextBlock Text="Nazwisko:" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="LastName" PlaceholderText="Nazwisko" FontSize="30" Width="300" HorizontalAlignment="Right"/>
+                </Grid>
+                <Grid Margin="10">
+                    <TextBlock Text="Pseudonim:" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="Nick" PlaceholderText="Pseudonim" FontSize="30" Width="300" HorizontalAlignment="Right"/>
+                </Grid>
+                <Button Content="Dodaj" FontWeight="Bold" FontSize="30" Click="AddPlayer" Width="200" HorizontalAlignment="Center" Margin="0,20"></Button>
+            </StackPanel>
+        </Grid>
+
+        <toolkitcontrols:DataGrid Grid.Column="0" x:Name="MyDataGrid" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" FrozenColumnCount="3" CanUserResizeColumns="True" CanUserSortColumns="True" Sorting="MyDataGrid_Sorting">
             <toolkitcontrols:DataGrid.Columns>
                 <toolkitcontrols:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
                 <toolkitcontrols:DataGridTextColumn Header="Imię" Binding="{Binding FirstName}" />
@@ -31,11 +54,23 @@
             </toolkitcontrols:DataGrid.Columns>
         </toolkitcontrols:DataGrid>
         
-        <controls:InfoBar x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
+        <controls:InfoBar Grid.ColumnSpan="2" x:Name="FailedInfoBar" Title="Błąd" Severity="Error" IsOpen="False">
             <TextBlock Text="Wystąpił błąd podczas aktualizacji zawodnika."/>
         </controls:InfoBar>
-        <controls:InfoBar x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
+        <controls:InfoBar Grid.ColumnSpan="2" x:Name="SuccessInfoBar" Title="Sukces" Severity="Success" IsOpen="False">
             <TextBlock Text="Pomyślnie zaktualizowano zawodnika."/>
+        </controls:InfoBar>
+        <controls:InfoBar Grid.ColumnSpan="2" x:Name="MissingValuesInfoBar" Title="Brakujące wartości" Severity="Warning" IsOpen="False">
+            <TextBlock Text="Wypelni Imię, Nazwisko oraz Pseudonim." TextWrapping="Wrap"/>
+        </controls:InfoBar>
+        <controls:InfoBar Grid.ColumnSpan="2" x:Name="NotUniqueInfoBar" Title="Zawodni już istnieje" Severity="Warning" IsOpen="False">
+            <TextBlock Text="Zawodnik z takim imieniem, nazwieskiem oraz pseudonimem już istnieje. Wartości muszą być unikalne." TextWrapping="Wrap"/>
+        </controls:InfoBar>
+        <controls:InfoBar Grid.ColumnSpan="2" x:Name="FailedInfoBar2" Title="Błąd" Severity="Error" IsOpen="False">
+            <TextBlock Text="Wystąpił błąd podczas dodawania zawodnika."/>
+        </controls:InfoBar>
+        <controls:InfoBar Grid.ColumnSpan="2" x:Name="SuccessInfoBar2" Title="Sukces" Severity="Success" IsOpen="False">
+            <TextBlock Text="Pomyślnie dodano zawodnika."/>
         </controls:InfoBar>
     </Grid>
 </local:ExtendedPage>

@@ -154,7 +154,9 @@ public class DoubleMatchGenerationService
             .Where(x => x.Active)
             .ToList();
 
-        return (playerPoints.OrderBy(x => x.MatchesCount).Take(playerPoints.Count / 4 * 4)
+        return (playerPoints
+            .OrderBy(x => x.MatchesCount)
+            .Take(playerPoints.Count / 4 * 4)
             .OrderByDescending(x => x.Points)
             .ThenBy(x => Guid.NewGuid())
             .Select(x => x.PlayerId)
@@ -181,11 +183,14 @@ public class DoubleMatchGenerationService
                 Player1Id = playerMatches[0].PlayerId,
                 Player2Id = playerMatches[1].PlayerId
             });
-            completedMatches.Add(new CompletedMatch()
+            if (playerMatches.Count == 4)
             {
-                Player1Id = playerMatches[2].PlayerId,
-                Player2Id = playerMatches[3].PlayerId
-            });
+                completedMatches.Add(new CompletedMatch()
+                {
+                    Player1Id = playerMatches[2].PlayerId,
+                    Player2Id = playerMatches[3].PlayerId
+                });
+            }
         }
         return completedMatches;
     }
@@ -256,7 +261,7 @@ public class DoubleMatchGenerationService
             }
             _dbContext.Matches.AddRange(matches);
             _dbContext.SaveChanges();
-            return (matches.Where(x => x.PlayerMatches.Count() == 4).Select(x => x.Id).OrderBy(x => x).ToList(), matches.Where(x => x.PlayerMatches.Count() == 2).Select(x => x.Id).OrderBy(x => x).ToList());
+            return (matches.Select(x => x.Id).OrderBy(x => x).ToList(), matches.Where(x => x.PlayerMatches.Count() == 2).Select(x => x.Id).OrderBy(x => x).ToList());
         }
         catch (Exception)
         {

@@ -12,7 +12,6 @@ public class MigratingDbFixture : IDisposable
     private bool disposedValue;
     private TenisRankingDbContext _itBuildsDbContext;
     private readonly DbContextOptions<TenisRankingDbContext> _itBuildsDbContextOptions;
-    private readonly string _connectionString = "Data Source=TenisRankingTest.db";
     private static bool _deleteDb = true;
 
     public MigratingDbFixture()

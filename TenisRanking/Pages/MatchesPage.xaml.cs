@@ -440,22 +440,23 @@ public sealed partial class MatchesPage : ExtendedPage
     {
         popup.IsOpen = false;
         if (PlayerComboBox.SelectedValue != null && long.TryParse(PlayerComboBox.SelectedValue.ToString(), out long id1) &&
-            PlayerComboBox2.SelectedValue != null && long.TryParse(PlayerComboBox2.SelectedValue.ToString(), out long id2) &&
             SelectedRound.SelectionBoxItem != null && int.TryParse(SelectedRound.SelectionBoxItem.ToString(), out int round))
         {
+            var id2 = PlayerComboBox2.SelectedValue != null ?
+            long.Parse(PlayerComboBox2.SelectedValue.ToString()) : 1;
             var playerMatches = new List<PlayerMatch>()
-        {
-            new PlayerMatch
             {
-                PlayerId = id1,
-                Elo = 0,
-            },
-            new PlayerMatch
-            {
-                PlayerId = id2,
-                Elo = 0,
-            }
-        };
+                new PlayerMatch
+                {
+                    PlayerId = id1,
+                    Elo = 0,
+                },
+                new PlayerMatch
+                {
+                    PlayerId = id2,
+                    Elo = 0,
+                }
+            };
             DbContext.Matches.Add(new TenisRankingDatabase.Tables.Match()
             {
                 TournamentId = Tournament.Id,

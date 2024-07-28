@@ -43,20 +43,20 @@
                     <TextBlock Text="Team 1:" FontSize="20" HorizontalAlignment="Center"/>
                     <ComboBox x:Name="PlayerComboBox" Width="200" Margin="5" HorizontalAlignment="Center"
                         ItemsSource="{Binding Players}" 
-                        DisplayMemberPath="Player.FirstName" 
+                        DisplayMemberPath="Player.GetFullName" 
                         SelectedValuePath="Player.Id" />
                     <ComboBox x:Name="PlayerComboBox2" Width="200" Margin="5" HorizontalAlignment="Center"
                         ItemsSource="{Binding Players}" 
-                        DisplayMemberPath="Player.FirstName" 
+                        DisplayMemberPath="Player.GetFullName" 
                         SelectedValuePath="Player.Id" />
                     <TextBlock Text="Team 2:" FontSize="20" HorizontalAlignment="Center"/>
                     <ComboBox x:Name="PlayerComboBox3" Width="200" Margin="5" HorizontalAlignment="Center"
                         ItemsSource="{Binding Players}" 
-                        DisplayMemberPath="Player.FirstName" 
+                        DisplayMemberPath="Player.GetFullName" 
                         SelectedValuePath="Player.Id" />
                     <ComboBox x:Name="PlayerComboBox4" Width="200" Margin="5" HorizontalAlignment="Center"
                         ItemsSource="{Binding Players}" 
-                        DisplayMemberPath="Player.FirstName" 
+                        DisplayMemberPath="Player.GetFullName" 
                         SelectedValuePath="Player.Id" />
                     <!-- Buttons -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
@@ -76,7 +76,7 @@
                 <TextBlock FontSize="30" Text=")" Margin="5" HorizontalAlignment="Center"/>
             </StackPanel>
             <Button Content=">" FontSize="40" HorizontalAlignment="Center" Padding="0, -10, 0, 0" Width="50" Height="50"  Margin="700,0,0,0" Click="NextTournament" IsEnabled="{x:Bind IsNextButtonEnabled, Mode=OneWay}"></Button>
-            <Button Content="Dodaj mecz" Click="OpenPopup_Click" HorizontalAlignment="Right" Margin="0,0,100,0"/>
+            <Button Content="Dodaj mecz" Click="OpenPopup_Click" HorizontalAlignment="Right" Margin="0,0,100,0" IsEnabled="{x:Bind IsEnable, Mode=OneWay}"/>
         </Grid>
         <Grid Grid.Row="1">
             <StackPanel>
@@ -96,23 +96,22 @@
                                             <Run Text=" " />
                                             <Run Text="{x:Bind Player.LastName}" />
                                         </TextBlock>
-                                        <TextBlock Text="{x:Bind Player.Nick}" FontSize="14"/>
                                     </StackPanel>
                                     <TextBlock FontSize="20" HorizontalAlignment="Right" Margin="40,5">
                                         <Run Text="Punkty: " />
                                         <Run Text="{x:Bind CalculateTournamentScore()}" />
                                     </TextBlock>
                                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,40,0" Padding="0, -3, 0, 0">
-                                        <TextBlock FontSize="13" Margin="0,0,30,0">
-                                            <Run Text="Mecze: " />
+                                        <TextBlock FontSize="13">
+                                            <Run Text="Mecze:" />
                                             <Run Text="{x:Bind PlayedMatch}" />
-                                        </TextBlock>
-                                        <TextBlock FontSize="13" Margin="0,0,30,0">
-                                            <Run Text="Sety: " />
+                                            <Run Text="   W:" />
+                                            <Run Text="{x:Bind PlayedWonMatch}" />              
+                                            <Run Text="   P:" />
+                                            <Run Text="{x:Bind PlayedLostMatch}" />
+                                            <Run Text="   Sety: " />
                                             <Run Text="{x:Bind CalculateWonSets()}" />
-                                        </TextBlock>
-                                        <TextBlock FontSize="13" HorizontalAlignment="Right">
-                                            <Run Text="Gemy: " />
+                                            <Run Text="   Gemy: " />
                                             <Run Text="{x:Bind CalculateWonGems()}" />
                                         </TextBlock>
                                     </StackPanel>

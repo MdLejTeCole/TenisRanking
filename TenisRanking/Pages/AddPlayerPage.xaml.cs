@@ -16,6 +16,7 @@ public sealed partial class AddPlayerPage : ExtendedPage
     public AddPlayerPage()
     {
         this.InitializeComponent();
+        Nick.Text = "#" + (new Random()).Next(10000, 99999).ToString();
     }
 
     private void AddPlayer(object sender, RoutedEventArgs e)
@@ -39,7 +40,7 @@ public sealed partial class AddPlayerPage : ExtendedPage
             ShowInfoBar(SuccessInfoBar);
             FirstName.Text = string.Empty;
             LastName.Text = string.Empty;
-            Nick.Text = string.Empty;
+            Nick.Text = "#" + (new Random()).Next(10000, 99999).ToString();
         }
         catch (Exception)
         {

@@ -27,9 +27,9 @@ public class DoubleCalculateMatchScore
                     .ThenInclude(x => x.Player)
                 .First(x => x.Id == matchDto.Id);
             var team1Player1 = match.PlayerMatches.First(x => x.PlayerId == matchDto.Team1.Player1Id);
-            var team1Player2 = match.PlayerMatches.First(x => x.PlayerId == matchDto.Team1.Player2Id);
+            var team1Player2 = match.PlayerMatches.FirstOrDefault(x => x.PlayerId == matchDto.Team1.Player2Id);
             var team2Player1 = match.PlayerMatches.First(x => x.PlayerId == matchDto.Team2.Player1Id);
-            var team2Player2 = match.PlayerMatches.First(x => x.PlayerId == matchDto.Team2.Player2Id);
+            var team2Player2 = match.PlayerMatches.FirstOrDefault(x => x.PlayerId == matchDto.Team2.Player2Id);
             match.MatchResult = matchResult;
             match.MatchWinnerResult = matchWinnerResult;
             match.Confirmed = true;
@@ -51,6 +51,10 @@ public class DoubleCalculateMatchScore
 
     private void UpdatePlayer(PlayerMatch playerMatch, DoublePlayersMatchDto matchDto, int matchPoint, int wonSets, int wonGames, WinnerResult winnerResult)
     {
+        if (playerMatch == null)
+        {
+            return;
+        }
         playerMatch.Set1 = matchDto.Set1;
         playerMatch.Set2 = matchDto.Set2;
         playerMatch.Set3 = matchDto.Set3;
