@@ -15,7 +15,7 @@
             <NavigationViewItem Content="Historia turniejów" Icon="View" FontSize="25" FontWeight="Bold" Margin="0,5"/>
             <NavigationViewItem Content="Historia singiel" Icon="View" FontSize="25" FontWeight="Bold" Margin="0,5"/>
             <NavigationViewItem Content="Historia debel" Icon="View" FontSize="25" FontWeight="Bold" Margin="0,5"/>
-            <NavigationViewItem Content="Turniej" Icon="Edit" FontSize="25" FontWeight="Bold" Margin="0,30,0,5"/>
+            <NavigationViewItem Content="Stwórz turniej" Icon="Edit" FontSize="25" FontWeight="Bold" Margin="0,30,0,5"/>
             <NavigationViewItem Content="Mecze singiel" Icon="SlideShow" FontSize="25" FontWeight="Bold" Margin="0,5"/>
             <NavigationViewItem Content="Mecze debel" Icon="SlideShow" FontSize="25" FontWeight="Bold" Margin="0,5"/>
             <NavigationViewItem Content="Zawodnicy" Icon="ContactInfo" FontSize="25" FontWeight="Bold" Margin="0,30,0,5"/>

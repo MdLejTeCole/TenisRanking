@@ -72,9 +72,15 @@
         </Grid>
         <Grid Grid.Row="1">
             <StackPanel>
-                <TextBlock Text="Zawodnicy" FontSize="25" Margin="10" HorizontalAlignment="Center"/>
+                <TextBlock FontSize="25" Margin="10" HorizontalAlignment="Center">
+                    <Run Text="Zawodnicy" />
+                    <Run Text="(" FontSize="20" />
+                    <Run Text="Aktywni: " FontSize="20" />
+                    <Run Text="{x:Bind ActiveCount, Mode=OneWay}" FontSize="20" />
+                    <Run Text=")" FontSize="20" />
+                </TextBlock>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView x:Name="playerListView" ItemsSource="{x:Bind Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="700" IsEnabled="{x:Bind IsEnable, Mode=OneWay}">
+                    <ListView x:Name="playerListView" ItemsSource="{x:Bind Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="800" IsEnabled="{x:Bind IsEnable, Mode=OneWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="player:TournamentPlayer">
                                 <Grid>

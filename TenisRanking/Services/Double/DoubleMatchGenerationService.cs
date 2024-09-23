@@ -1,6 +1,7 @@
 ﻿using GameTools.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileSystemGlobbing;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,7 @@ public class DoubleMatchGenerationService
             return (new List<long>(), new List<long>());
         }
 
-        var sortedPlayers = activePlayers.OrderByDescending(x => x.Player.MixedDoubleElo).ThenBy(x => Guid.NewGuid()).ToList();
+        var sortedPlayers = activePlayers.OrderByDescending(x => Guid.NewGuid()).ToList();
         var incomingMatches = new List<DoubleIncomingMatch>();
         for (int i = 0; i < sortedPlayers.Count / 4 * 2;)
         {

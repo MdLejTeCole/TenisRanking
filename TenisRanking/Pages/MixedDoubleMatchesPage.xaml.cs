@@ -14,6 +14,7 @@ using TenisRankingDatabase.Enums;
 using GameTools.Services.Double;
 using GameTools.Models;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -88,6 +89,17 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
         }
     }
 
+    private int _activeCount;
+    public int ActiveCount
+    {
+        get { return _activeCount; }
+        set
+        {
+            _activeCount = value;
+            OnPropertyChanged(nameof(ActiveCount));
+        }
+    }
+
     public MixedDoubleMatchesPage()
     {
         this.InitializeComponent();
@@ -124,7 +136,7 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
             .Where(x => x.TournamentId == _lastTournamentId && x.Tournament.TenisMatchType == TenisMatchType.MixedDouble)
             .All(x => x.Confirmed))
         {
-            var result = await ShowConfirmationDialog("Czy na pewno chcesz zakoñczyæ turniej?\nPo zakoñczeniu turnieju, nie mo¿na aktualizowaæ wyników meczy.");
+            var result = await ShowConfirmationDialog("Czy na pewno chcesz zakoï¿½czyï¿½ turniej?\nPo zakoï¿½czeniu turnieju, nie moï¿½na aktualizowaï¿½ wynikï¿½w meczy.");
 
             if (result == ContentDialogResult.Primary)
             {
@@ -369,13 +381,17 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
         }
     }
 
-    private void CheckBox_Checked(object sender, RoutedEventArgs e)
+    private async void CheckBox_Checked(object sender, RoutedEventArgs e)
     {
+        await Task.Delay(200);
+
         if (sender is CheckBox checkBox && checkBox.DataContext is TournamentPlayer player)
         {
             DbContext.TournamentPlayers.Update(player);
             DbContext.SaveChanges();
         }
+
+        ActiveCount = Players.Where(x => x.Active).Count();
     }
 
     private Visibility VisableRound(int round)
@@ -392,7 +408,7 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
 
     private async void CancelTournament(object sender, RoutedEventArgs e)
     {
-        var result = await ShowConfirmationDialog("Czy na pewno chcesz anulowaæ turniej?\nPo anulowaniu turnieju, punkty oraz elo meczy nie zostanie podliczone.");
+        var result = await ShowConfirmationDialog("Czy na pewno chcesz anulowaï¿½ turniej?\nPo anulowaniu turnieju, punkty oraz elo meczy nie zostanie podliczone.");
 
         if (result == ContentDialogResult.Primary)
         {
@@ -410,10 +426,10 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
         switch (tournamentStatus)
         {
             case TournamentStatus.Started:
-                TournamentStatusTranslation = "Rozpoczêty";
+                TournamentStatusTranslation = "Rozpoczï¿½ty";
                 break;
             case TournamentStatus.Ended:
-                TournamentStatusTranslation = "Zakoñczony";
+                TournamentStatusTranslation = "Zakoï¿½czony";
                 break;
             case TournamentStatus.Cancelled:
                 TournamentStatusTranslation = "Anulowany";
@@ -423,7 +439,7 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
 
     private async void RegenerateMatches(object sender, RoutedEventArgs e)
     {
-        var result = await ShowConfirmationDialog($"Czy na pewno chcesz ponownie wygenerowaæ mecze dla rundy {_round}?");
+        var result = await ShowConfirmationDialog($"Czy na pewno chcesz ponownie wygenerowaï¿½ mecze dla rundy {_round}?");
         if (result == ContentDialogResult.Primary)
         {
             var wrapPanel = GetWrapPanel(_round);
@@ -514,7 +530,7 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
         }
         else
         {
-            await ShowInformationDialog("Aby dodaæ mecz, nale¿y wype³niæ wszystkie wartoœci");
+            await ShowInformationDialog("Aby dodaï¿½ mecz, naleï¿½y wypeï¿½niï¿½ wszystkie wartoï¿½ci");
         }
     }
 

@@ -32,8 +32,16 @@ public class MatchGenerationService
         {
             return new List<long>();
         }
-
-        var sortedPlayers = activePlayers.OrderByDescending(x => x.Player.Elo).ThenBy(x => Guid.NewGuid()).ToList();
+        List<TournamentPlayer> sortedPlayers;
+        if (activePlayers.Count % 2 == 1)
+        {
+            var sorted = activePlayers.OrderBy(x => Guid.NewGuid()).ToList();
+            sortedPlayers = sorted.Take(activePlayers.Count - 1).ToList().Concat(new List<TournamentPlayer>() { sorted.Last() }).ToList();
+        }
+        else
+        {
+            sortedPlayers = activePlayers.OrderByDescending(x => x.Player.Elo).ThenBy(x => Guid.NewGuid()).ToList();
+        }
         var incomingMatches = new List<IncomingMatch>();
         for (int i = 0; i < sortedPlayers.Count / 2; i++)
         {
