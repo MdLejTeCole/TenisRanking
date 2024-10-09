@@ -39,7 +39,7 @@ public sealed partial class PlayersPage : ExtendedPage
             case "Id":
                 orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderBy(x => x.Id).ToList();
                 break;
-            case "Imiê":
+            case "ImiÄ™":
                 orderPlayers = (MyDataGrid.ItemsSource as List<Player>).OrderBy(x => x.FirstName).ThenBy(x => x.LastName).ToList();
                 break;
             case "Nazwisko":

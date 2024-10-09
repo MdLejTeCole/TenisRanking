@@ -136,7 +136,7 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
             .Where(x => x.TournamentId == _lastTournamentId && x.Tournament.TenisMatchType == TenisMatchType.MixedDouble)
             .All(x => x.Confirmed))
         {
-            var result = await ShowConfirmationDialog("Czy na pewno chcesz zako�czy� turniej?\nPo zako�czeniu turnieju, nie mo�na aktualizowa� wynik�w meczy.");
+            var result = await ShowConfirmationDialog("Czy na pewno chcesz zakończyć turniej?\nPo zakończeniu turnieju, nie można aktualizować wyników meczy.");
 
             if (result == ContentDialogResult.Primary)
             {
@@ -408,7 +408,7 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
 
     private async void CancelTournament(object sender, RoutedEventArgs e)
     {
-        var result = await ShowConfirmationDialog("Czy na pewno chcesz anulowa� turniej?\nPo anulowaniu turnieju, punkty oraz elo meczy nie zostanie podliczone.");
+        var result = await ShowConfirmationDialog("Czy na pewno chcesz anulować turniej?\nPo anulowaniu turnieju, punkty oraz elo meczy nie zostanie podliczone.");
 
         if (result == ContentDialogResult.Primary)
         {
@@ -426,10 +426,10 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
         switch (tournamentStatus)
         {
             case TournamentStatus.Started:
-                TournamentStatusTranslation = "Rozpocz�ty";
+                TournamentStatusTranslation = "Rozpoczęty";
                 break;
             case TournamentStatus.Ended:
-                TournamentStatusTranslation = "Zako�czony";
+                TournamentStatusTranslation = "Zakończony";
                 break;
             case TournamentStatus.Cancelled:
                 TournamentStatusTranslation = "Anulowany";
@@ -439,7 +439,7 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
 
     private async void RegenerateMatches(object sender, RoutedEventArgs e)
     {
-        var result = await ShowConfirmationDialog($"Czy na pewno chcesz ponownie wygenerowa� mecze dla rundy {_round}?");
+        var result = await ShowConfirmationDialog($"Czy na pewno chcesz ponownie wygenerować mecze dla rundy {_round}?");
         if (result == ContentDialogResult.Primary)
         {
             var wrapPanel = GetWrapPanel(_round);
@@ -530,7 +530,7 @@ public sealed partial class MixedDoubleMatchesPage : ExtendedPage
         }
         else
         {
-            await ShowInformationDialog("Aby doda� mecz, nale�y wype�ni� wszystkie warto�ci");
+            await ShowInformationDialog("Aby dodać mecz, należy wypełnić wszystkie wartości");
         }
     }
 

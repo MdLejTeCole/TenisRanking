@@ -38,7 +38,7 @@ namespace TenisRanking
                 case "Stwórz turniej":
                     ContentFrame.Navigate(typeof(TournamentPage), _context);
                     break;
-                case "Historia turniej�w":
+                case "Historia turniejów":
                     ContentFrame.Navigate(typeof(TournamentHistoryPage), _context);
                     break;
                 case "Historia singiel":

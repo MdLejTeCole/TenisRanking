@@ -202,10 +202,10 @@ public sealed partial class TournamentPage : ExtendedPage
         {
             if (tournament.TournamentStatus == TournamentStatus.Ended)
             {
-                await ShowInformationDialog($"Intnieje juz turniej zakoñczony turniej o takiej nazwie {tournament.Name}. Zmieñ nazwe turnieju na unikaln¹");
+                await ShowInformationDialog($"Intnieje juz turniej zakoÅ„czony turniej o takiej nazwie {tournament.Name}. ZmieÅ„ nazwe turnieju na unikalnÄ…");
                 return;
             }
-            if (await ShowConfirmationDialog($"Intnieje juz turniej o nazwie {tournament.Name}. Czy chcesz go edytowaæ?") == ContentDialogResult.Primary)
+            if (await ShowConfirmationDialog($"Intnieje juz turniej o nazwie {tournament.Name}. Czy chcesz go edytowaÄ‡?") == ContentDialogResult.Primary)
             {
                 _isUpdate = true;
                 Tournament = tournament;

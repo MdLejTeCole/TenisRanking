@@ -15,7 +15,8 @@
 		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 		<UseRidGraph>true</UseRidGraph>
 		<DefaultLanguage>pl-PL</DefaultLanguage>
-
+		<UICulture>pl-PL</UICulture>
+		<InvariantGlobalization>false</InvariantGlobalization>
 		<PackageCertificateThumbprint>3871C27F928EA2851BFCEC1F63F2041F1A0C997D</PackageCertificateThumbprint>
 		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
 		<GenerateAppInstallerFile>True</GenerateAppInstallerFile>
@@ -27,6 +28,7 @@
 		<AppxBundle>Never</AppxBundle>
 		<AppInstallerUri>C:\Users\MdLejTeCole\Desktop\TenisRanking</AppInstallerUri>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+		<NeutralLanguage>pl-PL</NeutralLanguage>
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Remove="Assets\Square.scale-400.png" />
